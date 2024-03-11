@@ -9,11 +9,23 @@ weight: 1
 [こちらの AWS のページ](https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/getting-started-install.html)を参考にして AWS CLI をインストールします。
 
 
-aws configure を使用して、`AWS Access Key ID` や `AWS Secret Access Key` の値を構成します。`AWS Access Key ID` や `AWS Secret Access Key` は、AWS Console から取得できます。[こちら](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey) を参考にしてください。
+`aws configure` を使用して、`AWS Access Key ID` や `AWS Secret Access Key` の値を構成します。
+
+`AWS Access Key ID` や `AWS Secret Access Key` は、AWS Console から取得できます。[こちら](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey) を参考にしてください。
+
 
 ```tpl
 aws configure
 ```
+
+{{< expand "出力例" >}}
+```tpl
+$ aws configure
+AWS Access Key ID [None]: ABCDEFG1234567890KKNUK
+AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg
+Default region name [None]: an-northeast-1
+Default output format [None]: 
+$ 
 
 以下のコマンドを実行して正しく構成されているか確認します。
 
