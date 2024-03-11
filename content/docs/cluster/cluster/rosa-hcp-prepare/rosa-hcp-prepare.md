@@ -13,12 +13,14 @@ weight: 1
 
 `AWS Access Key ID` や `AWS Secret Access Key` は、AWS Console から取得できます。[こちら](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey) を参考にしてください。
 
+`aws configure` と入力すると、必要な値を聞いてくるので入力します。また、仕様する AWS Region も聞いて来ますが、ここでは `ap-northeast-1` と入力します。
+
 
 ```tpl
 aws configure
 ```
 
-{{< expand "出力例" >}}
+{{< expand "構成例" >}}
 ```tpl
 $ aws configure
 AWS Access Key ID [None]: ABCDEFG1234567890KKNUK
