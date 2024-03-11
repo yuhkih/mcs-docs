@@ -6,16 +6,16 @@
 <meta name="description" content="1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。
 aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。
 AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。
-aws configure 出力例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。
-aws sts get-caller-identity 出力例 ↕ $ aws sts get-caller-identity { &#34;UserId&#34;: &#34;ABCD1234BG6WLHYHMKFHK&#34;, &#34;Account&#34;: &#34;123407415212&#34;, &#34;Arn&#34;: &#34;arn:aws:iam::366607415212:user/myname@redhat.">
+aws configure と入力すると、必要な値を聞いてくるので入力します。また、仕様する AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。
+aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="2. CLIの準備" />
 <meta property="og:description" content="1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。
 aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。
 AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。
-aws configure 出力例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。
-aws sts get-caller-identity 出力例 ↕ $ aws sts get-caller-identity { &#34;UserId&#34;: &#34;ABCD1234BG6WLHYHMKFHK&#34;, &#34;Account&#34;: &#34;123407415212&#34;, &#34;Arn&#34;: &#34;arn:aws:iam::366607415212:user/myname@redhat." />
+aws configure と入力すると、必要な値を聞いてくるので入力します。また、仕様する AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。
+aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/" /><meta property="article:section" content="docs" />
 
@@ -27,7 +27,7 @@ aws sts get-caller-identity 出力例 ↕ $ aws sts get-caller-identity { &#34;U
 <link rel="canonical" href="http://localhost:1313/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/">
 <link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.bb97937085671577a16c29b4f286c434f463ca7f29cd76b6fa8d5af8b5d21e90.js" integrity="sha256-u5eTcIVnFXehbCm08obENPRjyn8pzXa2&#43;o1a&#43;LXSHpA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.fdf6263cecbf2a0687cb3272fadb2c98c032f1d66e7381fdf3ec1e39dd455ca3.js" integrity="sha256-/fYmPOy/KgaHyzJy&#43;tssmMAy8dZuc4H98&#43;weOd1FXKM=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -73,13 +73,16 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     
       
-        <li class="book-section-flat" >
+        <li>
           
   
   
 
   
-    <a href="/docs/cluster/cluster/" class="">HCP ROSA の作成</a>
+    <input type="checkbox" id="section-0bcd91cf66e4c83a59f5ea0b7dd97b16" class="toggle" checked />
+    <label for="section-0bcd91cf66e4c83a59f5ea0b7dd97b16" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
   
 
           
@@ -144,8 +147,29 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/" class="">5. Network の Debug</a>
+    <input type="checkbox" id="section-b6c24ce3793bd4e9c4e9800d0aa068b1" class="toggle"  />
+    <label for="section-b6c24ce3793bd4e9c4e9800d0aa068b1" class="flex justify-between">
+      <a role="button" class="">Network の Debug</a>
+    </label>
   
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-debug/rosa-hcp-debug/" class="">5. Network の Debug</a>
+  
+
+        </li>
+      
+    
+  </ul>
 
         </li>
       
@@ -651,12 +675,13 @@ https://github.com/alex-shpak/hugo-book
 <p><a href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/getting-started-install.html">こちらの AWS のページ</a>を参考にして AWS CLI をインストールします。</p>
 <p><code>aws configure</code> を使用して、<code>AWS Access Key ID</code> や <code>AWS Secret Access Key</code> の値を構成します。</p>
 <p><code>AWS Access Key ID</code> や <code>AWS Secret Access Key</code> は、AWS Console から取得できます。<a href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey">こちら</a> を参考にしてください。</p>
+<p><code>aws configure</code> と入力すると、必要な値を聞いてくるので入力します。また、仕様する AWS Region も聞いて来ますが、ここでは <code>ap-northeast-1</code> と入力します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>aws configure
 </span></span></code></pre></div>
 <div class="book-expand">
   <label>
     <div class="book-expand-head flex justify-between">
-      <span>出力例</span>
+      <span>構成例</span>
       <span>↕</span>
     </div>
     <input type="checkbox" class="hidden" />

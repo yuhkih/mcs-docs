@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>HCP ROSA の作成 on MCS Documents</title>
+    <title>ROSA Cluster の作成と削除 on MCS Documents</title>
     <link>http://localhost:1313/docs/cluster/cluster/</link>
-    <description>Recent content in HCP ROSA の作成 on MCS Documents</description>
+    <description>Recent content in ROSA Cluster の作成と削除 on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
     <atom:link href="http://localhost:1313/docs/cluster/cluster/index.xml" rel="self" type="application/rss+xml" />
@@ -19,14 +19,14 @@
       <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/</guid>
-      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure 出力例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。&#xA;aws sts get-caller-identity 出力例 ↕ $ aws sts get-caller-identity { &amp;#34;UserId&amp;#34;: &amp;#34;ABCD1234BG6WLHYHMKFHK&amp;#34;, &amp;#34;Account&amp;#34;: &amp;#34;123407415212&amp;#34;, &amp;#34;Arn&amp;#34;: &amp;#34;arn:aws:iam::366607415212:user/myname@redhat.</description>
+      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。また、仕様する AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
     </item>
     <item>
       <title>3. ROSA HCP Cluster の作成</title>
       <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-create/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-create/</guid>
-      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。&#xA;export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。以下は Worker Node 用に Multi AZ 環境の Network を作成します。</description>
+      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。&#xA;export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。&#xA;Single AZ の Network 構成をデプロイするか、Multi AZ の Network をデプロイするか、どちらかを選びます。</description>
     </item>
     <item>
       <title>4. ROSA HCP Cluster の削除</title>
@@ -34,13 +34,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/</guid>
       <description>1.変数を確認する # クラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
-    </item>
-    <item>
-      <title>5. Network の Debug</title>
-      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/</guid>
-      <description>HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。 そのため、一番多いトラブルが、AWS Network に関するものです。&#xA;ここでは、Network の疎通確認ツールである、rosa verify network を使用してみます。&#xA;rosa verify network を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。&#xA;1. AWS network の SubnetId を確認する # AWS の Subnet id を取得します。&#xA;aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; コマンド実行例 ↕ $ aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; &amp;#34;10.</description>
     </item>
   </channel>
 </rss>

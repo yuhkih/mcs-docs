@@ -29,7 +29,7 @@ aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.
 <link rel="canonical" href="http://localhost:1313/docs/cluster/cluster/rosa-hcp-enable/rosa-hcp-enable/">
 <link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.bb97937085671577a16c29b4f286c434f463ca7f29cd76b6fa8d5af8b5d21e90.js" integrity="sha256-u5eTcIVnFXehbCm08obENPRjyn8pzXa2&#43;o1a&#43;LXSHpA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.fdf6263cecbf2a0687cb3272fadb2c98c032f1d66e7381fdf3ec1e39dd455ca3.js" integrity="sha256-/fYmPOy/KgaHyzJy&#43;tssmMAy8dZuc4H98&#43;weOd1FXKM=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -75,13 +75,16 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     
       
-        <li class="book-section-flat" >
+        <li>
           
   
   
 
   
-    <a href="/docs/cluster/cluster/" class="">HCP ROSA の作成</a>
+    <input type="checkbox" id="section-0bcd91cf66e4c83a59f5ea0b7dd97b16" class="toggle" checked />
+    <label for="section-0bcd91cf66e4c83a59f5ea0b7dd97b16" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
   
 
           
@@ -146,8 +149,29 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/" class="">5. Network の Debug</a>
+    <input type="checkbox" id="section-b6c24ce3793bd4e9c4e9800d0aa068b1" class="toggle"  />
+    <label for="section-b6c24ce3793bd4e9c4e9800d0aa068b1" class="flex justify-between">
+      <a role="button" class="">Network の Debug</a>
+    </label>
   
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-debug/rosa-hcp-debug/" class="">5. Network の Debug</a>
+  
+
+        </li>
+      
+    
+  </ul>
 
         </li>
       
@@ -714,6 +738,7 @@ https://github.com/alex-shpak/hugo-book
 </span></span></code></pre></div><p>表示されたリンク <a href="https://console.redhat.com/openshift/token/rosa">https://console.redhat.com/openshift/token/rosa</a> にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。</p>
 <p>以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。
 <img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a4f34b68-c230-4b55-b3b2-7e602d76a62c" alt="image" /></p>
+<p>以下のように login を完了させます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa login
 </span></span><span style="display:flex;"><span>To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa
 </span></span><span style="display:flex;"><span>? Copy the token and paste it here: ******************************************************************************************************************************************************************************************************

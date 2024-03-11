@@ -21,12 +21,5 @@
       <guid>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</guid>
       <description>1. 内部 Image Registry の公開 # Image Registry をインターネットに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` Image Registry にログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、ある image を確認します。&#xA;nginx $ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/new-nginx latest d623ca329bc4 19 minutes ago 303 MB nginx $ 作成したローカルイメージにタグを付けます。</description>
     </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-ingress-route/readem/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-ingress-route/readem/</guid>
-      <description> Ingress と Route # </description>
-    </item>
   </channel>
 </rss>

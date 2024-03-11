@@ -23,7 +23,7 @@
 <link rel="canonical" href="http://localhost:1313/posts/migrate-from-jekyll/">
 <link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.bb97937085671577a16c29b4f286c434f463ca7f29cd76b6fa8d5af8b5d21e90.js" integrity="sha256-u5eTcIVnFXehbCm08obENPRjyn8pzXa2&#43;o1a&#43;LXSHpA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.95cfcd9ddf205280ae92dcd74610ddcd08dc59f624a40b68bd4d0bfffe1e9e9b.js" integrity="sha256-lc/Nnd8gUoCuktzXRhDdzQjcWfYkpAtovU0L//4enps=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -69,13 +69,16 @@ https://github.com/alex-shpak/hugo-book
   <ul>
     
       
-        <li class="book-section-flat" >
+        <li>
           
   
   
 
   
-    <a href="/docs/cluster/cluster/" class="">HCP ROSA の作成</a>
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
   
 
           
@@ -88,7 +91,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-enable/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
   
 
         </li>
@@ -101,7 +104,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -114,7 +117,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
   
 
         </li>
@@ -127,7 +130,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
   
 
         </li>
@@ -140,152 +143,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/" class="">5. Network の Debug</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li class="book-section-flat" >
-          
-  
-  
-
-  
-    <a href="/docs/cluster/operators/" class="">ROSA Operators</a>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/operators/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/" class="">Dev Spaces Operator</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/operators/rosa-hcp-web-terminal/rosa-hcp-web-terminal/" class="">Web Terminal Operator</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li class="book-section-flat" >
-          
-  
-  
-
-  
-    <a href="/docs/cluster/basic_features/" class="">ROSA 基本機能</a>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/" class="">1. rosa CLI</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">2. 内部 Image Registry を使用する</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/basic_features/rosa-hcp-ingress-route/readem/" class="">Readem</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li class="book-section-flat" >
-          
-  
-  
-
-  
-    <a href="/docs/cluster/applications/" class="">アプリケーション</a>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">5.[補則] Network 構成のテスト</a>
   
 
         </li>
@@ -303,7 +161,10 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/table-of-contents/" class="">Table of Contents</a>
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
   
 
           
@@ -316,7 +177,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/table-of-contents/with-toc/" class="">With ToC</a>
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
   
 
         </li>
@@ -329,7 +190,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/table-of-contents/without-toc/" class="">Without ToC</a>
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-install-devspace/" class="">2. Dev Spaces Operator</a>
   
 
         </li>
@@ -347,8 +208,115 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-300f6794affa2344787d881775fc6b06" class="toggle"  />
-    <label for="section-300f6794affa2344787d881775fc6b06" class="flex justify-between">
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">2. 内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/readem/" class="">Readem</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle"  />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
       <a role="button" class="">Collapsed</a>
     </label>
   
@@ -363,7 +331,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/collapsed/3rd-level/" class="">3rd Level</a>
+    <a href="/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
   
 
           
@@ -376,7 +344,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/cluster/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+    <a href="/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
   
 
         </li>

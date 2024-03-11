@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>アプリケーション on MCS Documents</title>
+    <title>Application の作成 on MCS Documents</title>
     <link>http://localhost:1313/docs/cluster/applications/</link>
-    <description>Recent content in アプリケーション on MCS Documents</description>
+    <description>Recent content in Application の作成 on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
     <atom:link href="http://localhost:1313/docs/cluster/applications/index.xml" rel="self" type="application/rss+xml" />
