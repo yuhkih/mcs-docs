@@ -5,24 +5,10 @@ type: docs
 
 # Red Hat MCS (Managed Cloud Service) 
 
-## Managed Cloud Serivces
+## はじめに
 
-OpenShift の Managed Service が各種プラットフォームの上で提供されています。
+このサイトでホストされているドキュメントは、ROSA (Red Hat OpenShift on AWS) についての手順です。
+情報は常に変わっていくため、最新の内容かどうかについては保証できませんが、自由にコピー・改変して使用して頂いて問題ありません。
 
 
-## 提供されている OpenShift Managed Service
-
-### 1. AWS
-ROSA (Red Hat OpenShift on AWS)
-
-OSD (OpenShift Dedicated) on AWS
-
-### 2. Azure
-ARO (Azure Red Hat OpenShift)
-
-### 3. Google Cloud
-OSD (OpenShift Dedicated) on Google Cloud
-
-### 4. IBM 
-RHOIC (Red Hat OpenSHift on IBM Cloud)
 
