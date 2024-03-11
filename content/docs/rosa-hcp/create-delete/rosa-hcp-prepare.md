@@ -64,7 +64,30 @@ $
 ```
 {{< /expand >}}
 
-## 3. OpenShift / ROSA の CLI の準備
+## 3. terraform CLI の準備
+
+[こちらのページ](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)を参照に terraform コマンドをインストールします。
+
+以下のコマンドでインストールが確認できます。
+```tpl
+terraform -v
+```
+
+{{< expand "出力例" >}}
+```tpl
+$ terraform -v
+Terraform v1.7.4-dev
+on linux_amd64
++ provider registry.terraform.io/hashicorp/aws v4.67.0
++ provider registry.terraform.io/hashicorp/null v3.2.2
+
+Your version of Terraform is out of date! The latest version
+is 1.7.4. You can update by downloading from https://www.terraform.io/downloads.html
+$ 
+```
+{{< /expand >}}
+
+## 4. OpenShift / ROSA の CLI の準備
 
 1.OpenShift の`oc`コマンドと ROSA 専用の追加コマンドである`rosa` コマンドをダウンロードして展開します。
 
