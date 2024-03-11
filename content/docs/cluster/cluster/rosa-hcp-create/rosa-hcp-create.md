@@ -38,6 +38,10 @@ export REGION=ap-northeast-1
 
 Terraform の plan を作成します。
 
+Single AZ の Network 構成をデプロイするか、Multi AZ の Network をデプロイするか、どちらかを選びます。
+
+
+{{< tabs "uniqueid" >}}
 # Single AZ Network
 {{< tab "Single AZ" >}}
 
@@ -54,6 +58,8 @@ terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_N
 terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
 ```
 {{< /tab >}}
+
+{{< /tabs >}}
 
 
 Apply して Network を作成します。
