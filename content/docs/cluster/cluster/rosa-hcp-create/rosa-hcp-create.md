@@ -41,9 +41,9 @@ Terraform の plan を作成します。
 Single AZ の Network 構成をデプロイするか、Multi AZ の Network をデプロイするか、どちらかを選びます。
 
 
-{{< tabs "uniqueid" >}}
+{{< tabs "deply network type" >}}
 # Single AZ Network
-{{< tab "Single AZ" >}}
+{{< tab "Single AZ Network" >}}
 
 ```tpl
 terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
@@ -52,7 +52,7 @@ terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_N
 
 
 # Multi AZ Network
-{{< tab "Multi AZ" >}}
+{{< tab "Multi AZ Network" >}}
 
 ```tpl
 terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
@@ -62,7 +62,7 @@ terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_N
 {{< /tabs >}}
 
 
-Apply して Network を作成します。
+Plan を apply して Network を作成します。
 
 ```tpl
 terraform apply rosa.tfplan
