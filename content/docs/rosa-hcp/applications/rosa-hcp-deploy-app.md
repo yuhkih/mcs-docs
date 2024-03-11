@@ -85,7 +85,7 @@ oc delete project hello-openshift
 
 ## 4. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる
 
-前回は kubernetes の `kubectl` コマンドと共通の `oc` コマンドを使用してコンテナをデプロイしましたが、今度は同じ事を OpenShift の独自コマンドを使用して行ってみます。
+今度は OpenShift の独自コマンドを使用して、一番はじめにデプロイした `hello-openshift` コンテナをデプロイしてみます。
 
 1. 新しい `project` を作成します。
 ```tpl
