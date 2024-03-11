@@ -83,7 +83,7 @@ curl hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
 oc delete project hello-openshift
 ```
 
-## 4. oc new-app を使用して簡単なサンプルコンテナをデプロイしてみる
+## 4. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる
 
 前回は kubernetes の `kubectl` コマンドと共通の `oc` コマンドを使用してコンテナをデプロイしましたが、今度は同じ事を OpenShift の独自コマンドを使用して行ってみます。
 
