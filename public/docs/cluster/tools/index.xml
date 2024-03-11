@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ROSA Operators on My New Hugo Site</title>
+    <link>http://localhost:1313/docs/cluster/tools/</link>
+    <description>Recent content in ROSA Operators on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/cluster/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dev Spaces Operator</title>
+      <link>http://localhost:1313/docs/cluster/tools/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/tools/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web Terminal Operator</title>
+      <link>http://localhost:1313/docs/cluster/tools/rosa-hcp-web-terminal/rosa-hcp-web-terminal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/tools/rosa-hcp-web-terminal/rosa-hcp-web-terminal/</guid>
+      <description>「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。&#xA;ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。&#xA;コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
+    </item>
+  </channel>
+</rss>

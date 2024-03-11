@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.AWS CLI / Git の準備 # 1.1 AWS CLI の install # こちらの AWS のページを参考にして AWS CLI をインストールします。
+aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。
+aws configure 以下のコマンドを実行して正しく構成されているか確認します。
+aws sts get-caller-identity 出力例:
+$ aws sts get-caller-identity { &#34;UserId&#34;: &#34;ABCD1234BG6WLHYHMKFHK&#34;, &#34;Account&#34;: &#34;123407415212&#34;, &#34;Arn&#34;: &#34;arn:aws:iam::366607415212:user/yhanada@redhat.com-4w685&#34; } 1.2 Git CLI の install # こちらのページを参照に git コマンドをインストールします。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="" />
+<meta property="og:description" content="1.AWS CLI / Git の準備 # 1.1 AWS CLI の install # こちらの AWS のページを参考にして AWS CLI をインストールします。
+aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。
+aws configure 以下のコマンドを実行して正しく構成されているか確認します。
+aws sts get-caller-identity 出力例:
+$ aws sts get-caller-identity { &#34;UserId&#34;: &#34;ABCD1234BG6WLHYHMKFHK&#34;, &#34;Account&#34;: &#34;123407415212&#34;, &#34;Arn&#34;: &#34;arn:aws:iam::366607415212:user/yhanada@redhat.com-4w685&#34; } 1.2 Git CLI の install # こちらのページを参照に git コマンドをインストールします。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/example/docs2/rosa-hcp-prepare/readme/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Readme | My New Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/example/docs2/rosa-hcp-prepare/readme/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.fd71d7fc25bcbaa536234d7f22eef0bdf6133f0cc4288a4f80fab7daa8bea4b3.js" integrity="sha256-/XHX/CW8uqU2I01/Iu7wvfYTPwzEKIpPgPq32qi&#43;pLM=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/example/" class="">ROSA HCP</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/" class="">Table of Contents</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/with-toc/" class="">With ToC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/without-toc/" class="">Without ToC</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3049b9efa63db187c30edc63a05cabc2" class="toggle"  />
+    <label for="section-3049b9efa63db187c30edc63a05cabc2" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/install-web-terminal/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-app-deploy-quickstart/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-create/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-debug/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-delete-cluster/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-deploy-app/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-deploy-secure-app/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-deploy-secure-app/rosa-cli-walk-through/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-enable/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-ingress-route/readem/" class="">Readem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-install-devspace/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-internal-registry/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/docs2/rosa-hcp-prepare/readme/" class="active">Readme</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Readme</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-aws-cli-の-install">1.1 AWS CLI の install</a></li>
+    <li><a href="#12-git-cli-の-install">1.2 Git CLI の install</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="1aws-cli--git-の準備">
+  1.AWS CLI / Git の準備
+  <a class="anchor" href="#1aws-cli--git-%e3%81%ae%e6%ba%96%e5%82%99">#</a>
+</h1>
+<h2 id="11-aws-cli-の-install">
+  1.1 AWS CLI の install
+  <a class="anchor" href="#11-aws-cli-%e3%81%ae-install">#</a>
+</h2>
+<p><a href="https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/getting-started-install.html">こちらの AWS のページ</a>を参考にして AWS CLI をインストールします。</p>
+<p>aws configure を使用して、<code>AWS Access Key ID</code> や <code>AWS Secret Access Key</code> の値を構成します。<code>AWS Access Key ID</code> や <code>AWS Secret Access Key</code> は、AWS Console から取得できます。<a href="https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey">こちら</a> を参考にしてください。</p>
+<pre tabindex="0"><code>aws configure
+</code></pre><p>以下のコマンドを実行して正しく構成されているか確認します。</p>
+<pre tabindex="0"><code>aws sts get-caller-identity
+</code></pre><p><strong>出力例:</strong></p>
+<pre tabindex="0"><code>$ aws sts get-caller-identity
+{
+    &#34;UserId&#34;: &#34;ABCD1234BG6WLHYHMKFHK&#34;,
+    &#34;Account&#34;: &#34;123407415212&#34;,
+    &#34;Arn&#34;: &#34;arn:aws:iam::366607415212:user/yhanada@redhat.com-4w685&#34;
+}
+</code></pre><h2 id="12-git-cli-の-install">
+  1.2 Git CLI の install
+  <a class="anchor" href="#12-git-cli-%e3%81%ae-install">#</a>
+</h2>
+<p><a href="https://git-scm.com/book/ja/v2/%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8B-Git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">こちらのページ</a>を参照に git コマンドをインストールします。</p>
+<pre tabindex="0"><code>git version
+</code></pre><p><strong>出力例:</strong></p>
+<pre tabindex="0"><code>$ git version
+git version 2.17.1
+$
+</code></pre><h1 id="2openshift--rosa-の-cli-の準備">
+  2.OpenShift / ROSA の CLI の準備
+  <a class="anchor" href="#2openshift--rosa-%e3%81%ae-cli-%e3%81%ae%e6%ba%96%e5%82%99">#</a>
+</h1>
+<p>1.<code>rosa</code> コマンドと <code>oc</code> コマンドをダウンロードして展開します。</p>
+<pre tabindex="0"><code>curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+tar -zxf rosa-linux.tar.gz 
+sudo mv ./rosa /usr/local/bin/
+rosa download oc
+tar -xzf openshift-client-linux.tar.gz 
+sudo mv ./oc /usr/local/bin
+sudo mv ./kubectl /usr/local/bin
+</code></pre><p>2.インストールされたコマンドのバージョンを確認します。</p>
+<p><code>oc</code> コマンドのバージョンを確認します。<code>oc</code> コマンドは <code>kubectl</code> を拡張した OpenShift 独自のコマンドです。<code>kubectl</code> コマンドとほぼ同じ使い方ができます。</p>
+<pre tabindex="0"><code>$ oc version
+Client Version: 4.14.2
+Kustomize Version: v5.0.1
+Unable to connect to the server: dial tcp: lookup api.my-hpc-cluster.rc4b.p3.openshiftapps.com on 172.28.240.1:53: no such host
+$
+</code></pre><p><code>rosa</code> コマンドのバージョンを確認します。<code>rosa</code> コマンドは、主に <code>oc</code> コマンドで取り扱う OpenShift のレイヤーより下のレイヤーを取り扱うコマンドです。AWSインフラにアクセスしてクラスターの作成/削除を行ったり、Kubernetes でカバーされていない AWS とのインフラ周りに関連する作業を行う時に使用します。</p>
+<pre tabindex="0"><code>$ rosa version
+1.2.31
+I: Your ROSA CLI is up to date.
+</code></pre></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#11-aws-cli-の-install">1.1 AWS CLI の install</a></li>
+    <li><a href="#12-git-cli-の-install">1.2 Git CLI の install</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="アプリケーションのデプロイのクイックスタート # ROSAのWebコンソールを使用して、Node.jsのサンプルアプリケーションをデプロイします。
+アプリケーションの作成場所となる「プロジェクト」を、「新規プロジェクトを作成します」をクリックして作成します。この例では、「test-project20」を入力しています。同じ名前を持つプロジェクトを複数作成できませんので、プロジェクト名は適宜変更してください。
+プロジェクトの作成が完了したら、「&#43;追加」からサンプルアプリケーションを作成します。「すべてのサービス」を選択して、「Node.js &#43; PostgreSQL」を選択します。名前に「(Ephemeral)」が付いていないことを確認してください。「テンプレートのインスタンス化」を選択して、最後に「作成」をクリックします。入力パラメータは全てデフォルトのままにします。
+Node.jsとPostgreSQLアプリの作成が完了すると、「トポロジー」メニューからデプロイしたアプリのトポロジーを確認できます。トポロジーにある、Node.jsアイコンの右上部にある「矢印」アイコンをクリックすると、デプロイしたNode.jsアプリにアクセスできます。
+このサンプルアプリは、バックエンドのデータベースとしてPostgreSQLを使用しており、Webブラウザで入力したデータを保存します。例えば、Nameに「banana」、数字に「15」を入力して、「SAVE」をクリックすると、入力値が保存されていることを確認できます。
+保存したデータは、コンテナアプリであるPostgreSQL Pod(Kubernetes/OpenShift上でのコンテナアプリの実行単位。詳細は後述)に接続された永続ボリュームに保存されます。これは、サンプルアプリを作成するテンプレートにより、「Administrator」パースペクティブ(コンソール左上の「Developer」パースペクティブをクリックして、「Administrator」パースペクティブに切り替えます)の「永続ボリューム要求(Persistent Volume Claim, PVC)」で、「postgresql」という名前の要求に応じて、外部ストレージにデータを保存する永続ボリューム(Persistent Volume, PV)が作成されていることによります。PVC, PVの利用方法の詳細は、「永続ボリュームとしての Amazon EBS/EFS の利用設定」ハンズオンで扱います。
+コンテナアプリであるPostgreSQL Podを再起動してみます。「Developer」パースペクティブの「トポロジー」から、Podの数を設定できます。PostgreSQLアプリケーションを選択して、詳細タブから「↓矢印」をクリックしてPodの数を0にし、「^」をクリックしてPodの数を1にします。永続ボリュームを利用していない場合は、コンテナを再起動すると、コンテナ起動元となるコンテナイメージに保存されていないデータは失われますが、先ほど入力したデータが永続ボリュームとして外部ストレージに保存されているため、Podの再起動でもユーザが入力したデータが失われません。これは、Node.jsアプリに再度アクセスすることで確認できます。
+これでROSAクラスターでの、サンプルアプリケーションのデプロイが完了しました。次の演習の永続ボリュームとしての Amazon EBS/EFS の利用設定に進んでください。
+HOME">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="サンプルアプリのデプロイ" />
+<meta property="og:description" content="アプリケーションのデプロイのクイックスタート # ROSAのWebコンソールを使用して、Node.jsのサンプルアプリケーションをデプロイします。
+アプリケーションの作成場所となる「プロジェクト」を、「新規プロジェクトを作成します」をクリックして作成します。この例では、「test-project20」を入力しています。同じ名前を持つプロジェクトを複数作成できませんので、プロジェクト名は適宜変更してください。
+プロジェクトの作成が完了したら、「&#43;追加」からサンプルアプリケーションを作成します。「すべてのサービス」を選択して、「Node.js &#43; PostgreSQL」を選択します。名前に「(Ephemeral)」が付いていないことを確認してください。「テンプレートのインスタンス化」を選択して、最後に「作成」をクリックします。入力パラメータは全てデフォルトのままにします。
+Node.jsとPostgreSQLアプリの作成が完了すると、「トポロジー」メニューからデプロイしたアプリのトポロジーを確認できます。トポロジーにある、Node.jsアイコンの右上部にある「矢印」アイコンをクリックすると、デプロイしたNode.jsアプリにアクセスできます。
+このサンプルアプリは、バックエンドのデータベースとしてPostgreSQLを使用しており、Webブラウザで入力したデータを保存します。例えば、Nameに「banana」、数字に「15」を入力して、「SAVE」をクリックすると、入力値が保存されていることを確認できます。
+保存したデータは、コンテナアプリであるPostgreSQL Pod(Kubernetes/OpenShift上でのコンテナアプリの実行単位。詳細は後述)に接続された永続ボリュームに保存されます。これは、サンプルアプリを作成するテンプレートにより、「Administrator」パースペクティブ(コンソール左上の「Developer」パースペクティブをクリックして、「Administrator」パースペクティブに切り替えます)の「永続ボリューム要求(Persistent Volume Claim, PVC)」で、「postgresql」という名前の要求に応じて、外部ストレージにデータを保存する永続ボリューム(Persistent Volume, PV)が作成されていることによります。PVC, PVの利用方法の詳細は、「永続ボリュームとしての Amazon EBS/EFS の利用設定」ハンズオンで扱います。
+コンテナアプリであるPostgreSQL Podを再起動してみます。「Developer」パースペクティブの「トポロジー」から、Podの数を設定できます。PostgreSQLアプリケーションを選択して、詳細タブから「↓矢印」をクリックしてPodの数を0にし、「^」をクリックしてPodの数を1にします。永続ボリュームを利用していない場合は、コンテナを再起動すると、コンテナ起動元となるコンテナイメージに保存されていないデータは失われますが、先ほど入力したデータが永続ボリュームとして外部ストレージに保存されているため、Podの再起動でもユーザが入力したデータが失われません。これは、Node.jsアプリに再度アクセスすることで確認できます。
+これでROSAクラスターでの、サンプルアプリケーションのデプロイが完了しました。次の演習の永続ボリュームとしての Amazon EBS/EFS の利用設定に進んでください。
+HOME" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/cluster/applications/rosa-app-deploy-quickstart/rosa-app-deploy-quickstart/" /><meta property="article:section" content="docs" />
+
+
+
+<title>サンプルアプリのデプロイ | My New Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/cluster/applications/rosa-app-deploy-quickstart/rosa-app-deploy-quickstart/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.18b94594961fd86f3428ca9c12ce23c2be91e6080319a2b79f0dc7ed99d249f3.js" integrity="sha256-GLlFlJYf2G80KMqcEs4jwr6R5ggDGaK3nw3H7ZnSSfM=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/cluster/" class="">HCP ROSA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/" class="">HCP ROSA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-enable/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-prepare/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-create/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-debug/rosa-hcp-debug/" class="">Network Debug</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/rosa-hcp/rosa-hcp-ingress-route/readem/" class="">Readem</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/cluster/tools/" class="">ROSA Operators</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/tools/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/" class="">Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/tools/rosa-hcp-web-terminal/rosa-hcp-web-terminal/" class="">Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/" class="">アプリケーション</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-app-deploy-quickstart/rosa-app-deploy-quickstart/" class="active">サンプルアプリのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/" class="">サンプルのコンテナアプリをデプロイしてみる</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/" class="">セキュアなアプリを作る</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-app-deploy-quickstart/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-cli-walk-through/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/table-of-contents/" class="">Table of Contents</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/table-of-contents/with-toc/" class="">With ToC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/table-of-contents/without-toc/" class="">Without ToC</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-300f6794affa2344787d881775fc6b06" class="toggle"  />
+    <label for="section-300f6794affa2344787d881775fc6b06" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>サンプルアプリのデプロイ</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#アプリケーションのデプロイのクイックスタート">アプリケーションのデプロイのクイックスタート</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="アプリケーションのデプロイのクイックスタート">
+  アプリケーションのデプロイのクイックスタート
+  <a class="anchor" href="#%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%ae%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%ae%e3%82%af%e3%82%a4%e3%83%83%e3%82%af%e3%82%b9%e3%82%bf%e3%83%bc%e3%83%88">#</a>
+</h2>
+<p>ROSAのWebコンソールを使用して、Node.jsのサンプルアプリケーションをデプロイします。</p>
+<p>アプリケーションの作成場所となる「プロジェクト」を、「新規プロジェクトを作成します」をクリックして作成します。この例では、「test-project20」を入力しています。同じ名前を持つプロジェクトを複数作成できませんので、プロジェクト名は適宜変更してください。</p>
+<p><img src="./images/project-create1.png" alt="プロジェクトの作成" />
+<img src="./images/project-create2.png" alt="プロジェクトの作成" /></p>
+<!-- raw HTML omitted -->
+<p>プロジェクトの作成が完了したら、「+追加」からサンプルアプリケーションを作成します。「すべてのサービス」を選択して、「Node.js + PostgreSQL」を選択します。名前に「(Ephemeral)」が付いていないことを確認してください。「テンプレートのインスタンス化」を選択して、最後に「作成」をクリックします。入力パラメータは全てデフォルトのままにします。</p>
+<p><img src="./images/add-console.png" alt="アプリの作成" />
+<img src="./images/nodejs-select.png" alt="アプリの作成" />
+<img src="./images/nodejs-create1.png" alt="アプリの作成" />
+<img src="./images/nodejs-create2.png" alt="アプリの作成" /></p>
+<!-- raw HTML omitted -->
+<p>Node.jsとPostgreSQLアプリの作成が完了すると、「トポロジー」メニューからデプロイしたアプリのトポロジーを確認できます。トポロジーにある、Node.jsアイコンの右上部にある「矢印」アイコンをクリックすると、デプロイしたNode.jsアプリにアクセスできます。</p>
+<p><img src="./images/nodejs-route.png" alt="アプリにアクセス" />
+<img src="./images/nodejs-app.png" alt="アプリにアクセス" /></p>
+<!-- raw HTML omitted -->
+<p>このサンプルアプリは、バックエンドのデータベースとしてPostgreSQLを使用しており、Webブラウザで入力したデータを保存します。例えば、Nameに「banana」、数字に「15」を入力して、「SAVE」をクリックすると、入力値が保存されていることを確認できます。</p>
+<p><img src="./images/data-create.png" alt="データの保存" /></p>
+<!-- raw HTML omitted -->
+<p>保存したデータは、コンテナアプリであるPostgreSQL Pod(Kubernetes/OpenShift上でのコンテナアプリの実行単位。詳細は後述)に接続された永続ボリュームに保存されます。これは、サンプルアプリを作成するテンプレートにより、「Administrator」パースペクティブ(コンソール左上の「Developer」パースペクティブをクリックして、「Administrator」パースペクティブに切り替えます)の「永続ボリューム要求(Persistent Volume Claim, PVC)」で、「postgresql」という名前の要求に応じて、外部ストレージにデータを保存する永続ボリューム(Persistent Volume, PV)が作成されていることによります。PVC, PVの利用方法の詳細は、「永続ボリュームとしての Amazon EBS/EFS の利用設定」ハンズオンで扱います。</p>
+<p><img src="./images/postgresql-pvc.png" alt="PostgreSQLが利用する永続ボリューム" /></p>
+<!-- raw HTML omitted -->
+<p>コンテナアプリであるPostgreSQL Podを再起動してみます。「Developer」パースペクティブの「トポロジー」から、Podの数を設定できます。PostgreSQLアプリケーションを選択して、詳細タブから「↓矢印」をクリックしてPodの数を0にし、「^」をクリックしてPodの数を1にします。永続ボリュームを利用していない場合は、コンテナを再起動すると、コンテナ起動元となるコンテナイメージに保存されていないデータは失われますが、先ほど入力したデータが永続ボリュームとして外部ストレージに保存されているため、Podの再起動でもユーザが入力したデータが失われません。これは、Node.jsアプリに再度アクセスすることで確認できます。</p>
+<p><img src="./images/pod-num.png" alt="Pod数の設定" /></p>
+<!-- raw HTML omitted -->
+<p>これでROSAクラスターでの、サンプルアプリケーションのデプロイが完了しました。次の演習の<a href="../rosa-volume">永続ボリュームとしての Amazon EBS/EFS の利用設定</a>に進んでください。</p>
+<p><a href="../../README.md">HOME</a></p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#アプリケーションのデプロイのクイックスタート">アプリケーションのデプロイのクイックスタート</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

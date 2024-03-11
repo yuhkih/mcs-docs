@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。
+こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。
+2.1 ROSA の前提条件を確認する # 2.1 ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。 https://console.aws.amazon.com/rosa/home#/get-started
+[Enable ROSA with HCP] のボタンをクリックします。 有効化されるまで、暫く待ちます。数分かかるはずです。 有効化が完了すると以下のような表示になります。 2.2 Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3 ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。
+もし作成されていない場合は、以下のコマンドで作成します。
+aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4 Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 以上で前提条件の確認は完了です。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="" />
+<meta property="og:description" content="1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。
+こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。
+2.1 ROSA の前提条件を確認する # 2.1 ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。 https://console.aws.amazon.com/rosa/home#/get-started
+[Enable ROSA with HCP] のボタンをクリックします。 有効化されるまで、暫く待ちます。数分かかるはずです。 有効化が完了すると以下のような表示になります。 2.2 Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3 ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。
+もし作成されていない場合は、以下のコマンドで作成します。
+aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4 Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 以上で前提条件の確認は完了です。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs2/rosa-hcp-enable/readme/" /><meta property="article:section" content="docs2" />
+
+
+
+<title>Readme | My New Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs2/rosa-hcp-enable/readme/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.fd71d7fc25bcbaa536234d7f22eef0bdf6133f0cc4288a4f80fab7daa8bea4b3.js" integrity="sha256-/XHX/CW8uqU2I01/Iu7wvfYTPwzEKIpPgPq32qi&#43;pLM=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/example/" class="">Example Site</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/" class="">Table of Contents</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/with-toc/" class="">With ToC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/without-toc/" class="">Without ToC</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3049b9efa63db187c30edc63a05cabc2" class="toggle"  />
+    <label for="section-3049b9efa63db187c30edc63a05cabc2" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Readme</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-rosa-hcp-の有効化">2.1 ROSA HCP の有効化</a></li>
+    <li><a href="#22-service-quota-の確認">2.2 Service Quota の確認</a></li>
+    <li><a href="#23-elb-サービスにリンクされたロールの作成">2.3 ELB サービスにリンクされたロールの作成</a></li>
+    <li><a href="#24-red-hat-customer-portal-の情報とリンクする">2.4 Red Hat Customer Portal の情報とリンクする</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="1-red-hat-account-の作成">
+  1. Red Hat Account の作成
+  <a class="anchor" href="#1-red-hat-account-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h1>
+<p>Red Hat Account を作成します。メールアドレス等が必要になります。
+この Red Hat Account を使用して、サポートの問い合わせなどを行います。</p>
+<p><a href="https://console.redhat.com/connect/aws">こちら</a> にアクセスして作成します。Red Hat アカウントは無料で作成できます。</p>
+<h1 id="21-rosa-の前提条件を確認する">
+  2.1 ROSA の前提条件を確認する
+  <a class="anchor" href="#21-rosa-%e3%81%ae%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
+</h1>
+<h2 id="21-rosa-hcp-の有効化">
+  2.1 ROSA HCP の有効化
+  <a class="anchor" href="#21-rosa-hcp-%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96">#</a>
+</h2>
+<p>以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。
+<a href="https://console.aws.amazon.com/rosa/home#/get-started">https://console.aws.amazon.com/rosa/home#/get-started</a></p>
+<p>[Enable ROSA with HCP] のボタンをクリックします。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/0c4152d4-c51a-40c2-9440-bc89cfaaf03e" alt="image" /></p>
+<p>有効化されるまで、暫く待ちます。数分かかるはずです。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/7eee2757-c526-4e28-8666-d5f4b4fce290" alt="image" /></p>
+<p>有効化が完了すると以下のような表示になります。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/29a2de09-8041-46a1-9852-34b2bd52709c" alt="image" /></p>
+<h2 id="22-service-quota-の確認">
+  2.2 Service Quota の確認
+  <a class="anchor" href="#22-service-quota-%e3%81%ae%e7%a2%ba%e8%aa%8d">#</a>
+</h2>
+<p>もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/41b134f4-8cbc-48bc-b023-104082d3550b" alt="image" /></p>
+<h2 id="23-elb-サービスにリンクされたロールの作成">
+  2.3 ELB サービスにリンクされたロールの作成
+  <a class="anchor" href="#23-elb-%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ab%e3%83%aa%e3%83%b3%e3%82%af%e3%81%95%e3%82%8c%e3%81%9f%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h2>
+<p>過去に ELB をデプロイした事があれば <code>AWSServiceRoleForElasticLoadBalancing</code> というIAM Role が作成されており、以下のような表示になっているはずです。</p>
+<p><img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/35975e14-6847-4b9a-b36e-b52295f0891d" alt="image" /></p>
+<p>もし作成されていない場合は、以下のコマンドで作成します。</p>
+<pre tabindex="0"><code>aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34;
+</code></pre><h2 id="24-red-hat-customer-portal-の情報とリンクする">
+  2.4 Red Hat Customer Portal の情報とリンクする
+  <a class="anchor" href="#24-red-hat-customer-portal-%e3%81%ae%e6%83%85%e5%a0%b1%e3%81%a8%e3%83%aa%e3%83%b3%e3%82%af%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>画面の一番下に移動して「Continue Red Hat」をクリックします。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/87d5a503-7a0a-4a51-9c08-0aa7ad2dc026" alt="image" /></p>
+<p>Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度<a href="https://console.redhat.com/connect/aws">こちら</a> にアクセスします。Red Hat アカウントは無料で作成できます）
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/565e0b8d-eada-4d52-a1c3-16c58bae93fa" alt="image" /></p>
+<p>日本語を選んで「Connect accounts] をクリックします。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/2148e419-4753-421b-a572-bcefc2660df3" alt="image" /></p>
+<p>以上で前提条件の確認は完了です。</p>
+<h1 id="3-rosa-作成用の-token-の取得">
+  3. ROSA 作成用の token の取得
+  <a class="anchor" href="#3-rosa-%e4%bd%9c%e6%88%90%e7%94%a8%e3%81%ae-token-%e3%81%ae%e5%8f%96%e5%be%97">#</a>
+</h1>
+<p>ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。</p>
+<pre tabindex="0"><code>rosa login
+</code></pre><p>以下のように聞かれます。</p>
+<pre tabindex="0"><code>$ rosa login
+To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa
+? Copy the token and paste it here:
+</code></pre><p>表示されたリンク <a href="https://console.redhat.com/openshift/token/rosa">https://console.redhat.com/openshift/token/rosa</a> にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。</p>
+<p>以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a4f34b68-c230-4b55-b3b2-7e602d76a62c" alt="image" /></p>
+<pre tabindex="0"><code>$ rosa login
+To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa
+? Copy the token and paste it here: ******************************************************************************************************************************************************************************************************
+
+I: Logged in as &#39;yuhkih&#39; on &#39;https://api.openshift.com&#39;
+$
+</code></pre></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#21-rosa-hcp-の有効化">2.1 ROSA HCP の有効化</a></li>
+    <li><a href="#22-service-quota-の確認">2.2 Service Quota の確認</a></li>
+    <li><a href="#23-elb-サービスにリンクされたロールの作成">2.3 ELB サービスにリンクされたロールの作成</a></li>
+    <li><a href="#24-red-hat-customer-portal-の情報とリンクする">2.4 Red Hat Customer Portal の情報とリンクする</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,5 @@
+baseURL = 'https://example.org/'
+languageCode = 'ja-JP'
+title = 'MCS Documents'
+theme = "hugo-book" 
+

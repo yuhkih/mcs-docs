@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ROSA Operators on MCS Documents</title>
+    <link>http://localhost:1313/docs/cluster/operators/</link>
+    <description>Recent content in ROSA Operators on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/cluster/operators/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dev Spaces Operator</title>
+      <link>http://localhost:1313/docs/cluster/operators/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/operators/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web Terminal Operator</title>
+      <link>http://localhost:1313/docs/cluster/operators/rosa-hcp-web-terminal/rosa-hcp-web-terminal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/operators/rosa-hcp-web-terminal/rosa-hcp-web-terminal/</guid>
+      <description> Web Terminal Operator # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。&#xA;ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
+    </item>
+  </channel>
+</rss>

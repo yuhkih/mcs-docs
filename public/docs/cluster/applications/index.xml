@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>アプリケーション on MCS Documents</title>
+    <link>http://localhost:1313/docs/cluster/applications/</link>
+    <description>Recent content in アプリケーション on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/cluster/applications/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. Hello world コンテナのデプロイ</title>
+      <link>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/</guid>
+      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、メッセージを返すシンプルなコンテナです。&#xA;hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します&#xA;oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。&#xA;oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)&#xA;oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。&#xA;OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。</description>
+    </item>
+    <item>
+      <title>2. 標準の Nginx コンテナをセキュアにする</title>
+      <link>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/</guid>
+      <description>1. 標準の Nginx アプリがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.</description>
+    </item>
+  </channel>
+</rss>

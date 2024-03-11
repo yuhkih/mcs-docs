@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>http://localhost:1313/docs/example/rosa-hcp/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/example/rosa-hcp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. ROSA HCP の有効化</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-enable/rosa-hcp-enable/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-enable/rosa-hcp-enable/</guid>
+      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。 https://console.aws.amazon.com/rosa/home#/get-started&#xA;[Enable ROSA with HCP] のボタンをクリックします。 有効化されるまで、暫く待ちます。数分かかるはずです。 有効化が完了すると以下のような表示になります。 2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 以上で前提条件の確認は完了です。</description>
+    </item>
+    <item>
+      <title>2. CLIの準備</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-prepare/rosa-hcp-prepare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-prepare/rosa-hcp-prepare/</guid>
+      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure 以下のコマンドを実行して正しく構成されているか確認します。&#xA;aws sts get-caller-identity 出力例 ↕ $ aws sts get-caller-identity { &amp;#34;UserId&amp;#34;: &amp;#34;ABCD1234BG6WLHYHMKFHK&amp;#34;, &amp;#34;Account&amp;#34;: &amp;#34;123407415212&amp;#34;, &amp;#34;Arn&amp;#34;: &amp;#34;arn:aws:iam::366607415212:user/myname@redhat.com-4w685&amp;#34; } 2. Git CLI の準備 # こちらのページを参照に git コマンドをインストールします。&#xA;以下のコマンドを実行して正しく構成されているか確認します。&#xA;git version 出力例 ↕ $ git version git version 2.</description>
+    </item>
+    <item>
+      <title>3. ROSA HCP Cluster の作成</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-create/rosa-hcp-create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-create/rosa-hcp-create/</guid>
+      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。&#xA;export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。以下は Worker Node 用に Multi AZ 環境の Network を作成します。</description>
+    </item>
+    <item>
+      <title>4. ROSA HCP Cluster の削除</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/</guid>
+      <description>1.変数を確認する # クラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
+    </item>
+    <item>
+      <title>DevSpace のインストール</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-install-devspace/rosa-hcp-install-devspace/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-install-devspace/rosa-hcp-install-devspace/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Install Web Terminal</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/install-web-terminal/install-web-terminal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/install-web-terminal/install-web-terminal/</guid>
+      <description>「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。&#xA;ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。&#xA;コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
+    </item>
+    <item>
+      <title>Network Debug</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-debug/rosa-hcp-debug/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-debug/rosa-hcp-debug/</guid>
+      <description>AWS network の SubnetId を確認する # AWS の Subnet id を取得します。&#xA;aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; コマンド実行例:&#xA;$ aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; &amp;#34;10.0.128.0/24&amp;#34;,&amp;#34;subnet-07098183112673e5e&amp;#34;,&amp;#34;us-east-2a&amp;#34;,&amp;#34;true&amp;#34;,&amp;#34;1&amp;#34;,&amp;#34;ROSA&amp;#34;,&amp;#34;my-hpc-cluster-vpc-public-use2-az1&amp;#34;,&amp;#34;my-hpc-cluster&amp;#34; &amp;#34;10.0.0.0/24&amp;#34;,&amp;#34;subnet-06cf09e21d4ab1e8f&amp;#34;,&amp;#34;us-east-2a&amp;#34;,&amp;#34;ROSA&amp;#34;,&amp;#34;1&amp;#34;,&amp;#34;true&amp;#34;,&amp;#34;my-hpc-cluster&amp;#34;,&amp;#34;my-hpc-cluster-vpc-private-use2-az1&amp;#34; $ この例では ROSA Public Cluster 用に subnet-07098183112673e5e (Pulbic Subnet) と subnet-06cf09e21d4ab1e8f (Private Sunbet) を作成しています。&#xA;ManagedOpenShift-Installer-Role IAM Role の ARN を確認する。 # 作成された IAM Role は以下の方法で確認できます。</description>
+    </item>
+    <item>
+      <title>サンプルアプリのデプロイ</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-app-deploy-quickstart/rosa-app-deploy-quickstart/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-app-deploy-quickstart/rosa-app-deploy-quickstart/</guid>
+      <description>アプリケーションのデプロイのクイックスタート # ROSAのWebコンソールを使用して、Node.jsのサンプルアプリケーションをデプロイします。&#xA;アプリケーションの作成場所となる「プロジェクト」を、「新規プロジェクトを作成します」をクリックして作成します。この例では、「test-project20」を入力しています。同じ名前を持つプロジェクトを複数作成できませんので、プロジェクト名は適宜変更してください。&#xA;プロジェクトの作成が完了したら、「+追加」からサンプルアプリケーションを作成します。「すべてのサービス」を選択して、「Node.js + PostgreSQL」を選択します。名前に「(Ephemeral)」が付いていないことを確認してください。「テンプレートのインスタンス化」を選択して、最後に「作成」をクリックします。入力パラメータは全てデフォルトのままにします。&#xA;Node.jsとPostgreSQLアプリの作成が完了すると、「トポロジー」メニューからデプロイしたアプリのトポロジーを確認できます。トポロジーにある、Node.jsアイコンの右上部にある「矢印」アイコンをクリックすると、デプロイしたNode.jsアプリにアクセスできます。&#xA;このサンプルアプリは、バックエンドのデータベースとしてPostgreSQLを使用しており、Webブラウザで入力したデータを保存します。例えば、Nameに「banana」、数字に「15」を入力して、「SAVE」をクリックすると、入力値が保存されていることを確認できます。&#xA;保存したデータは、コンテナアプリであるPostgreSQL Pod(Kubernetes/OpenShift上でのコンテナアプリの実行単位。詳細は後述)に接続された永続ボリュームに保存されます。これは、サンプルアプリを作成するテンプレートにより、「Administrator」パースペクティブ(コンソール左上の「Developer」パースペクティブをクリックして、「Administrator」パースペクティブに切り替えます)の「永続ボリューム要求(Persistent Volume Claim, PVC)」で、「postgresql」という名前の要求に応じて、外部ストレージにデータを保存する永続ボリューム(Persistent Volume, PV)が作成されていることによります。PVC, PVの利用方法の詳細は、「永続ボリュームとしての Amazon EBS/EFS の利用設定」ハンズオンで扱います。&#xA;コンテナアプリであるPostgreSQL Podを再起動してみます。「Developer」パースペクティブの「トポロジー」から、Podの数を設定できます。PostgreSQLアプリケーションを選択して、詳細タブから「↓矢印」をクリックしてPodの数を0にし、「^」をクリックしてPodの数を1にします。永続ボリュームを利用していない場合は、コンテナを再起動すると、コンテナ起動元となるコンテナイメージに保存されていないデータは失われますが、先ほど入力したデータが永続ボリュームとして外部ストレージに保存されているため、Podの再起動でもユーザが入力したデータが失われません。これは、Node.jsアプリに再度アクセスすることで確認できます。&#xA;これでROSAクラスターでの、サンプルアプリケーションのデプロイが完了しました。次の演習の永続ボリュームとしての Amazon EBS/EFS の利用設定に進んでください。&#xA;HOME</description>
+    </item>
+    <item>
+      <title>サンプルのコンテナアプリをデプロイしてみる</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-deploy-app/rosa-hcp-deploy-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-deploy-app/rosa-hcp-deploy-app/</guid>
+      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、メッセージを返すシンプルなコンテナです。&#xA;hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します&#xA;oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。&#xA;oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)&#xA;oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。&#xA;OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。</description>
+    </item>
+    <item>
+      <title>セキュアなアプリを作る</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/</guid>
+      <description>1. 標準の Nginx アプリがデプロイできない事を確認する # 新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。&#xA;oc get pods 実行例:&#xA;$ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.</description>
+    </item>
+    <item>
+      <title>内部 Image Registry を使用する</title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</guid>
+      <description>1. 内部 Image Registry の公開 # Image Registry をインターネットに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` Image Registry にログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、ある image を確認します。&#xA;nginx $ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/new-nginx latest d623ca329bc4 19 minutes ago 303 MB nginx $ 作成したローカルイメージにタグを付けます。</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-app-deploy-quickstart/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-app-deploy-quickstart/readme/</guid>
+      <description>アプリケーションのデプロイのクイックスタート # ROSAのWebコンソールを使用して、Node.jsのサンプルアプリケーションをデプロイします。&#xA;アプリケーションの作成場所となる「プロジェクト」を、「新規プロジェクトを作成します」をクリックして作成します。この例では、「test-project20」を入力しています。同じ名前を持つプロジェクトを複数作成できませんので、プロジェクト名は適宜変更してください。&#xA;プロジェクトの作成が完了したら、「+追加」からサンプルアプリケーションを作成します。「すべてのサービス」を選択して、「Node.js + PostgreSQL」を選択します。名前に「(Ephemeral)」が付いていないことを確認してください。「テンプレートのインスタンス化」を選択して、最後に「作成」をクリックします。入力パラメータは全てデフォルトのままにします。&#xA;Node.jsとPostgreSQLアプリの作成が完了すると、「トポロジー」メニューからデプロイしたアプリのトポロジーを確認できます。トポロジーにある、Node.jsアイコンの右上部にある「矢印」アイコンをクリックすると、デプロイしたNode.jsアプリにアクセスできます。&#xA;このサンプルアプリは、バックエンドのデータベースとしてPostgreSQLを使用しており、Webブラウザで入力したデータを保存します。例えば、Nameに「banana」、数字に「15」を入力して、「SAVE」をクリックすると、入力値が保存されていることを確認できます。&#xA;保存したデータは、コンテナアプリであるPostgreSQL Pod(Kubernetes/OpenShift上でのコンテナアプリの実行単位。詳細は後述)に接続された永続ボリュームに保存されます。これは、サンプルアプリを作成するテンプレートにより、「Administrator」パースペクティブ(コンソール左上の「Developer」パースペクティブをクリックして、「Administrator」パースペクティブに切り替えます)の「永続ボリューム要求(Persistent Volume Claim, PVC)」で、「postgresql」という名前の要求に応じて、外部ストレージにデータを保存する永続ボリューム(Persistent Volume, PV)が作成されていることによります。PVC, PVの利用方法の詳細は、「永続ボリュームとしての Amazon EBS/EFS の利用設定」ハンズオンで扱います。&#xA;コンテナアプリであるPostgreSQL Podを再起動してみます。「Developer」パースペクティブの「トポロジー」から、Podの数を設定できます。PostgreSQLアプリケーションを選択して、詳細タブから「↓矢印」をクリックしてPodの数を0にし、「^」をクリックしてPodの数を1にします。永続ボリュームを利用していない場合は、コンテナを再起動すると、コンテナ起動元となるコンテナイメージに保存されていないデータは失われますが、先ほど入力したデータが永続ボリュームとして外部ストレージに保存されているため、Podの再起動でもユーザが入力したデータが失われません。これは、Node.jsアプリに再度アクセスすることで確認できます。&#xA;これでROSAクラスターでの、サンプルアプリケーションのデプロイが完了しました。次の演習の永続ボリュームとしての Amazon EBS/EFS の利用設定に進んでください。&#xA;HOME</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-deploy-secure-app/rosa-cli-walk-through/readme/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-deploy-secure-app/rosa-cli-walk-through/readme/</guid>
+      <description>作成されたクラスターをリストします。&#xA;rosa list clusters 出力例:&#xA;$ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ rosa list machinepools -c $CLUSTER_NAME 出力例:&#xA;$ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5.xlarge us-east-2b subnet-047bd69e1ae06c742 4.14.4 Yes workers-2 No 1/1 m5.xlarge us-east-2a subnet-0c52bfe790deb6429 4.14.4 Yes $ rosa list ingress -c $CLUSTER_NAME 出力例:</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-ingress-route/readem/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-ingress-route/readem/</guid>
+      <description> Ingress と Route # </description>
+    </item>
+  </channel>
+</rss>

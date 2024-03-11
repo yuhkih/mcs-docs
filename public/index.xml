@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Introduction on MCS Documents</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Introduction on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <lastBuildDate>Sun, 28 Sep 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. Hello world コンテナのデプロイ</title>
+      <link>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/</guid>
+      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、メッセージを返すシンプルなコンテナです。&#xA;hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します&#xA;oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。&#xA;oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)&#xA;oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。&#xA;OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。</description>
+    </item>
+    <item>
+      <title>1. rosa CLI</title>
+      <link>http://localhost:1313/docs/cluster/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/</guid>
+      <description>1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。&#xA;rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。&#xA;rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5.</description>
+    </item>
+    <item>
+      <title>1. ROSA HCP の有効化</title>
+      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-enable/rosa-hcp-enable/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-enable/rosa-hcp-enable/</guid>
+      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。 https://console.aws.amazon.com/rosa/home#/get-started&#xA;[Enable ROSA with HCP] のボタンをクリックします。 有効化されるまで、暫く待ちます。数分かかるはずです。 有効化が完了すると以下のような表示になります。 2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 以上で前提条件の確認は完了です。</description>
+    </item>
+    <item>
+      <title>2. CLIの準備</title>
+      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-prepare/rosa-hcp-prepare/</guid>
+      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure 以下のコマンドを実行して正しく構成されているか確認します。&#xA;aws sts get-caller-identity 出力例 ↕ $ aws sts get-caller-identity { &amp;#34;UserId&amp;#34;: &amp;#34;ABCD1234BG6WLHYHMKFHK&amp;#34;, &amp;#34;Account&amp;#34;: &amp;#34;123407415212&amp;#34;, &amp;#34;Arn&amp;#34;: &amp;#34;arn:aws:iam::366607415212:user/myname@redhat.com-4w685&amp;#34; } 2. Git CLI の準備 # こちらのページを参照に git コマンドをインストールします。&#xA;以下のコマンドを実行して正しく構成されているか確認します。&#xA;git version 出力例 ↕ $ git version git version 2.</description>
+    </item>
+    <item>
+      <title>2. 内部 Image Registry を使用する</title>
+      <link>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</guid>
+      <description>1. 内部 Image Registry の公開 # Image Registry をインターネットに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` Image Registry にログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、ある image を確認します。&#xA;nginx $ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/new-nginx latest d623ca329bc4 19 minutes ago 303 MB nginx $ 作成したローカルイメージにタグを付けます。</description>
+    </item>
+    <item>
+      <title>2. 標準の Nginx コンテナをセキュアにする</title>
+      <link>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/</guid>
+      <description>1. 標準の Nginx アプリがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.</description>
+    </item>
+    <item>
+      <title>3. ROSA HCP Cluster の作成</title>
+      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-create/</guid>
+      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。&#xA;export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。以下は Worker Node 用に Multi AZ 環境の Network を作成します。</description>
+    </item>
+    <item>
+      <title>4. ROSA HCP Cluster の削除</title>
+      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/</guid>
+      <description>1.変数を確認する # クラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
+    </item>
+    <item>
+      <title>5. Network の Debug</title>
+      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-debug/rosa-hcp-debug/</guid>
+      <description>HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。 そのため、一番多いトラブルが、AWS Network に関するものです。&#xA;ここでは、Network の疎通確認ツールである、rosa verify network を使用してみます。&#xA;rosa verify network を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。&#xA;1. AWS network の SubnetId を確認する # AWS の Subnet id を取得します。&#xA;aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; コマンド実行例 ↕ $ aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; &amp;#34;10.</description>
+    </item>
+    <item>
+      <title>Dev Spaces Operator</title>
+      <link>http://localhost:1313/docs/cluster/operators/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/operators/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Web Terminal Operator</title>
+      <link>http://localhost:1313/docs/cluster/operators/rosa-hcp-web-terminal/rosa-hcp-web-terminal/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/operators/rosa-hcp-web-terminal/rosa-hcp-web-terminal/</guid>
+      <description> Web Terminal Operator # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。&#xA;ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
+    </item>
+    <item>
+      <title>With ToC</title>
+      <link>http://localhost:1313/docs/cluster/table-of-contents/with-toc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/table-of-contents/with-toc/</guid>
+      <description>Caput vino delphine in tamen vias # Cognita laeva illo fracta # Lorem markdownum pavent auras, surgit nunc cingentibus libet Laomedonque que est. Pastor An arbor filia foedat, ne fugit aliter, per. Helicona illas et callida neptem est Oresitrophos caput, dentibus est venit. Tenet reddite famuli praesentem fortibus, quaeque vis foret si frondes gelidos gravidae circumtulit inpulit armenta nativum.&#xA;Te at cruciabere vides rubentis manebo Maturuit in praetemptat ruborem ignara postquam habitasse Subitarum supplevit quoque fontesque venabula spretis modo Montis tot est mali quasque gravis Quinquennem domus arsit ipse Pellem turis pugnabant locavit Natus quaerere # Pectora et sine mulcere, coniuge dum tincta incurvae.</description>
+    </item>
+    <item>
+      <title>Without ToC</title>
+      <link>http://localhost:1313/docs/cluster/table-of-contents/without-toc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/table-of-contents/without-toc/</guid>
+      <description>At me ipso nepotibus nunc celebratior genus # Tanto oblite # Lorem markdownum pectora novis patenti igne sua opus aurae feras materiaque illic demersit imago et aristas questaque posset. Vomit quoque suo inhaesuro clara. Esse cumque, per referri triste. Ut exponit solisque communis in tendens vincetis agisque iamque huic bene ante vetat omina Thebae rates. Aeacus servat admonitu concidit, ad resimas vultus et rugas vultu dignamque Siphnon.&#xA;Quam iugulum regia simulacra, plus meruit humo pecorumque haesit, ab discedunt dixit: ritu pharetramque.</description>
+    </item>
+    <item>
+      <title>Creating a New Theme</title>
+      <link>http://localhost:1313/posts/creating-a-new-theme/</link>
+      <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/creating-a-new-theme/</guid>
+      <description>Introduction # This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.&#xA;We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
+    </item>
+    <item>
+      <title>Migrate to Hugo from Jekyll</title>
+      <link>http://localhost:1313/posts/migrate-from-jekyll/</link>
+      <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/migrate-from-jekyll/</guid>
+      <description>Move static content to static # Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like&#xA;▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png should become&#xA;▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
+    </item>
+    <item>
+      <title>(Hu)go Template Primer</title>
+      <link>http://localhost:1313/posts/goisforlovers/</link>
+      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/goisforlovers/</guid>
+      <description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.&#xA;This document is a brief primer on using Go templates.</description>
+    </item>
+    <item>
+      <title>Getting Started with Hugo</title>
+      <link>http://localhost:1313/posts/hugoisforlovers/</link>
+      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/hugoisforlovers/</guid>
+      <description>Step 1. Install Hugo # Go to Hugo releases and download the appropriate version for your OS and architecture.&#xA;Save it somewhere specific as we will be using it in the next step.&#xA;More complete instructions are available at Install Hugo&#xA;Step 2. Build the Docs # Hugo has its own example site which happens to also be the documentation site you are reading right now.&#xA;Follow the following steps:</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-ingress-route/readem/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/basic_features/rosa-hcp-ingress-route/readem/</guid>
+      <description> Ingress と Route # </description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/cluster/collapsed/3rd-level/4th-level/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/collapsed/3rd-level/4th-level/</guid>
+      <description>4th Level of Menu # Caesorum illa tu sentit micat vestes papyriferi # Inde aderam facti; Theseus vis de tauri illa peream. Oculos uberaque non regisque vobis cursuque, opus venit quam vulnera. Et maiora necemque, lege modo; gestanda nitidi, vero? Dum ne pectoraque testantur.&#xA;Venasque repulsa Samos qui, exspectatum eram animosque hinc, aut manes, Assyrii. Cupiens auctoribus pariter rubet, profana magni super nocens. Vos ius sibilat inpar turba visae iusto!</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/cluster/hidden/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/hidden/</guid>
+      <description>This page is hidden in menu # Quondam non pater est dignior ille Eurotas # Latent te facies # Lorem markdownum arma ignoscas vocavit quoque ille texit mandata mentis ultimus, frementes, qui in vel. Hippotades Peleus pennas conscia cuiquam Caeneus quas.&#xA;Pater demittere evincitque reddunt Maxime adhuc pressit huc Danaas quid freta Soror ego Luctus linguam saxa ultroque prior Tatiumque inquit Saepe liquitur subita superata dederat Anius sudor Cum honorum Latona # O fallor in sustinui iussorum equidem.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/buttons/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/buttons/</guid>
+      <description> Buttons # Buttons are styled links that can lead to local page or external link.&#xA;Example # {{&amp;lt; button relref=&amp;#34;/&amp;#34; [class=&amp;#34;...&amp;#34;] &amp;gt;}}Get Home{{&amp;lt; /button &amp;gt;}} {{&amp;lt; button href=&amp;#34;https://github.com/alex-shpak/hugo-book&amp;#34; &amp;gt;}}Contribute{{&amp;lt; /button &amp;gt;}} Get Home Contribute </description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/columns/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/columns/</guid>
+      <description>Columns # Columns help organize shorter pieces of content horizontally for readability.&#xA;{{&amp;lt; columns &amp;gt;}} &amp;lt;!-- begin columns block --&amp;gt; # Left Content Lorem markdownum insigne... &amp;lt;---&amp;gt; &amp;lt;!-- magic separator, between columns --&amp;gt; # Mid Content Lorem markdownum insigne... &amp;lt;---&amp;gt; &amp;lt;!-- magic separator, between columns --&amp;gt; # Right Content Lorem markdownum insigne... {{&amp;lt; /columns &amp;gt;}} Example # Left Content # Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter!</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/details/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/details/</guid>
+      <description>Details # Details shortcode is a helper for details html5 element. It is going to replace expand shortcode.&#xA;Example # {{&amp;lt; details &amp;#34;Title&amp;#34; [open] &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /details &amp;gt;}} {{&amp;lt; details title=&amp;#34;Title&amp;#34; open=true &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /details &amp;gt;}} Title Markdown content # Lorem markdownum insigne&amp;hellip;</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/expand/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/expand/</guid>
+      <description>Expand # Expand shortcode can help to decrease clutter on screen by hiding part of text. Expand content by clicking on it.&#xA;Example # Default # {{&amp;lt; expand &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /expand &amp;gt;}} Expand ↕ Markdown content # Lorem markdownum insigne&amp;hellip;&#xA;With Custom Label # {{&amp;lt; expand &amp;#34;Custom Label&amp;#34; &amp;#34;...&amp;#34; &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /expand &amp;gt;}} Custom Label ... Markdown content # Lorem markdownum insigne.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/hints/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/hints/</guid>
+      <description>Hints # Hint shortcode can be used as hint/alerts/notification block.&#xA;There are 3 colors to choose: info, warning and danger.&#xA;{{&amp;lt; hint [info|warning|danger] &amp;gt;}} **Markdown content** Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter! Oculis non ritibus Telethusa {{&amp;lt; /hint &amp;gt;}} Example # Markdown content&#xA;Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter! Oculis non ritibus Telethusa Markdown content</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/mermaid/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/mermaid/</guid>
+      <description>Mermaid Chart # MermaidJS is library for generating svg charts and diagrams from text.&#xA;Override Mermaid Initialization Config&#xA;To override the initialization config for Mermaid, create a mermaid.json file in your assets folder!&#xA;Example # {{&amp;lt; mermaid class=&amp;#34;optional&amp;#34; &amp;gt;}} stateDiagram-v2 State1: The state with a note note right of State1 Important information! You can write notes. end note State1 --&amp;gt; State2 note left of State2 : This is the note to the left.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/section/first-page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/section/first-page/</guid>
+      <description>First page # Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&#xA;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/section/second-page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/section/second-page/</guid>
+      <description>Second Page # Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&#xA;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/docs/shortcodes/tabs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/tabs/</guid>
+      <description>Tabs # Tabs let you organize content by context, for example installation instructions for each supported platform.&#xA;{{&amp;lt; tabs &amp;#34;uniqueid&amp;#34; &amp;gt;}} {{&amp;lt; tab &amp;#34;MacOS&amp;#34; &amp;gt;}} # MacOS Content {{&amp;lt; /tab &amp;gt;}} {{&amp;lt; tab &amp;#34;Linux&amp;#34; &amp;gt;}} # Linux Content {{&amp;lt; /tab &amp;gt;}} {{&amp;lt; tab &amp;#34;Windows&amp;#34; &amp;gt;}} # Windows Content {{&amp;lt; /tab &amp;gt;}} {{&amp;lt; /tabs &amp;gt;}} Example # MacOS MacOS # This is tab MacOS content.&#xA;Lorem markdownum insigne. Olympo signis Delphis!</description>
+    </item>
+    <item>
+      <title>KaTeX</title>
+      <link>http://localhost:1313/docs/shortcodes/katex/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/shortcodes/katex/</guid>
+      <description>KaTeX # KaTeX shortcode let you render math typesetting in markdown document. See KaTeX&#xA;Example # {{&amp;lt; katex display=true class=&amp;#34;optional&amp;#34; &amp;gt;}} f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi {{&amp;lt; /katex &amp;gt;}} \[f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi\] Display Mode Example # Here is some inline example: \(\pi(x)\) , rendered in the same line. And below is display example, having display: block \[f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi\] Text continues here.</description>
+    </item>
+  </channel>
+</rss>

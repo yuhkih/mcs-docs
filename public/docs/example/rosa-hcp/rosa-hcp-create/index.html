@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。
+この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。
+terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
+git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。
+export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。以下は Worker Node 用に Multi AZ 環境の Network を作成します。
+terraform plan -out rosa.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="Clusterの生成" />
+<meta property="og:description" content="1.ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。
+この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。
+terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
+git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。
+export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。以下は Worker Node 用に Multi AZ 環境の Network を作成します。
+terraform plan -out rosa." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-create/" /><meta property="article:section" content="docs" />
+
+
+
+<title>Clusterの生成 | My New Hugo Site</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/example/rosa-hcp/rosa-hcp-create/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.06ade0270cc6fd21e25c544c160e813084bbea2708078738c901a0131fe2897a.js" integrity="sha256-Bq3gJwzG/SHiXFRMFg6BMIS76icIB4c4yQGgEx/iiXo=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>My New Hugo Site</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/example/" class="">HCP ROSA</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/" class="">Rosa Hcp</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-create/" class="active">Clusterの生成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/install-web-terminal/install-web-terminal/" class="">Install Web Terminal</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-debug/rosa-hcp-debug/" class="">Network Debug</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-app-deploy-quickstart/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-delete-cluster/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-deploy-app/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-deploy-secure-app/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-deploy-secure-app/rosa-cli-walk-through/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-enable/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-ingress-route/readem/" class="">Readem</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-install-devspace/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-internal-registry/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/rosa-hcp/rosa-hcp-prepare/readme/" class="">Readme</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/" class="">Table of Contents</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/with-toc/" class="">With ToC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/table-of-contents/without-toc/" class="">Without ToC</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-3049b9efa63db187c30edc63a05cabc2" class="toggle"  />
+    <label for="section-3049b9efa63db187c30edc63a05cabc2" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/example/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>Clusterの生成</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#terraform-を使用した-aws-network-リソースの作成">terraform を使用した AWS Network リソースの作成</a></li>
+    <li><a href="#作成された-subnet-と-nat-gateway-の確認">作成された Subnet と NAT Gateway の確認</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h1 id="1rosa-を-install-する-aws-network-の作成">
+  1.ROSA を install する AWS Network の作成
+  <a class="anchor" href="#1rosa-%e3%82%92-install-%e3%81%99%e3%82%8b-aws-network-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h1>
+<p>HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。
+ここでは Terraform を使用して AWS　上に Network を作成します。</p>
+<p>この手順は、公式ドキュメントの「<!-- raw HTML omitted -->Creating a Vritual Private Cloud for your ROSA with HCP clusters<!-- raw HTML omitted -->
+」をベースにしています。</p>
+<h2 id="terraform-を使用した-aws-network-リソースの作成">
+  terraform を使用した AWS Network リソースの作成
+  <a class="anchor" href="#terraform-%e3%82%92%e4%bd%bf%e7%94%a8%e3%81%97%e3%81%9f-aws-network-%e3%83%aa%e3%82%bd%e3%83%bc%e3%82%b9%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h2>
+<p>サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。</p>
+<pre tabindex="0"><code>git clone https://github.com/openshift-cs/terraform-vpc-example
+</code></pre><pre tabindex="0"><code>cd terraform-vpc-example
+</code></pre><pre tabindex="0"><code>terraform init
+</code></pre><p>変数を準備しておきます。</p>
+<pre tabindex="0"><code>export CLUSTER_NAME=myhcpcluster
+export REGION=ap-northeast-1
+</code></pre><p>Terraform の plan を作成します。以下は Worker Node 用に Multi AZ 環境の Network を作成します。</p>
+<pre tabindex="0"><code>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
+</code></pre><p>Apply して Network を作成します。</p>
+<pre tabindex="0"><code>terraform apply rosa.tfplan
+</code></pre><p>作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで6つのサブネットIDが変数にセットされます。</p>
+<pre tabindex="0"><code>export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
+</code></pre><h2 id="作成された-subnet-と-nat-gateway-の確認">
+  作成された Subnet と NAT Gateway の確認
+  <a class="anchor" href="#%e4%bd%9c%e6%88%90%e3%81%95%e3%82%8c%e3%81%9f-subnet-%e3%81%a8-nat-gateway-%e3%81%ae%e7%a2%ba%e8%aa%8d">#</a>
+</h2>
+<p>terraform で apply した時のログにも出ていますが、ここでは AWS CLI の練習も兼ねて、AWS CLI を使用して作成された VPC と Subnet 等を確認します。</p>
+<p>VPC をリストします。</p>
+<pre tabindex="0"><code>aws ec2 describe-vpcs | jq -r &#39;.Vpcs[] | [.CidrBlock, .VpcId, .State] | @csv&#39;
+</code></pre><p>Subnet をリストします。</p>
+<pre tabindex="0"><code>aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39;
+</code></pre><p>NAT Gateway をリストします。</p>
+<pre tabindex="0"><code>aws ec2 describe-nat-gateways | jq -r &#39;.NatGateways[] | [.NatGatewayId, .State] | @csv&#39;
+</code></pre><h1 id="2rosa-hcp-cluster-の-作成">
+  2.ROSA HCP Cluster の 作成
+  <a class="anchor" href="#2rosa-hcp-cluster-%e3%81%ae-%e4%bd%9c%e6%88%90">#</a>
+</h1>
+<p>クラスターを作成するには、Red Hat Customer ポータルの User アカウントが必要です。無料で作成できます。Red Hat Customer ポータルの Userを作成した後、以下のコマンドでログインします。</p>
+<pre tabindex="0"><code>rosa login
+</code></pre><p>必要な IAM Role を作成します。いろいろ聞かれますが、全てデフォルトで大丈夫です。</p>
+<pre tabindex="0"><code>rosa create account-roles --hosted-cp
+</code></pre><p>必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。</p>
+<pre tabindex="0"><code>echo $CLUSTER_NAME
+echo $REGION
+echo $SUBNET_IDS
+</code></pre><p>Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトで大丈夫です。</p>
+<pre tabindex="0"><code>rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
+</code></pre><p>Cluster の作成を開始した後に Operator Role を作成します。</p>
+<pre tabindex="0"><code>rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
+</code></pre><p>OIDC Provider を作成します。</p>
+<pre tabindex="0"><code>rosa create oidc-provider --cluster  $CLUSTER_NAME -m auto --yes
+</code></pre><p>ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。</p>
+<pre tabindex="0"><code>rosa logs install -c $CLUSTER_NAME --watch
+</code></pre><h1 id="3rosa-hcp-cluster-へのアクセス確認">
+  3.ROSA HCP Cluster へのアクセス確認
+  <a class="anchor" href="#3rosa-hcp-cluster-%e3%81%b8%e3%81%ae%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e7%a2%ba%e8%aa%8d">#</a>
+</h1>
+<p>インストールが完了したら管理者ユーザーを作成します。
+ログインコマンド (<code>oc login</code>) パスワード付きで標準出力に表示されます。これはコマンドが終了してから、数分待つ必要があります。</p>
+<pre tabindex="0"><code>rosa create admin --cluster=$CLUSTER_NAME
+</code></pre><p><strong>実行例:</strong></p>
+<pre tabindex="0"><code>$ rosa create admin --cluster=$CLUSTER_NAME
+I: Admin account has been added to cluster &#39;my-hpc-cluster&#39;.
+I: Please securely store this generated password. If you lose this password you can delete and recreate the cluster admin user.
+I: To login, run the following command:
+
+   oc login https://api.my-hpc-cluster.rc4b.p3.openshiftapps.com:443 --username cluster-admin --password abc123-XYZZH-1dNpZ-DBVjg
+
+I: It may take several minutes for this access to become active.
+$
+</code></pre><p>数分待ってから、上の出力で現れた api server の URL、password を使ってログインコマンド(<code>oc login</code>) を実行します。
+(準備ができるまで 401 Unauthorized が出ます)</p>
+<pre tabindex="0"><code>oc login &lt;API Server&gt; --username cluster-admin --password &lt;password&gt;
+</code></pre><p><strong>実行例:</strong></p>
+<pre tabindex="0"><code>$  oc login https://api.my-hpc-cluster.rc4b.p3.openshiftapps.com:443 --username cluster-admin --password abc123-XYZZH-1dNpZ-DBVjg
+Login successful.
+
+You have access to 77 projects, the list has been suppressed. You can list all projects with &#39;oc projects&#39;
+
+Using project &#34;default&#34;.
+$ 
+</code></pre><p><code>oc get nodes</code> コマンドで compute node ができたか確認します。Worker node が 3本表示されるはずです。
+(まれに node の作成に時間がかかる場合があります。何も node が表示されない場合は、さらに10分程度待ってく見てください)</p>
+<pre tabindex="0"><code>oc get nodes
+</code></pre><p><strong>実行例:</strong></p>
+<pre tabindex="0"><code>$ oc get nodes
+NAME                                       STATUS   ROLES    AGE     VERSION
+ip-10-0-0-72.us-east-2.compute.internal    Ready    worker   9m44s   v1.27.6+b49f9d1
+ip-10-0-1-195.us-east-2.compute.internal   Ready    worker   70s     v1.27.6+b49f9d1
+ip-10-0-2-242.us-east-2.compute.internal   Ready    worker   9m28s   v1.27.6+b49f9d1
+$
+</code></pre><h1 id="4構成を探って見る">
+  4.構成を探って見る
+  <a class="anchor" href="#4%e6%a7%8b%e6%88%90%e3%82%92%e6%8e%a2%e3%81%a3%e3%81%a6%e8%a6%8b%e3%82%8b">#</a>
+</h1>
+<p><code>rosa list machinepool</code> コマンドで、AZ毎に <code>machinepool</code> が出来ている事を確認します。<code>machinepool</code>単位で Node 数を増やす事ができます。</p>
+<pre tabindex="0"><code>$ rosa list machinepool -c $CLUSTER_NAME
+ID         AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONE  SUBNET                    VERSION  AUTOREPAIR  
+workers-0  No           1/1       m5.xlarge                          us-east-2b         subnet-084bb65941bee3d24  4.14.3   Yes         
+workers-1  No           1/1       m5.xlarge                          us-east-2a         subnet-0f0b7ebc07df35c69  4.14.3   Yes         
+workers-2  No           1/1       m5.xlarge                          us-east-2c         subnet-0fdeb4dc0c5415267  4.14.3   Yes         
+$ 
+</code></pre><p><code>rosa list ingress</code> コマンドで Cluster と一緒に作成された ingress を確認してみます。default の Load Balancer には NLB が使われているはずです。<code>LB-TYPE</code> を確認します。
+この ingress 経由で、HTTP/HTTPS アプリケーションが公開されます。</p>
+<pre tabindex="0"><code>$ rosa list ingress -c $CLUSTER_NAME
+ID    APPLICATION ROUTER                                          PRIVATE  DEFAULT  ROUTE SELECTORS  LB-TYPE  EXCLUDED NAMESPACE  WILDCARD POLICY  NAMESPACE OWNERSHIP  HOSTNAME  TLS SECRET REF
+m3x6  https://apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com  no       yes                       nlb                                                                          
+$
+</code></pre></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#terraform-を使用した-aws-network-リソースの作成">terraform を使用した AWS Network リソースの作成</a></li>
+    <li><a href="#作成された-subnet-と-nat-gateway-の確認">作成された Subnet と NAT Gateway の確認</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
