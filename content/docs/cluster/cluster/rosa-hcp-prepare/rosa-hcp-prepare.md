@@ -26,6 +26,8 @@ AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg
 Default region name [None]: an-northeast-1
 Default output format [None]: 
 $ 
+{{< /expand >}}
+
 
 以下のコマンドを実行して正しく構成されているか確認します。
 
