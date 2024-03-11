@@ -1,5 +1,5 @@
 ---
-title: 5. Network の Debug
+title: 5.[補則] Network 構成のテスト
 weight: 1
 ---
 
@@ -72,6 +72,8 @@ export INSTALL_IAM_ROLE_ARN=arn:aws:iam::864046375925:role/ManagedOpenShift-Inst
 ```tpl
 rosa verify network --watch --region $REGION --subnet-ids $SUBNET_IDS  --role-arn $INSTALL_IAM_ROLE_ARN
 ```
+
+以下は Network の構成がパスした際の出力例です。
 
 {{< expand "コマンド実行例" >}}
 ```tpl

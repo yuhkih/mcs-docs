@@ -1,5 +1,5 @@
 ---
-title: Web Terminal Operator
+title: 1. Web Terminal Operator
 weight: 1
 ---
 
@@ -18,11 +18,9 @@ Web Terminal Operator を使用すると、OpenShift コンソール内に Web B
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/8f5908e6-f9db-4e6d-861d-851245e5ba94)
 
 4. 以下の画面になれば、インストールは完了です。
-
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/bb05659e-4498-48fe-a1d1-561e056e0e79)
 
 5. ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。
-
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/c4317b82-1e42-4b28-a876-d24da3ee3ece)
 
 6. コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。

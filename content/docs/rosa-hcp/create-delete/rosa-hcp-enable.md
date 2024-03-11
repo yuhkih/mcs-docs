@@ -76,7 +76,7 @@ To login to your Red Hat account, get an offline access token at https://console
 以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a4f34b68-c230-4b55-b3b2-7e602d76a62c)
 
-以下のように login が完了するはずです。
+以下のように login を完了させます。
 
 ```tpl
 $ rosa login
