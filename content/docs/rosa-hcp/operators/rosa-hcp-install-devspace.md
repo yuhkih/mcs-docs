@@ -4,7 +4,7 @@ weight: 1
 ---
 ## Dev Spaces Operator
 
-Dev Spaces Operator は、Web コンソールを使って開発者が使用できる開発環境を提供します。
+Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。
 
 1. `Operator Hub` に移動して、`Red Hat OpenShift Dev Spaces` をクリックします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/f4c686f9-fe6d-4c73-bd88-1e40048a917b)

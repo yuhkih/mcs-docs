@@ -1,11 +1,13 @@
 ---
-title: 2. 内部 Image Registry を使用する
+title: 3. 内部 Image Registry を使用する
 weight: 1
 ---
+この手順は{{< button relref="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" >}}標準の Ngix コンテナをセキュアにする{{< /button >}} の続きです。
+
 ## 1. 内部 Image Registry の公開
 
 
-Image Registry をインターネットに公開します。
+内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。
 
 ```tpl
 oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
@@ -13,13 +15,13 @@ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"
 
 ## 2. ローカル Image Registry へのログイン
 
-Image Registry の ドメイン名を取得します。
+内部 Image Registry の ドメイン名を取得します。
 
 ```tpl
 export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}'`
 ```
 
-Image Registry にログインします。
+内部 Image Registry に、[Bearerトークン](https://ja.wikipedia.org/wiki/Bearer%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3) を使ってログインします。
 
 ```tpl
 podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER}
@@ -27,18 +29,18 @@ podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER}
 
 ## 3. ローカル Image Registry への Image の Push
 
-現在、ある image を確認します。
+現在、作業端末上にある image を確認します。
 
-```tpl
-nginx $ podman images
+```shell 
+$ podman images
 REPOSITORY                   TAG         IMAGE ID      CREATED         SIZE
 localhost/new-nginx  latest      d623ca329bc4  19 minutes ago  303 MB
-nginx $ 
+ $ 
 ```
 
 作成したローカルイメージにタグを付けます。
 
-```tpl
+```shell 
 podman tag localhost/new-nginx:latest $IMAGE_SERVER/new-nginx/mynginx:latest
 ```
 
@@ -48,25 +50,41 @@ podman tag localhost/new-nginx:latest $IMAGE_SERVER/new-nginx/mynginx:latest
 podman push  $IMAGE_SERVER/new-nginx/mynginx:latest
 ```
 
+これで内部レジストリにビルドした image が push されました。
+
 ## 4. Push した Image を使用した Deployment の作成
 
-ローカル Image Registry に Push したイメージを使用して Deploy します。`new-app` で一気に Service まで作成します。
+内部 Image Registry に Push したイメージを使用してアプリケーションを Deploy します。
+
+1. プロジェクトを作成します。
+
+```tpl
+oc new-project new-nginx
+```
+
+2. コンテナをデプロイします。
+
+`oc new-app` コマンドで一気に Service まで作成します。
 
 ```tpl
 oc new-app --name new-nginx --image $IMAGE_SERVER/new-nginx/mynginx:latest
 ```
+{{< hint info >}}
+**豆知識:**   
+`oc new-app` コマンドが、image 名を引数に指定するだけで、Service まで作成できるのは、OpenShift がコンテナ image で EXPOSE されているポートを認識しているためです。
+{{< /hint >}}
 
 `new-nginx` という名前で Deployment と Service が作成されている事を確認します。
 
 
 ```tpl
- $ oc get deployment,service
+oc get deployment,service
 ```
 
 {{< expand "実行例">}}
 
 ```tpl
- $ oc get deployment,service
+$ oc get deployment,service
 NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
 deployment.apps/new-nginx   1/1     1            1           5m8s
 
@@ -95,7 +113,7 @@ $
 {{< /expand >}}
 
 
-サービスを公開します。
+サービスを公開します。これをする事で `Route`オブジェクトが作成されます。
 
 ```tpl
 oc expose svc new-nginx

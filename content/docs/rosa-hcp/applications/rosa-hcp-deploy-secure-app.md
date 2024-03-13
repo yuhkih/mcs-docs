@@ -3,7 +3,7 @@ title: 2. 標準の Nginx コンテナをセキュアにする
 weight: 1
 ---
 
-## 1. 標準の Nginx アプリがデプロイできない事を確認する
+## 1. 標準の Nginx コンテナがデプロイできない事を確認する
 
 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
 
@@ -19,7 +19,7 @@ docker hub にある、nginx の[公式イメージ](https://hub.docker.com/_/ng
 
 pod が `CrashLooBackOff` になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
 
-```tpl
+```bash
 oc get pods
 ```
 
@@ -39,7 +39,7 @@ oc logs <Pod 名>
 ```
 
 {{< expand "出力例" >}}
-```tpl
+```bash 
 $ oc logs standard-nginx-768459d6bc-wldlr
 /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
 /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
@@ -62,9 +62,12 @@ $
 
 コンテナ環境は、仮想マシンと違い、一つのホストのカーネルを共有している環境であるため、その上で稼働するアプリの権限も適切に管理する必要があります。
 
-## 2. Nginx をセキュアに作り直す
+## 2. Nginx コンテナをセキュアに作り直す
 
-DevSpace にログインします。
+ここではコンテナをビルドするために、podman コマンドが使用できる環境が必要です。
+podman 環境は、Dev Spaces Operator を導入する事で、作成する事も可能です。
+
+### 2.1 Kubernetes / OpenShift 用にカスタマイズされた nginx.conf ファイルのダウンロード
 
 OpenShift で起動できるように、あらかじめ non root 化や、Kubernetes 環境用にカスタマイズされた nginx.conf ファイルと、イメージビルド用の Dockerfile をダウンロードして変更点を観察してみます。
 
@@ -72,21 +75,39 @@ OpenShift で起動できるように、あらかじめ non root 化や、Kubern
 git clone https://github.com/yuhkih/nginx-for-openshift.git 
 ```
 
-ここでは標準の nginx のアプリをセキュアに作りなおすと同時に、Kubernetes 環境にそったカスタマイズをしてみます。
+### 2.2 変更点の観察
 
-**Rule1:** ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な"有るべし")
+変更点は以下の通りです。
 
-**Rule2:** non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定がある場合いは、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）
+{{< hint info >}}
+**ルール [1]:**  
+non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定は、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）
+{{< /hint >}}
 
-**Rule3:** non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない
+{{< hint info >}}
+**ルール [2]:**   
+ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な"有るべし")
+Kubernetes 環境には、ユーザーが意図的に PV を作成してそこにログを吐くようにしない限り、基本的にエフェメラルなストレージしか存在し無いためです。
+{{< /hint >}}
 
-**Rule4:** non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない
+
+{{< hint info >}}
+**ルール [3]:**  
+non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない
+{{< /hint >}}
+
+{{< hint info >}}
+**ルール [4]:**  
+non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない
+{{< /hint >}}
+
 
 このルールに従っていれば、大半の Kubernetes 環境にコンテナをデプロイする事が可能です。
 
-nginx の設定ファイルである `nginx.conf` を以下のように書き替えます。[1]～[4]
+nginx の設定ファイルである `nginx.conf` を以下のように書き替えています。[1]～[4]
 
-```nginx.conf
+**nginx.conf**
+```nginx.conf             
 # For more information on configuration, see:
 #   * Official English Documentation: http://nginx.org/en/docs/
 #   * Official Russian Documentation: http://nginx.org/ru/docs/
@@ -153,14 +174,18 @@ http {
 $
 ```
 
-index.html
+**index.html**   
+
+簡素化するために、HTML タグは書いてませんが、メッセージを出すだけのファイルです。
 
 ```tpl index.html
 Hello OpenShift World !
 ```
 
 
-Dockerfile
+**Dockerfile**   
+
+普通の Dockerfile です。OpenShift の場合は、もしここに `USER` が指定してあって無視されます。
 
 ```tpl Dockerfile
 FROM redhat/ubi8
@@ -203,4 +228,4 @@ $
 ```
 {{< /expand >}}
 
-
+{{< button relref="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" >}}内部 Image Resgistry にコンテナをアップする{{< /button >}}
