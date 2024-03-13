@@ -16,6 +16,8 @@ HCP ROSA は、ユーザーが既にもっているネットワークにデプ�
 
 サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
 
+1. Repository からサンプルの terraform をダウンロードし初期化します。
+
 ```tpl
 git clone https://github.com/openshift-cs/terraform-vpc-example
 ```
@@ -28,18 +30,22 @@ cd terraform-vpc-example
 terraform init
 ```
 
-変数を準備しておきます。
+2. 変数を準備しておきます。
+
+CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
 
 ```tpl
 export CLUSTER_NAME=myhcpcluster
 ```
+
+ここでは`ap-northeast-1` にクラスターを作成します。
 ```tpl
 export REGION=ap-northeast-1
 ```
 
-Terraform の plan を作成します。
+3. Terraform の plan を作成します。
 
-Single AZ の Network 構成をデプロイするか、Multi AZ の Network をデプロイするか、どちらかを選びます。
+Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。
 
 
 {{< tabs "deply network type" >}}
@@ -63,19 +69,21 @@ terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_N
 {{< /tabs >}}
 
 
-Plan を apply して Network を作成します。
+4. Plan を apply して Network を作成します。
 
 ```tpl
 terraform apply rosa.tfplan
 ```
 
-作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで6つのサブネットIDが変数にセットされます。
+5. 作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで6つのサブネットIDが変数にセットされます。
 
 ```tpl
 export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
 ```
 
-### 1.3. 作成された Subnet と NAT Gateway の確認 (オプショナル)
+以上で Network の準備は完了です。
+
+### 1.2. 作成された Subnet と NAT Gateway の確認 (オプショナル)
 
 
 ROSA の構築で一番のはまりポイントは、AWS Network の構成です。この手順では terraform で Network を構成するので、嵌まる事はまずありませんが、手動で AWS GUI から作成した場合などはきちんと構成できてない事がありデバッグ用に CLI を覚えて置くと便利です。
