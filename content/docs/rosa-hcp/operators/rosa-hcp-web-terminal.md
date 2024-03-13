@@ -3,7 +3,7 @@ title: 1. Web Terminal Operator
 weight: 1
 ---
 
-## Web Terminal Operator
+## Web Terminal Operator のインストール
 
 Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。
 ユーザーのローカル端末に `oc` コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。

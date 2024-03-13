@@ -55,6 +55,8 @@ Single AZ の Network 構成をデプロイするか、Multi AZ の Network を�
 ```tpl
 terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
 ```
+
+
 {{< /tab >}}
 
 

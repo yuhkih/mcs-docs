@@ -3,7 +3,7 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="1. 標準の Nginx アプリがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
+<meta name="description" content="1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
 oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
 oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
 oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。
@@ -11,7 +11,7 @@ oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr 
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="2. 標準の Nginx コンテナをセキュアにする" />
-<meta property="og:description" content="1. 標準の Nginx アプリがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
+<meta property="og:description" content="1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
 oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
 oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
 oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。
@@ -27,7 +27,7 @@ oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr 
 <link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.57d0b1c36b0554d7563b88a5da5dfd9a61e4107489b70ba37ee4a65da51a8430.js" integrity="sha256-V9Cxw2sFVNdWO4il2l39mmHkEHSJtwujfuSmXaUahDA=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.d918626c582badcdbd7d2618e280cf9b6a8b00c4da87cc126959544fb6f3aa5e.js" integrity="sha256-2RhibFgrrc29fSYY4oDPm2qLAMTah8wSaVlUT7bzql4=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -194,7 +194,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/operators/rosa-hcp-install-devspace/" class="">2. Dev Spaces Operator</a>
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
   
 
         </li>
@@ -228,7 +228,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">1. rosa CLI</a>
   
 
         </li>
@@ -241,7 +241,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">2. 内部 Image Registry を使用する</a>
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
   
 
         </li>
@@ -294,6 +294,240 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">3. 内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -309,6 +543,18 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
 
 
 
@@ -351,8 +597,13 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-標準の-nginx-アプリがデプロイできない事を確認する">1. 標準の Nginx アプリがデプロイできない事を確認する</a></li>
-    <li><a href="#2-nginx-をセキュアに作り直す">2. Nginx をセキュアに作り直す</a></li>
+    <li><a href="#1-標準の-nginx-コンテナがデプロイできない事を確認する">1. 標準の Nginx コンテナがデプロイできない事を確認する</a></li>
+    <li><a href="#2-nginx-コンテナをセキュアに作り直す">2. Nginx コンテナをセキュアに作り直す</a>
+      <ul>
+        <li><a href="#21-kubernetes--openshift-用にカスタマイズされた-nginxconf-ファイルのダウンロード">2.1 Kubernetes / OpenShift 用にカスタマイズされた nginx.conf ファイルのダウンロード</a></li>
+        <li><a href="#22-変更点の観察">2.2 変更点の観察</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -365,16 +616,16 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h2 id="1-標準の-nginx-アプリがデプロイできない事を確認する">
-  1. 標準の Nginx アプリがデプロイできない事を確認する
-  <a class="anchor" href="#1-%e6%a8%99%e6%ba%96%e3%81%ae-nginx-%e3%82%a2%e3%83%97%e3%83%aa%e3%81%8c%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%a7%e3%81%8d%e3%81%aa%e3%81%84%e4%ba%8b%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
+  <article class="markdown book-article"><h2 id="1-標準の-nginx-コンテナがデプロイできない事を確認する">
+  1. 標準の Nginx コンテナがデプロイできない事を確認する
+  <a class="anchor" href="#1-%e6%a8%99%e6%ba%96%e3%81%ae-nginx-%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%81%8c%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%a7%e3%81%8d%e3%81%aa%e3%81%84%e4%ba%8b%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
 </h2>
 <p>以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project standard-nginx
 </span></span></code></pre></div><p>docker hub にある、nginx の<a href="https://hub.docker.com/_/nginx">公式イメージ</a>を Deployment を使用して Deploy します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> oc create deployment standard-nginx --image nginx
 </span></span></code></pre></div><p>pod が <code>CrashLooBackOff</code> になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get pods
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>oc get pods
 </span></span></code></pre></div>
 <div class="book-expand">
   <label>
@@ -404,19 +655,19 @@ https://github.com/alex-shpak/hugo-book
     </div>
     <input type="checkbox" class="hidden" />
     <div class="book-expand-content markdown-inner">
-      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc logs standard-nginx-768459d6bc-wldlr
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ oc logs standard-nginx-768459d6bc-wldlr
 </span></span><span style="display:flex;"><span>/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
-</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Looking <span style="color:#66d9ef">for</span> shell scripts in /docker-entrypoint.d/
 </span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
-</span></span><span style="display:flex;"><span>10-listen-on-ipv6-by-default.sh: info: can not modify /etc/nginx/conf.d/default.conf (read-only file system?)
+</span></span><span style="display:flex;"><span>10-listen-on-ipv6-by-default.sh: info: can not modify /etc/nginx/conf.d/default.conf <span style="color:#f92672">(</span>read-only file system?<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
 </span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
 </span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
-</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Configuration complete; ready for start up
-</span></span><span style="display:flex;"><span>2023/12/07 04:23:32 [warn] 1#1: the &#34;user&#34; directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
-</span></span><span style="display:flex;"><span>nginx: [warn] the &#34;user&#34; directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
-</span></span><span style="display:flex;"><span>2023/12/07 04:23:32 [emerg] 1#1: mkdir() &#34;/var/cache/nginx/client_temp&#34; failed (13: Permission denied)
-</span></span><span style="display:flex;"><span>nginx: [emerg] mkdir() &#34;/var/cache/nginx/client_temp&#34; failed (13: Permission denied)
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Configuration complete; ready <span style="color:#66d9ef">for</span> start up
+</span></span><span style="display:flex;"><span>2023/12/07 04:23:32 <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> 1#1: the <span style="color:#e6db74">&#34;user&#34;</span> directive makes sense only <span style="color:#66d9ef">if</span> the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+</span></span><span style="display:flex;"><span>nginx: <span style="color:#f92672">[</span>warn<span style="color:#f92672">]</span> the <span style="color:#e6db74">&#34;user&#34;</span> directive makes sense only <span style="color:#66d9ef">if</span> the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+</span></span><span style="display:flex;"><span>2023/12/07 04:23:32 <span style="color:#f92672">[</span>emerg<span style="color:#f92672">]</span> 1#1: mkdir<span style="color:#f92672">()</span> <span style="color:#e6db74">&#34;/var/cache/nginx/client_temp&#34;</span> failed <span style="color:#f92672">(</span>13: Permission denied<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>nginx: <span style="color:#f92672">[</span>emerg<span style="color:#f92672">]</span> mkdir<span style="color:#f92672">()</span> <span style="color:#e6db74">&#34;/var/cache/nginx/client_temp&#34;</span> failed <span style="color:#f92672">(</span>13: Permission denied<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>$ 
 </span></span></code></pre></div>
     </div>
@@ -426,20 +677,47 @@ https://github.com/alex-shpak/hugo-book
 <p>幾つか権限のエラーのようなものが出ている事を確認できるはずです。
 これは OpenShift がデフォルトで、一般的には不必要な強い権限をもったアプリケーションの実行を防ぐ設定になっているため発生します。</p>
 <p>コンテナ環境は、仮想マシンと違い、一つのホストのカーネルを共有している環境であるため、その上で稼働するアプリの権限も適切に管理する必要があります。</p>
-<h2 id="2-nginx-をセキュアに作り直す">
-  2. Nginx をセキュアに作り直す
-  <a class="anchor" href="#2-nginx-%e3%82%92%e3%82%bb%e3%82%ad%e3%83%a5%e3%82%a2%e3%81%ab%e4%bd%9c%e3%82%8a%e7%9b%b4%e3%81%99">#</a>
+<h2 id="2-nginx-コンテナをセキュアに作り直す">
+  2. Nginx コンテナをセキュアに作り直す
+  <a class="anchor" href="#2-nginx-%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%82%92%e3%82%bb%e3%82%ad%e3%83%a5%e3%82%a2%e3%81%ab%e4%bd%9c%e3%82%8a%e7%9b%b4%e3%81%99">#</a>
 </h2>
-<p>DevSpace にログインします。</p>
+<p>ここではコンテナをビルドするために、podman コマンドが使用できる環境が必要です。
+podman が含まれた開発環境は、<a href="/docs/rosa-hcp/operators/rosa-hcp-devspaces/">Dev Spaces Operator</a>を導入する事で、作成する事も可能です。</p>
+<h3 id="21-kubernetes--openshift-用にカスタマイズされた-nginxconf-ファイルのダウンロード">
+  2.1 Kubernetes / OpenShift 用にカスタマイズされた nginx.conf ファイルのダウンロード
+  <a class="anchor" href="#21-kubernetes--openshift-%e7%94%a8%e3%81%ab%e3%82%ab%e3%82%b9%e3%82%bf%e3%83%9e%e3%82%a4%e3%82%ba%e3%81%95%e3%82%8c%e3%81%9f-nginxconf-%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e3%83%80%e3%82%a6%e3%83%b3%e3%83%ad%e3%83%bc%e3%83%89">#</a>
+</h3>
 <p>OpenShift で起動できるように、あらかじめ non root 化や、Kubernetes 環境用にカスタマイズされた nginx.conf ファイルと、イメージビルド用の Dockerfile をダウンロードして変更点を観察してみます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>git clone https://github.com/yuhkih/nginx-for-openshift.git 
-</span></span></code></pre></div><p>ここでは標準の nginx のアプリをセキュアに作りなおすと同時に、Kubernetes 環境にそったカスタマイズをしてみます。</p>
-<p><strong>Rule1:</strong> ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な&quot;有るべし&quot;)</p>
-<p><strong>Rule2:</strong> non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定がある場合いは、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）</p>
-<p><strong>Rule3:</strong> non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない</p>
-<p><strong>Rule4:</strong> non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない</p>
+</span></span></code></pre></div><h3 id="22-変更点の観察">
+  2.2 変更点の観察
+  <a class="anchor" href="#22-%e5%a4%89%e6%9b%b4%e7%82%b9%e3%81%ae%e8%a6%b3%e5%af%9f">#</a>
+</h3>
+<p>変更点は以下の通りです。</p>
+<blockquote class="book-hint info">
+  <strong>ルール [1]:</strong><br>
+non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定は、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）
+</blockquote>
+
+<blockquote class="book-hint info">
+  <strong>ルール [2]:</strong><br>
+ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な&quot;有るべし&quot;)
+Kubernetes 環境には、ユーザーが意図的に PV を作成してそこにログを吐くようにしない限り、基本的にエフェメラルなストレージしか存在し無いためです。
+</blockquote>
+
+<blockquote class="book-hint info">
+  <strong>ルール [3]:</strong><br>
+non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない
+</blockquote>
+
+<blockquote class="book-hint info">
+  <strong>ルール [4]:</strong><br>
+non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない
+</blockquote>
+
 <p>このルールに従っていれば、大半の Kubernetes 環境にコンテナをデプロイする事が可能です。</p>
-<p>nginx の設定ファイルである <code>nginx.conf</code> を以下のように書き替えます。[1]～[4]</p>
+<p>nginx の設定ファイルである <code>nginx.conf</code> を以下のように書き替えています。[1]～[4]</p>
+<p><strong>nginx.conf</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx.conf" data-lang="nginx.conf"><span style="display:flex;"><span><span style="color:#75715e"># For more information on configuration, see:
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#   * Official English Documentation: http://nginx.org/en/docs/
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e">#   * Official Russian Documentation: http://nginx.org/ru/docs/
@@ -504,9 +782,11 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">$</span>
-</span></span></code></pre></div><p>index.html</p>
+</span></span></code></pre></div><p><strong>index.html</strong></p>
+<p>簡素化するために、HTML タグは書いてませんが、メッセージを出すだけのファイルです。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>Hello OpenShift World !
-</span></span></code></pre></div><p>Dockerfile</p>
+</span></span></code></pre></div><p><strong>Dockerfile</strong></p>
+<p>普通の Dockerfile です。OpenShift の場合は、もしここに <code>USER</code> が指定してあって無視されます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>FROM redhat/ubi8
 </span></span><span style="display:flex;"><span>RUN yum install -y nginx
 </span></span><span style="display:flex;"><span>COPY index.html /usr/share/nginx/html/index.html
@@ -544,6 +824,16 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
+<p>
+
+
+
+  
+
+<a  href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/"   class="book-btn">
+  内部 Image Resgistry にコンテナをアップする
+</a>
+ に続きます。</p>
 </article>
  
       
@@ -585,8 +875,13 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-標準の-nginx-アプリがデプロイできない事を確認する">1. 標準の Nginx アプリがデプロイできない事を確認する</a></li>
-    <li><a href="#2-nginx-をセキュアに作り直す">2. Nginx をセキュアに作り直す</a></li>
+    <li><a href="#1-標準の-nginx-コンテナがデプロイできない事を確認する">1. 標準の Nginx コンテナがデプロイできない事を確認する</a></li>
+    <li><a href="#2-nginx-コンテナをセキュアに作り直す">2. Nginx コンテナをセキュアに作り直す</a>
+      <ul>
+        <li><a href="#21-kubernetes--openshift-用にカスタマイズされた-nginxconf-ファイルのダウンロード">2.1 Kubernetes / OpenShift 用にカスタマイズされた nginx.conf ファイルのダウンロード</a></li>
+        <li><a href="#22-変更点の観察">2.2 変更点の観察</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
 

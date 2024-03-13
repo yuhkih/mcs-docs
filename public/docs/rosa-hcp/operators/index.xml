@@ -12,14 +12,14 @@
       <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</guid>
-      <description> Web Terminal Operator # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
+      <description> Web Terminal Operator のインストール # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
     </item>
     <item>
       <title>2. Dev Spaces Operator</title>
-      <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-install-devspace/</link>
+      <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-install-devspace/</guid>
-      <description> Dev Spaces Operator # Dev Spaces Operator は、Web コンソールを使って開発者が使用できる開発環境を提供します。&#xA;Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 Install が完了したら、Operator のページに移動して Red Hat OpenShift Dev Spaces instance Specification というタブに移動します。 Che cluster を作成します。 デプロイが完了すると、Networking =&amp;gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 初回はアクセス許可を求められるので、許可します。 以下のような画面が見えるはずです。 Terminal =&amp;gt; New Terminal を選択します。 メニューから Terminal が作成できる事を確認します。 </description>
+      <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</guid>
+      <description> Dev Spaces Operator のインストール # Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。&#xA;Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 Install が完了したら、Operator のページに移動して Red Hat OpenShift Dev Spaces instance Specification というタブに移動します。 Che cluster を作成します。 デプロイが完了すると、Networking =&amp;gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 初回はアクセス許可を求められるので、許可します。 以下のような画面が見えるはずです。 Terminal =&amp;gt; New Terminal を選択します。 メニューから Terminal が作成できる事を確認します。 </description>
     </item>
   </channel>
 </rss>

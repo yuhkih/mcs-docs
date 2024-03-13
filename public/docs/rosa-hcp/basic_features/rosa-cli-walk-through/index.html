@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。
+rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。
+rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="1. rosa CLI" />
+<meta property="og:description" content="1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。
+rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。
+rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" /><meta property="article:section" content="docs" />
+
+
+
+<title>1. rosa CLI | MCS Documents</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/">
+<link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.d918626c582badcdbd7d2618e280cf9b6a8b00c4da87cc126959544fb6f3aa5e.js" integrity="sha256-2RhibFgrrc29fSYY4oDPm2qLAMTah8wSaVlUT7bzql4=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">5.[補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle" checked />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="active">1. rosa CLI</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle"  />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">3. 内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>1. rosa CLI</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-作成されたクラスターのリスト">1. 作成されたクラスターのリスト</a></li>
+    <li><a href="#2-machinepool-のリスト">2. machinepool のリスト</a></li>
+    <li><a href="#3-ingress-のリスト">3. ingress のリスト</a></li>
+    <li><a href="#4-rosa-が使用可能なリージョンの表示">4. ROSA が使用可能なリージョンの表示</a></li>
+    <li><a href="#5-インスタンスタイプの表示">5. インスタンスタイプの表示</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-作成されたクラスターのリスト">
+  1. 作成されたクラスターのリスト
+  <a class="anchor" href="#1-%e4%bd%9c%e6%88%90%e3%81%95%e3%82%8c%e3%81%9f%e3%82%af%e3%83%a9%e3%82%b9%e3%82%bf%e3%83%bc%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88">#</a>
+</h2>
+<p>アカウントに紐付いている ROSA クラスターの一覧を表示します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa list clusters
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list clusters
+</span></span><span style="display:flex;"><span>ID                                NAME            STATE  TOPOLOGY
+</span></span><span style="display:flex;"><span>27vfb6mckkl9ndle98vvcgchc2nlc54m  my-hpc-cluster  ready  Hosted CP
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h2 id="2-machinepool-のリスト">
+  2. machinepool のリスト
+  <a class="anchor" href="#2-machinepool-%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88">#</a>
+</h2>
+<p>machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。
+同じサイズのインスタンスで構成されています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa list machinepools -c $CLUSTER_NAME
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list machinepools -c $CLUSTER_NAME
+</span></span><span style="display:flex;"><span>ID         AUTOSCALING  REPLICAS  INSTANCE TYPE  LABELS    TAINTS    AVAILABILITY ZONE  SUBNET                    VERSION  AUTOREPAIR  
+</span></span><span style="display:flex;"><span>workers-0  No           1/1       m5.xlarge                          us-east-2c         subnet-00e5abea4e74f6852  4.14.4   Yes         
+</span></span><span style="display:flex;"><span>workers-1  No           1/1       m5.xlarge                          us-east-2b         subnet-047bd69e1ae06c742  4.14.4   Yes         
+</span></span><span style="display:flex;"><span>workers-2  No           1/1       m5.xlarge                          us-east-2a         subnet-0c52bfe790deb6429  4.14.4   Yes         
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h2 id="3-ingress-のリスト">
+  3. ingress のリスト
+  <a class="anchor" href="#3-ingress-%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88">#</a>
+</h2>
+<p>ROSA クラスター内に作成されいてる ingress を表示します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa list ingress -c $CLUSTER_NAME
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list ingress -c $CLUSTER_NAME
+</span></span><span style="display:flex;"><span>ID    APPLICATION ROUTER                                          PRIVATE  DEFAULT  ROUTE SELECTORS  LB-TYPE  EXCLUDED NAMESPACE  WILDCARD POLICY  NAMESPACE OWNERSHIP  HOSTNAME  TLS SECRET REF
+</span></span><span style="display:flex;"><span>c7n0  https://apps.rosa.my-hpc-cluster.pd80.p3.openshiftapps.com  no       yes                       nlb                                                                          
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h2 id="4-rosa-が使用可能なリージョンの表示">
+  4. ROSA が使用可能なリージョンの表示
+  <a class="anchor" href="#4-rosa-%e3%81%8c%e4%bd%bf%e7%94%a8%e5%8f%af%e8%83%bd%e3%81%aa%e3%83%aa%e3%83%bc%e3%82%b8%e3%83%a7%e3%83%b3%e3%81%ae%e8%a1%a8%e7%a4%ba">#</a>
+</h2>
+<p>ROSA がサポートされている AWS リージョンを表示します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa list regions 
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list regions
+</span></span><span style="display:flex;"><span>ID                NAME                        MULTI-AZ SUPPORT    HOSTED-CP SUPPORT
+</span></span><span style="display:flex;"><span>ap-northeast-1    Asia Pacific, Tokyo         true                false
+</span></span><span style="display:flex;"><span>ap-northeast-2    Asia Pacific, Seoul         true                false
+</span></span><span style="display:flex;"><span>ap-northeast-3    Asia Pacific (Osaka)        true                false
+</span></span><span style="display:flex;"><span>ap-south-1        Asia Pacific, Mumbai        true                false
+</span></span><span style="display:flex;"><span>ap-southeast-1    Asia Pacific, Singapore     true                false
+</span></span><span style="display:flex;"><span>ap-southeast-2    Asia Pacific, Sydney        true                false
+</span></span><span style="display:flex;"><span>ca-central-1      Canada, Central             true                false
+</span></span><span style="display:flex;"><span>eu-central-1      EU, Frankfurt               true                true
+</span></span><span style="display:flex;"><span>eu-north-1        EU, Stockholm               true                false
+</span></span><span style="display:flex;"><span>eu-west-1         EU, Ireland                 true                true
+</span></span><span style="display:flex;"><span>eu-west-2         EU, London                  true                false
+</span></span><span style="display:flex;"><span>eu-west-3         EU, Paris                   true                false
+</span></span><span style="display:flex;"><span>sa-east-1         South America, São Paulo    true                false
+</span></span><span style="display:flex;"><span>us-east-1         US East, N. Virginia        true                true
+</span></span><span style="display:flex;"><span>us-east-2         US East, Ohio               true                true
+</span></span><span style="display:flex;"><span>us-west-1         US West, N. California      false               false
+</span></span><span style="display:flex;"><span>us-west-2         US West, Oregon             true                true
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h2 id="5-インスタンスタイプの表示">
+  5. インスタンスタイプの表示
+  <a class="anchor" href="#5-%e3%82%a4%e3%83%b3%e3%82%b9%e3%82%bf%e3%83%b3%e3%82%b9%e3%82%bf%e3%82%a4%e3%83%97%e3%81%ae%e8%a1%a8%e7%a4%ba">#</a>
+</h2>
+<p>ROSA がサポートしている AWS の EC2インスタンスタイプを表示します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> rosa list instance-types
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list instance-types
+</span></span><span style="display:flex;"><span>ID                 CATEGORY               CPU_CORES  MEMORY  
+</span></span><span style="display:flex;"><span>dl1.24xlarge       accelerated_computing  96         768.0 GiB
+</span></span><span style="display:flex;"><span>g4dn.12xlarge      accelerated_computing  48         192.0 GiB
+</span></span><span style="display:flex;"><span>g4dn.16xlarge      accelerated_computing  64         256.0 GiB
+</span></span><span style="display:flex;"><span>g4dn.2xlarge       accelerated_computing  8          32.0 GiB
+</span></span><span style="display:flex;"><span>g4dn.4xlarge       accelerated_computing  16         64.0 GiB
+</span></span><span style="display:flex;"><span>g4dn.8xlarge       accelerated_computing  32         128.0 GiB
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;省略&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>m5d.4xlarge        storage_optimized      16         64.0 GiB
+</span></span><span style="display:flex;"><span>m5d.8xlarge        storage_optimized      32         128.0 GiB
+</span></span><span style="display:flex;"><span>m5d.xlarge         storage_optimized      4          16.0 GiB
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-作成されたクラスターのリスト">1. 作成されたクラスターのリスト</a></li>
+    <li><a href="#2-machinepool-のリスト">2. machinepool のリスト</a></li>
+    <li><a href="#3-ingress-のリスト">3. ingress のリスト</a></li>
+    <li><a href="#4-rosa-が使用可能なリージョンの表示">4. ROSA が使用可能なリージョンの表示</a></li>
+    <li><a href="#5-インスタンスタイプの表示">5. インスタンスタイプの表示</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
