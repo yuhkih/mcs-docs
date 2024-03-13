@@ -330,11 +330,11 @@ $
 (準備ができるまで 401 Unauthorized が出ます) 
 
 ```tpl
-oc login $API_SERVER --username cluster-admin --password <password>
+oc login <API_SERVER> --username cluster-admin --password <PASSWORD>
 ```
 
 {{< expand "コマンド実行例" >}}
-```
+```bash
 $  oc login https://api.my-hpc-cluster.rc4b.p3.openshiftapps.com:443 --username cluster-admin --password abc123-XYZZH-1dNpZ-DBVjg
 Login successful.
 
