@@ -16,13 +16,16 @@ Red Hat Account を作成します。メールアドレス等が必要になり�
 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。
 [https://console.aws.amazon.com/rosa/home#/get-started](https://console.aws.amazon.com/rosa/home#/get-started)
 
-[Enable ROSA with HCP] のボタンをクリックします。
+`ROSA HCP を有効にする` のボタンをクリックします。
+
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/0c4152d4-c51a-40c2-9440-bc89cfaaf03e)
 
 有効化されるまで、暫く待ちます。数分かかるはずです。
+
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/7eee2757-c526-4e28-8666-d5f4b4fce290)
 
 有効化が完了すると以下のような表示になります。
+
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/29a2de09-8041-46a1-9852-34b2bd52709c)
 
 ### 2.2. Service Quota の確認

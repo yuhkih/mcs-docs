@@ -75,7 +75,14 @@ terraform apply rosa.tfplan
 export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
 ```
 
-### 1.3. 作成された Subnet と NAT Gateway の確認
+### 1.3. 作成された Subnet と NAT Gateway の確認 (オプショナル)
+
+
+ROSA の構築で一番のはまりポイントは、AWS Network の構成です。この手順では terraform で Network を構成するので、嵌まる事はまずありませんが、手動で AWS GUI から作成した場合などはきちんと構成できてない事がありデバッグ用に CLI を覚えて置くと便利です。
+
+ここでは CLI を使って作成した Network の情報を確認する方法をご紹介します。
+
+{{< expand "AWS CLI 実行例" >}}
 
 terraform で apply した時のログにも出ていますが、ここでは AWS CLI の練習も兼ねて、AWS CLI を使用して作成された VPC と Subnet 等を確認します。
 
@@ -93,6 +100,7 @@ NAT Gateway をリストします。
 ```tpl
 aws ec2 describe-nat-gateways | jq -r '.NatGateways[] | [.NatGatewayId, .State] | @csv'
 ```
+{{< /expand >}}
 
 ## 2.ROSA HCP Cluster の 作成
 
@@ -121,19 +129,19 @@ echo $REGION
 echo $SUBNET_IDS
 ```
 
-Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトで大丈夫です。
+Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
 
 ```tpl
 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
 ```
 
-Cluster の作成を開始した後に Operator Role を作成します。
+Cluster の作成を開始した後に Operator Role を作成します。これを行わないと Cluster の作成が進行しないのでご注意下さい。
 
 ```tpl
 rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
 ```
 
-OIDC Provider を作成します。
+OIDC Provider を作成します。これを行わないと Cluster の作成が進行しないのでご注意下さい。
 
 ```tpl
 rosa create oidc-provider --cluster  $CLUSTER_NAME -m auto --yes

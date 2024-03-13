@@ -1,5 +1,5 @@
 ---
-title: 5.[補則] Network 構成のテスト
+title: 5.[補則] Network 疎通の確認
 weight: 1
 ---
 
@@ -9,6 +9,8 @@ HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラス
 ここでは、Network の疎通確認ツールである、`rosa verify network` を使用してみます。
   
 `rosa verify network` を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。
+
+コマンドを実行する前にいくつか準備が必要なので、順を追ってやっていきます。
 
 ## 1. AWS network の SubnetId を確認する
 

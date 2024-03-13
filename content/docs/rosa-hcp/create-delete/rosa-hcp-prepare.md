@@ -13,7 +13,8 @@ weight: 1
 
 `AWS Access Key ID` や `AWS Secret Access Key` は、AWS Console から取得できます。[こちら](https://docs.aws.amazon.com/ja_jp/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey) を参考にしてください。
 
-`aws configure` と入力すると、必要な値を聞いてくるので入力します。また、仕様する AWS Region も聞いて来ますが、ここでは `ap-northeast-1` と入力します。
+`aws configure` と入力すると、必要な値を聞いてくるので入力します。
+また Cluster をインストールする AWS Region も聞いて来ますが、ここでは `ap-northeast-1` と入力します。
 
 
 ```tpl
@@ -68,7 +69,7 @@ $
 
 [こちらのページ](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)を参照に terraform コマンドをインストールします。
 
-以下のコマンドでインストールが確認できます。
+以下のコマンドでバージョンを確認して、インストールを確認します。
 ```tpl
 terraform -v
 ```
@@ -93,11 +94,23 @@ $
 
 ```tpl
 curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/rosa/latest/rosa-linux.tar.gz
+```
+```tpl
 tar -zxf rosa-linux.tar.gz 
+```
+```tpl
 sudo mv ./rosa /usr/local/bin/
+```
+```tpl
 rosa download oc
+```
+```tpl
 tar -xzf openshift-client-linux.tar.gz 
+```
+```tpl
 sudo mv ./oc /usr/local/bin
+```
+```tpl
 sudo mv ./kubectl /usr/local/bin
 ```
 
