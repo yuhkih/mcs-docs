@@ -65,7 +65,7 @@ $
 ## 2. Nginx コンテナをセキュアに作り直す
 
 ここではコンテナをビルドするために、podman コマンドが使用できる環境が必要です。
-podman 環境は、Dev Spaces Operator を導入する事で、作成する事も可能です。
+podman が含まれた開発環境は、[Dev Spaces Operator](/docs/rosa-hcp/operators/rosa-hcp-install-devspace/) を導入する事で、作成する事も可能です。
 
 ### 2.1 Kubernetes / OpenShift 用にカスタマイズされた nginx.conf ファイルのダウンロード
 
