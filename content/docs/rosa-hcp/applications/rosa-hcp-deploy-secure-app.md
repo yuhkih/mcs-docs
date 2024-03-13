@@ -228,4 +228,4 @@ $
 ```
 {{< /expand >}}
 
-{{< button relref="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" >}}内部 Image Resgistry にコンテナをアップする{{< /button >}}
+{{< button relref="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" >}}内部 Image Resgistry にコンテナをアップする{{< /button >}} に続きます。
