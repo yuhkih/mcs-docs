@@ -13,7 +13,7 @@ Red Hat Account を作成します。メールアドレス等が必要になり�
 ## 2. ROSA の有効化と前提条件の確認
 
 ### 2.1. ROSA HCP の有効化
-以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。
+以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。  
 [https://console.aws.amazon.com/rosa/home#/get-started](https://console.aws.amazon.com/rosa/home#/get-started)
 
 `ROSA HCP を有効にする` のボタンをクリックします。
@@ -54,6 +54,8 @@ Red Hat の ポータルサイトにログインします。(Red Hat Customer Po
 
 日本語を選んで「Connect accounts] をクリックします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/2148e419-4753-421b-a572-bcefc2660df3)
+
+セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。
 
 以上で前提条件の確認は完了です。
 
