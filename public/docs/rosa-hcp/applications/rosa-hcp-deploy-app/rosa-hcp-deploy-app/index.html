@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、メッセージを返すシンプルなコンテナです。
+hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します
+oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。
+oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。
+oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)
+oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。
+OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="1. Hello world コンテナのデプロイ" />
+<meta property="og:description" content="1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、メッセージを返すシンプルなコンテナです。
+hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します
+oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。
+oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。
+oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)
+oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。
+OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/" /><meta property="article:section" content="docs" />
+
+
+
+<title>1. Hello world コンテナのデプロイ | MCS Documents</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.95cfcd9ddf205280ae92dcd74610ddcd08dc59f624a40b68bd4d0bfffe1e9e9b.js" integrity="sha256-lc/Nnd8gUoCuktzXRhDdzQjcWfYkpAtovU0L//4enps=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">5.[補則] Network 構成のテスト</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-install-devspace/" class="">2. Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">2. 内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/readem/" class="">Readem</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle" checked />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/" class="active">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>1. Hello world コンテナのデプロイ</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-簡単なサンプルコンテナをデプロイしてみる">1. 簡単なサンプルコンテナをデプロイしてみる</a></li>
+    <li><a href="#2-作成したアプリのレプリカ数を増やしてみる">2. 作成したアプリのレプリカ数を増やしてみる</a></li>
+    <li><a href="#3-デプロイしたアプリケーションを削除する">3. デプロイしたアプリケーションを削除する</a></li>
+    <li><a href="#4-oc-new-app-を使用して簡単なサンプルコンテナをデプロイしてみる">4. oc new-app を使用して簡単なサンプルコンテナをデプロイしてみる</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-簡単なサンプルコンテナをデプロイしてみる">
+  1. 簡単なサンプルコンテナをデプロイしてみる
+  <a class="anchor" href="#1-%e7%b0%a1%e5%8d%98%e3%81%aa%e3%82%b5%e3%83%b3%e3%83%97%e3%83%ab%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%82%92%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8b">#</a>
+</h2>
+<p>hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、メッセージを返すシンプルなコンテナです。</p>
+<p><code>hello-openshift</code> という <code>project</code> (OpenShift で使われる <code>namespace</code> の拡張概念) を作成します</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project hello-openshift
+</span></span></code></pre></div><p><code>hello-openshift</code> イメージを使った <code>deployment</code> を作成します。名前はコンテナ名と同じ　<code>hello-openshift</code> にします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift
+</span></span></code></pre></div><p><code>deployment</code> が作成されたか確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get deployment
+</span></span></code></pre></div><p><code>service</code> を作成します。 <code>hello-openshift</code> コンテナが使用している <code>8080</code> を公開します。<code>service</code> は <code>deployment</code> を <code>expose</code> する事で作成可能です。
+(コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc expose deployment hello-openshift --port=8080
+</span></span></code></pre></div><p>補則：<code>oc create service clusterip hello-openshift --tcp=8080:8080</code> でも上の操作と同じ事が可能です。</p>
+<p>OpenShift での <code>ingress</code> と同等の概念である <code>route</code> を作成します。HTTP アプリケーションの場合、<code>route</code> は、<code>service</code> を <code>expose</code> する事で作成可能です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc expose service hello-openshift
+</span></span></code></pre></div><p><code>route</code> が作成されたか確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get route
+</span></span></code></pre></div><p>以下のような出力になるはずです。環境によって URL は違います。<code>route</code> の名前は、公開した <code>service</code> と同じ名前になっているはずです。これは、HTTP(Port 80) から <code>Service</code> の <code>8080</code> にマッピングされている事を意味しています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc get route
+</span></span><span style="display:flex;"><span>NAME              HOST/PORT                                                                  PATH   SERVICES          PORT        TERMINATION   WILDCARD
+</span></span><span style="display:flex;"><span>hello-openshift   hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com          hello-openshift   8080                      None
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div><p>作成された <code>route</code> にアクセスしてみます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ curl hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
+</span></span><span style="display:flex;"><span>Hello OpenShift!
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div><h2 id="2-作成したアプリのレプリカ数を増やしてみる">
+  2. 作成したアプリのレプリカ数を増やしてみる
+  <a class="anchor" href="#2-%e4%bd%9c%e6%88%90%e3%81%97%e3%81%9f%e3%82%a2%e3%83%97%e3%83%aa%e3%81%ae%e3%83%ac%e3%83%97%e3%83%aa%e3%82%ab%e6%95%b0%e3%82%92%e5%a2%97%e3%82%84%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8b">#</a>
+</h2>
+<p>可用性を保つために <code>Pod</code> の replica 数を3つに増やしてみます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc scale deployment hello-openshift --replicas=3
+</span></span></code></pre></div><p>Pod が ３つになっている事を以下のコマンドで確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get pods
+</span></span></code></pre></div><p>３つに増やしても引き続きアプリケーションにアクセスできることを curl コマンドで確認します。(アクセス先 URL は <code>oc get route</code> で表示される URL です)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>curl hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
+</span></span></code></pre></div><h2 id="3-デプロイしたアプリケーションを削除する">
+  3. デプロイしたアプリケーションを削除する
+  <a class="anchor" href="#3-%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%97%e3%81%9f%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%82%92%e5%89%8a%e9%99%a4%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>作成した <code>deployment</code>、<code>service</code>、<code>route</code> は、<code>project</code> を削除することで全て消す事ができます。
+以下のコマンドで実験で使用したアプリケーションを削除します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc delete project hello-openshift
+</span></span></code></pre></div><h2 id="4-oc-new-app-を使用して簡単なサンプルコンテナをデプロイしてみる">
+  4. oc new-app を使用して簡単なサンプルコンテナをデプロイしてみる
+  <a class="anchor" href="#4-oc-new-app-%e3%82%92%e4%bd%bf%e7%94%a8%e3%81%97%e3%81%a6%e7%b0%a1%e5%8d%98%e3%81%aa%e3%82%b5%e3%83%b3%e3%83%97%e3%83%ab%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%82%92%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8b">#</a>
+</h2>
+<p>前回は kubernetes の <code>kubectl</code> コマンドと共通の <code>oc</code> コマンドを使用してコンテナをデプロイしましたが、今度は同じ事を OpenShift の独自コマンドを使用して行ってみます。</p>
+<p>新しい <code>project</code> を作成します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project hello-openshift2
+</span></span></code></pre></div><p>以下のコマンドで <code>hello-openshift</code> コンテナを使った <code>deployment</code> と <code>service</code> を一気に作成します。この <code>oc new-app</code> は OpenShift の独自コマンドです。
+container のイメージが公開している port の情報を持っている場合は、<code>service</code> まで作成してくれます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-app hello-openshift --image quay.io/openshift/origin-hello-openshift
+</span></span></code></pre></div><p><code>route</code> を作成します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc expose service hello-oppenshift
+</span></span></code></pre></div><p>作成された <code>route</code> を確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get route
+</span></span></code></pre></div><p><code>curl</code> コマンドでアクセスして確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ curl hello-openshift-hello-openshift.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
+</span></span><span style="display:flex;"><span>Hello OpenShift!
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div><p>ちょっとだけですが、OpenShift の独自コマンドを使うことで手数を減らす事ができるようになっています。</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-簡単なサンプルコンテナをデプロイしてみる">1. 簡単なサンプルコンテナをデプロイしてみる</a></li>
+    <li><a href="#2-作成したアプリのレプリカ数を増やしてみる">2. 作成したアプリのレプリカ数を増やしてみる</a></li>
+    <li><a href="#3-デプロイしたアプリケーションを削除する">3. デプロイしたアプリケーションを削除する</a></li>
+    <li><a href="#4-oc-new-app-を使用して簡単なサンプルコンテナをデプロイしてみる">4. oc new-app を使用して簡単なサンプルコンテナをデプロイしてみる</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

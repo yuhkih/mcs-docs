@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ROSA Cluster の作成と削除 on MCS Documents</title>
+    <link>http://localhost:1313/docs/cluster/create-delete/rosa-hcp-create/</link>
+    <description>Recent content in ROSA Cluster の作成と削除 on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/cluster/create-delete/rosa-hcp-create/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>3. ROSA HCP Cluster の作成</title>
+      <link>http://localhost:1313/docs/cluster/create-delete/rosa-hcp-create/rosa-hcp-create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/create-delete/rosa-hcp-create/rosa-hcp-create/</guid>
+      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。&#xA;export CLUSTER_NAME=myhcpcluster export REGION=ap-northeast-1 Terraform の plan を作成します。&#xA;Single AZ の Network 構成をデプロイするか、Multi AZ の Network をデプロイするか、どちらかを選びます。</description>
+    </item>
+  </channel>
+</rss>

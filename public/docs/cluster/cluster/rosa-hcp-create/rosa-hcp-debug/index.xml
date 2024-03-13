@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Network の Debug on MCS Documents</title>
+    <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-debug/</link>
+    <description>Recent content in Network の Debug on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-debug/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>5. Network の Debug</title>
+      <link>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-debug/rosa-hcp-debug/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/cluster/cluster/rosa-hcp-create/rosa-hcp-debug/rosa-hcp-debug/</guid>
+      <description>HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。 そのため、一番多いトラブルが、AWS Network に関するものです。&#xA;ここでは、Network の疎通確認ツールである、rosa verify network を使用してみます。&#xA;rosa verify network を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。&#xA;1. AWS network の SubnetId を確認する # AWS の Subnet id を取得します。&#xA;aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; コマンド実行例 ↕ $ aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; &amp;#34;10.</description>
+    </item>
+  </channel>
+</rss>

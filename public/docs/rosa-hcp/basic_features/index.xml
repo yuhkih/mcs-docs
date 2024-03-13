@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ROSA 基本機能 on MCS Documents</title>
+    <link>http://localhost:1313/docs/rosa-hcp/basic_features/</link>
+    <description>Recent content in ROSA 基本機能 on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/docs/rosa-hcp/basic_features/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. rosa CLI</title>
+      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/</guid>
+      <description>1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。&#xA;rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。&#xA;rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5.</description>
+    </item>
+    <item>
+      <title>2. 内部 Image Registry を使用する</title>
+      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/</guid>
+      <description>1. 内部 Image Registry の公開 # Image Registry をインターネットに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` Image Registry にログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、ある image を確認します。&#xA;nginx $ podman images REPOSITORY TAG IMAGE ID CREATED SIZE localhost/new-nginx latest d623ca329bc4 19 minutes ago 303 MB nginx $ 作成したローカルイメージにタグを付けます。</description>
+    </item>
+  </channel>
+</rss>

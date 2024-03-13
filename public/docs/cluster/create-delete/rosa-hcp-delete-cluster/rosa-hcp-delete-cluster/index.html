@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1.変数を確認する # クラスター名が変数にセットされているか確認します。
+echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。
+rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。
+rosa delete operator-roles --prefix &lt;IAM Role prefix&gt; rosa delete oidc-provider --oidc-config-id &lt;OIDC provider config ID&gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &#39;my-hpc-cluster&#39; will start uninstalling now I: Your cluster &#39;my-hpc-cluster&#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="4. ROSA HCP Cluster の削除" />
+<meta property="og:description" content="1.変数を確認する # クラスター名が変数にセットされているか確認します。
+echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。
+rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。
+rosa delete operator-roles --prefix &lt;IAM Role prefix&gt; rosa delete oidc-provider --oidc-config-id &lt;OIDC provider config ID&gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &#39;my-hpc-cluster&#39; will start uninstalling now I: Your cluster &#39;my-hpc-cluster&#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/cluster/create-delete/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/" /><meta property="article:section" content="docs" />
+
+
+
+<title>4. ROSA HCP Cluster の削除 | MCS Documents</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/cluster/create-delete/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/">
+<link rel="stylesheet" href="/book.min.33a48f5432973b8ff9a82679d9e45d67f2c15d4399bd2829269455cfe390b5e8.css" integrity="sha256-M6SPVDKXO4/5qCZ52eRdZ/LBXUOZvSgpJpRVz&#43;OQteg=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.b28e65f16ce81416d1b30e09008483ea9582c66336e1edc2740bdee7f4586813.js" integrity="sha256-so5l8WzoFBbRsw4JAISD6pWCxmM24e3CdAve5/RYaBM=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-977861e4dc1d0957816381306c38c63c" class="toggle" checked />
+    <label for="section-977861e4dc1d0957816381306c38c63c" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/create-delete/rosa-hcp-enable/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/create-delete/rosa-hcp-prepare/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/create-delete/rosa-hcp-create/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/create-delete/rosa-hcp-delete-cluster/rosa-hcp-delete-cluster/" class="active">4. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-01f076c9fdc8302b5b9413790b44d9ef" class="toggle"  />
+    <label for="section-01f076c9fdc8302b5b9413790b44d9ef" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/create-delete/rosa-hcp-create/rosa-hcp-debug/rosa-hcp-debug/" class="">5. Network の Debug</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-c2c074888b1cf9da6270e93e69d07a82" class="toggle"  />
+    <label for="section-c2c074888b1cf9da6270e93e69d07a82" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/operators/rosa-hcp-install-devspaces/rosa-hcp-install-devspace/" class="">Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/operators/rosa-hcp-web-terminal/rosa-hcp-web-terminal/" class="">Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-5a5865f6dcf3c32ddb3d70693b6631c0" class="toggle"  />
+    <label for="section-5a5865f6dcf3c32ddb3d70693b6631c0" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">2. 内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/" class="">アプリケーション</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-hcp-deploy-app/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/applications/rosa-hcp-deploy-secure-app/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/table-of-contents/" class="">Table of Contents</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/table-of-contents/with-toc/" class="">With ToC</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/table-of-contents/without-toc/" class="">Without ToC</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-300f6794affa2344787d881775fc6b06" class="toggle"  />
+    <label for="section-300f6794affa2344787d881775fc6b06" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/cluster/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>4. ROSA HCP Cluster の削除</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1変数を確認する">1.変数を確認する</a></li>
+    <li><a href="#2rosa-クラスターの削除">2.ROSA クラスターの削除</a></li>
+    <li><a href="#3iam-role-と-oidc-provider-の削除">3.IAM Role と OIDC Provider の削除</a></li>
+    <li><a href="#4terraform-で作成した-aws-のネットワークを削除する">4.Terraform で作成した AWS のネットワークを削除する</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1変数を確認する">
+  1.変数を確認する
+  <a class="anchor" href="#1%e5%a4%89%e6%95%b0%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>クラスター名が変数にセットされているか確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $CLUSTER_NAME
+</span></span></code></pre></div><h2 id="2rosa-クラスターの削除">
+  2.ROSA クラスターの削除
+  <a class="anchor" href="#2rosa-%e3%82%af%e3%83%a9%e3%82%b9%e3%82%bf%e3%83%bc%e3%81%ae%e5%89%8a%e9%99%a4">#</a>
+</h2>
+<p>以下のコマンドでクラスターを削除します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> rosa delete cluster -c $CLUSTER_NAME
+</span></span></code></pre></div><p>ログの最後の出てくる以下の部分はメモしておきます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>        rosa delete operator-roles --prefix &lt;IAM Role prefix&gt;
+</span></span><span style="display:flex;"><span>        rosa delete oidc-provider --oidc-config-id &lt;OIDC provider config ID&gt;
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa delete cluster -c $CLUSTER_NAME
+</span></span><span style="display:flex;"><span>? Are you sure you want to delete cluster my-hpc-cluster? Yes
+</span></span><span style="display:flex;"><span>I: Cluster &#39;my-hpc-cluster&#39; will start uninstalling now
+</span></span><span style="display:flex;"><span>I: Your cluster &#39;my-hpc-cluster&#39; will be deleted but the following objects may remain
+</span></span><span style="display:flex;"><span>I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl
+</span></span><span style="display:flex;"><span> - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>I: OIDC Provider : https://rh-oidc.s3.us-east-1.amazonaws.com/267bh4stja59r9gc896alcbdfls2h6jp
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>I: Once the cluster is uninstalled use the following commands to remove the above aws resources.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        rosa delete operator-roles --prefix my-hpc-cluster-n8m7
+</span></span><span style="display:flex;"><span>        rosa delete oidc-provider --oidc-config-id 267bh4stja59r9gc896alcbdfls2h6jp
+</span></span><span style="display:flex;"><span>I: To watch your cluster uninstallation logs, run &#39;rosa logs uninstall -c my-hpc-cluster --watch&#39;
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>クラスタの削除過程は、以下のコマンドで確認できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa logs uninstall -c $CLUSTER_NAME --watch
+</span></span></code></pre></div><h2 id="3iam-role-と-oidc-provider-の削除">
+  3.IAM Role と OIDC Provider の削除
+  <a class="anchor" href="#3iam-role-%e3%81%a8-oidc-provider-%e3%81%ae%e5%89%8a%e9%99%a4">#</a>
+</h2>
+<p>クラスターの削除が完了したら、Operator 用の IAM Role と OIDC Provider を削除します。</p>
+<p>Operator 用 IAM Role を削除します。これは、<code>rosa delete cluster</code> コマンドを実行した時にログの最後に出てきたコマンドです。
+この時、最後に <code>-m auto --yes</code> を付け足すと非インタラクティブに削除してくれます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa delete operator-roles --prefix &lt;IAM Role prefix&gt; -m auto --yes
+</span></span></code></pre></div><p>OIDC Provider を削除します。これは、<code>rosa delete cluster</code> コマンドを実行した時にログの最後に出てきたコマンドです。
+この時、最後に <code>-m auto --yes</code> を付け足すと非インタラクティブに削除してくれます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa delete oidc-provider --oidc-config-id &lt;OIDC provider config ID&gt; -m auto --yes
+</span></span></code></pre></div><h2 id="4terraform-で作成した-aws-のネットワークを削除する">
+  4.Terraform で作成した AWS のネットワークを削除する
+  <a class="anchor" href="#4terraform-%e3%81%a7%e4%bd%9c%e6%88%90%e3%81%97%e3%81%9f-aws-%e3%81%ae%e3%83%8d%e3%83%83%e3%83%88%e3%83%af%e3%83%bc%e3%82%af%e3%82%92%e5%89%8a%e9%99%a4%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>Red Hat で提供している terraform のサンプルを使用して Network を作成した場合は、git clone したディレクトリに移動して、以下のコマンドで削除します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform destroy
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1変数を確認する">1.変数を確認する</a></li>
+    <li><a href="#2rosa-クラスターの削除">2.ROSA クラスターの削除</a></li>
+    <li><a href="#3iam-role-と-oidc-provider-の削除">3.IAM Role と OIDC Provider の削除</a></li>
+    <li><a href="#4terraform-で作成した-aws-のネットワークを削除する">4.Terraform で作成した AWS のネットワークを削除する</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

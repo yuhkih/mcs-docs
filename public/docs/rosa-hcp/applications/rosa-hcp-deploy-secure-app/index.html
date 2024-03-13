@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. 標準の Nginx アプリがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
+oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
+oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
+oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。
+oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="2. 標準の Nginx コンテナをセキュアにする" />
+<meta property="og:description" content="1. 標準の Nginx アプリがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
+oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
+oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
+oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。
+oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" /><meta property="article:section" content="docs" />
+
+
+
+<title>2. 標準の Nginx コンテナをセキュアにする | MCS Documents</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/">
+<link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
+  <script defer src="/flexsearch.min.js"></script>
+  <script defer src="/en.search.min.57d0b1c36b0554d7563b88a5da5dfd9a61e4107489b70ba37ee4a65da51a8430.js" integrity="sha256-V9Cxw2sFVNdWO4il2l39mmHkEHSJtwujfuSmXaUahDA=" crossorigin="anonymous"></script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">3. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">5.[補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-install-devspace/" class="">2. Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-internal-registry/rosa-hcp-internal-registry/" class="">2. 内部 Image Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle" checked />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="active">2. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>2. 標準の Nginx コンテナをセキュアにする</strong>
+
+  <label for="toc-control">
+    
+    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-標準の-nginx-アプリがデプロイできない事を確認する">1. 標準の Nginx アプリがデプロイできない事を確認する</a></li>
+    <li><a href="#2-nginx-をセキュアに作り直す">2. Nginx をセキュアに作り直す</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-標準の-nginx-アプリがデプロイできない事を確認する">
+  1. 標準の Nginx アプリがデプロイできない事を確認する
+  <a class="anchor" href="#1-%e6%a8%99%e6%ba%96%e3%81%ae-nginx-%e3%82%a2%e3%83%97%e3%83%aa%e3%81%8c%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%a7%e3%81%8d%e3%81%aa%e3%81%84%e4%ba%8b%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project standard-nginx
+</span></span></code></pre></div><p>docker hub にある、nginx の<a href="https://hub.docker.com/_/nginx">公式イメージ</a>を Deployment を使用して Deploy します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> oc create deployment standard-nginx --image nginx
+</span></span></code></pre></div><p>pod が <code>CrashLooBackOff</code> になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get pods
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc get pods
+</span></span><span style="display:flex;"><span>NAME                              READY   STATUS             RESTARTS      AGE
+</span></span><span style="display:flex;"><span>standard-nginx-768459d6bc-wldlr   0/1     CrashLoopBackOff   2 (30s ago)   53s
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>Pod のログを確認してみます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc logs &lt;Pod 名&gt;
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc logs standard-nginx-768459d6bc-wldlr
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+</span></span><span style="display:flex;"><span>10-listen-on-ipv6-by-default.sh: info: can not modify /etc/nginx/conf.d/default.conf (read-only file system?)
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+</span></span><span style="display:flex;"><span>/docker-entrypoint.sh: Configuration complete; ready for start up
+</span></span><span style="display:flex;"><span>2023/12/07 04:23:32 [warn] 1#1: the &#34;user&#34; directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+</span></span><span style="display:flex;"><span>nginx: [warn] the &#34;user&#34; directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:2
+</span></span><span style="display:flex;"><span>2023/12/07 04:23:32 [emerg] 1#1: mkdir() &#34;/var/cache/nginx/client_temp&#34; failed (13: Permission denied)
+</span></span><span style="display:flex;"><span>nginx: [emerg] mkdir() &#34;/var/cache/nginx/client_temp&#34; failed (13: Permission denied)
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>幾つか権限のエラーのようなものが出ている事を確認できるはずです。
+これは OpenShift がデフォルトで、一般的には不必要な強い権限をもったアプリケーションの実行を防ぐ設定になっているため発生します。</p>
+<p>コンテナ環境は、仮想マシンと違い、一つのホストのカーネルを共有している環境であるため、その上で稼働するアプリの権限も適切に管理する必要があります。</p>
+<h2 id="2-nginx-をセキュアに作り直す">
+  2. Nginx をセキュアに作り直す
+  <a class="anchor" href="#2-nginx-%e3%82%92%e3%82%bb%e3%82%ad%e3%83%a5%e3%82%a2%e3%81%ab%e4%bd%9c%e3%82%8a%e7%9b%b4%e3%81%99">#</a>
+</h2>
+<p>DevSpace にログインします。</p>
+<p>OpenShift で起動できるように、あらかじめ non root 化や、Kubernetes 環境用にカスタマイズされた nginx.conf ファイルと、イメージビルド用の Dockerfile をダウンロードして変更点を観察してみます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>git clone https://github.com/yuhkih/nginx-for-openshift.git 
+</span></span></code></pre></div><p>ここでは標準の nginx のアプリをセキュアに作りなおすと同時に、Kubernetes 環境にそったカスタマイズをしてみます。</p>
+<p><strong>Rule1:</strong> ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な&quot;有るべし&quot;)</p>
+<p><strong>Rule2:</strong> non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定がある場合いは、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）</p>
+<p><strong>Rule3:</strong> non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない</p>
+<p><strong>Rule4:</strong> non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない</p>
+<p>このルールに従っていれば、大半の Kubernetes 環境にコンテナをデプロイする事が可能です。</p>
+<p>nginx の設定ファイルである <code>nginx.conf</code> を以下のように書き替えます。[1]～[4]</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-nginx.conf" data-lang="nginx.conf"><span style="display:flex;"><span><span style="color:#75715e"># For more information on configuration, see:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#   * Official English Documentation: http://nginx.org/en/docs/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#   * Official Russian Documentation: http://nginx.org/ru/docs/
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># user nginx;  # [1] 特定の User 名を使用しないようにコメントアウトします
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">worker_processes</span> <span style="color:#e6db74">auto</span>;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># error_log /var/log/nginx/error.log;  # [2] エラーログは標準エラーに出力するように書き直します。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">error_log</span> <span style="color:#e6db74">/dev/stderr</span> ;
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># pid /run/nginx.pid;　 # [3] Proccess ID の保存は /run を使わずに /tmp に変更します。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">pid</span> <span style="color:#e6db74">/tmp/nginx.pid</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load dynamic modules. See /usr/share/doc/nginx/README.dynamic.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">include</span> /usr/share/nginx/modules/*.conf;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">events</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">worker_connections</span> <span style="color:#ae81ff">1024</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">http</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">log_format</span>  <span style="color:#e6db74">main</span>  <span style="color:#e6db74">&#39;</span>$remote_addr <span style="color:#e6db74">-</span> $remote_user <span style="color:#e6db74">[</span>$time_local] <span style="color:#e6db74">&#34;</span>$request&#34; <span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#39;</span>$status $body_bytes_sent <span style="color:#e6db74">&#34;</span>$http_referer&#34; <span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>                      <span style="color:#e6db74">&#39;&#34;</span>$http_user_agent&#34; <span style="color:#e6db74">&#34;</span>$http_x_forwarded_for&#34;&#39;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># access_log  /var/log/nginx/access.log  main;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">access_log</span>  <span style="color:#e6db74">/dev/stdout</span> <span style="color:#e6db74">main</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">sendfile</span>            <span style="color:#66d9ef">on</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tcp_nopush</span>          <span style="color:#66d9ef">on</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">tcp_nodelay</span>         <span style="color:#66d9ef">on</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">keepalive_timeout</span>   <span style="color:#ae81ff">65</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">types_hash_max_size</span> <span style="color:#ae81ff">2048</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">include</span>             <span style="color:#e6db74">/etc/nginx/mime.types</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">default_type</span>        <span style="color:#e6db74">application/octet-stream</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Load modular configuration files from the /etc/nginx/conf.d directory.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e"># See http://nginx.org/en/docs/ngx_core_module.html#include
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e"># for more information.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">include</span> <span style="color:#e6db74">/etc/nginx/conf.d/*.conf</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">server</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># listen       80 default_server;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e"># listen       [::]:80 default_server;   # [4] 1024以下の Well-known ポートは使用しない。ここでは8080に変更します。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">listen</span> 0.0.0.0:<span style="color:#ae81ff">8080</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">server_name</span>  <span style="color:#e6db74">_</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">root</span>         <span style="color:#e6db74">/usr/share/nginx/html</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Load configuration files for the default server block.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">include</span> <span style="color:#e6db74">/etc/nginx/default.d/*.conf</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">error_page</span> <span style="color:#ae81ff">404</span> <span style="color:#e6db74">/404.html</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">location</span> = <span style="color:#e6db74">/40x.html</span> {
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">error_page</span> <span style="color:#ae81ff">500</span> <span style="color:#ae81ff">502</span> <span style="color:#ae81ff">503</span> <span style="color:#ae81ff">504</span> <span style="color:#e6db74">/50x.html</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">location</span> = <span style="color:#e6db74">/50x.html</span> {
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">$</span>
+</span></span></code></pre></div><p>index.html</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>Hello OpenShift World !
+</span></span></code></pre></div><p>Dockerfile</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>FROM redhat/ubi8
+</span></span><span style="display:flex;"><span>RUN yum install -y nginx
+</span></span><span style="display:flex;"><span>COPY index.html /usr/share/nginx/html/index.html
+</span></span><span style="display:flex;"><span>COPY nginx.conf /etc/nginx/nginx.conf
+</span></span><span style="display:flex;"><span>EXPOSE 8080
+</span></span><span style="display:flex;"><span>CMD [&#34;-g&#34;,&#34;daemon off;&#34;]
+</span></span><span style="display:flex;"><span>ENTRYPOINT [&#34;nginx&#34;]
+</span></span></code></pre></div><blockquote class="book-hint info">
+  <p>このサンプルでは必要ありませんが、root group (GID=0) に所属するユーザーが OpenShift によって自動的に割り当てられるので、アプリの実行に必要なディレクトリに対して Dockefile 内で以下をおこなっておくのがベストプラクティスとされています。</p>
+<pre tabindex="0"><code>RUN chgrp -R 0 /some/directory &amp;&amp; \
+   chmod -R g=u /some/directory
+</code></pre><p>こうする事で、<code>/some/directory</code> に、root group(GID=0) のユーザーにアプリの実行に十分な権限を与える事ができます。なお root group というのは、名前とは裏腹にただの一般グループで特別な権限を持つグループではありません。</p>
+
+</blockquote>
+
+<p>これらのファイルを使用して Image をビルドします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>podman build . -t new-nginx
+</span></span></code></pre></div><p>ビルドした Image を確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>podman images
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ podman images
+</span></span><span style="display:flex;"><span>REPOSITORY                                                     TAG         IMAGE ID      CREATED         SIZE
+</span></span><span style="display:flex;"><span>localhost/new-nginx                                           latest      3c732cd2eabb  21 seconds ago  303 MB
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-標準の-nginx-アプリがデプロイできない事を確認する">1. 標準の Nginx アプリがデプロイできない事を確認する</a></li>
+    <li><a href="#2-nginx-をセキュアに作り直す">2. Nginx をセキュアに作り直す</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
