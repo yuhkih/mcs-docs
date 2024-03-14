@@ -21,6 +21,12 @@ oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"
 export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}'`
 ```
 
+変数に値がセットされているか確認します。
+
+```tpl
+echo $IMAGE_SERVER
+```
+
 内部 Image Registry に、[Bearerトークン](https://ja.wikipedia.org/wiki/Bearer%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3) を使ってログインします。
 
 ```tpl

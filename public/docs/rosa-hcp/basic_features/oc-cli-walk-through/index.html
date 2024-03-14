@@ -3,22 +3,24 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content=" Web Terminal Operator のインストール # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。
-「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 ">
+<meta name="description" content=" oc コマンド # oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。
+基本的に上位互換ですので、多くの場合、kubetl get pods のようなコマンドは oc get pods のように置き換える事ができます。
+1. OpenShift console の URL の表示 # oc whoami --show-console コマンド実行例 ↕ $ oc whoami --show-console https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com $ ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="1. Web Terminal Operator" />
-<meta property="og:description" content=" Web Terminal Operator のインストール # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。
-「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 " />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="1. oc コマンド" />
+<meta property="og:description" content=" oc コマンド # oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。
+基本的に上位互換ですので、多くの場合、kubetl get pods のようなコマンドは oc get pods のように置き換える事ができます。
+1. OpenShift console の URL の表示 # oc whoami --show-console コマンド実行例 ↕ $ oc whoami --show-console https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com $ " />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" /><meta property="article:section" content="docs" />
+<meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/" /><meta property="article:section" content="docs" />
 
 
 
-<title>1. Web Terminal Operator | MCS Documents</title>
+<title>1. oc コマンド | MCS Documents</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
-<link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/">
+<link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
   <script defer src="/en.search.min.afb25ef74885f845dea81cf815be51b9ea43638426466d899b61756d29f66bfe.js" integrity="sha256-r7Je90iF&#43;EXeqBz4Fb5RuepDY4QmRm2Jm2F1bSn2a/4=" crossorigin="anonymous"></script>
@@ -159,7 +161,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle" checked />
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
     <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
       <a role="button" class="">ROSA Operators</a>
     </label>
@@ -175,7 +177,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="active">1. Web Terminal Operator</a>
+    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
   
 
         </li>
@@ -206,7 +208,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle" checked />
     <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
       <a role="button" class="">ROSA 基本機能</a>
     </label>
@@ -222,7 +224,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="active">1. oc コマンド</a>
   
 
         </li>
@@ -614,7 +616,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>1. Web Terminal Operator</strong>
+  <strong>1. oc コマンド</strong>
 
   <label for="toc-control">
     
@@ -630,7 +632,7 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#web-terminal-operator-のインストール">Web Terminal Operator のインストール</a></li>
+    <li><a href="#1-openshift-console-の-url-の表示">1. OpenShift console の URL の表示</a></li>
   </ul>
 </nav>
 
@@ -643,42 +645,34 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h2 id="web-terminal-operator-のインストール">
-  Web Terminal Operator のインストール
-  <a class="anchor" href="#web-terminal-operator-%e3%81%ae%e3%82%a4%e3%83%b3%e3%82%b9%e3%83%88%e3%83%bc%e3%83%ab">#</a>
+  <article class="markdown book-article"><h1 id="oc-コマンド">
+  oc コマンド
+  <a class="anchor" href="#oc-%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89">#</a>
+</h1>
+<p>oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。</p>
+<p>基本的に上位互換ですので、多くの場合、<code>kubetl get pods</code> のようなコマンドは <code>oc get pods</code> のように置き換える事ができます。</p>
+<h2 id="1-openshift-console-の-url-の表示">
+  1. OpenShift console の URL の表示
+  <a class="anchor" href="#1-openshift-console-%e3%81%ae-url-%e3%81%ae%e8%a1%a8%e7%a4%ba">#</a>
 </h2>
-<p>Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。
-ユーザーのローカル端末に <code>oc</code> コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。</p>
-<ol>
-<li>
-<p>「Operator Hub」から「Web Terminal」オペレーターを探します。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/76568a96-f00d-401e-87df-553984031485" alt="image" /></p>
-</li>
-<li>
-<p>設定はデフォルトのまま「Install」 をクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/10328137-df2f-40d6-b919-f84989948a00" alt="image" /></p>
-</li>
-<li>
-<p>設定はデフォルトのまま 「Install」をクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/8f5908e6-f9db-4e6d-861d-851245e5ba94" alt="image" /></p>
-</li>
-<li>
-<p>以下の画面になれば、インストールは完了です。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/bb05659e-4498-48fe-a1d1-561e056e0e79" alt="image" /></p>
-</li>
-<li>
-<p>ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/c4317b82-1e42-4b28-a876-d24da3ee3ece" alt="image" /></p>
-</li>
-<li>
-<p>コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/5874849e-00a7-4883-b5e8-d53165fdcd7b" alt="image" /></p>
-</li>
-<li>
-<p>既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/23350c1f-04a5-49da-afca-f047150d2ec1" alt="image" /></p>
-</li>
-</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc whoami --show-console
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc whoami --show-console
+</span></span><span style="display:flex;"><span>https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
 </article>
  
       
@@ -720,7 +714,7 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#web-terminal-operator-のインストール">Web Terminal Operator のインストール</a></li>
+    <li><a href="#1-openshift-console-の-url-の表示">1. OpenShift console の URL の表示</a></li>
   </ul>
 </nav>
 

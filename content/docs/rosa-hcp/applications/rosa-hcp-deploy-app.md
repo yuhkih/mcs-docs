@@ -117,7 +117,6 @@ $
 ```
 {{< /expand >}}
 
-
 3. ingress が使用している host 名を変数にセットします。
 ```tpl
 HOST=$(kubectl get ingress/hello-openshift -o jsonpath='{.spec.rules[0].host}')

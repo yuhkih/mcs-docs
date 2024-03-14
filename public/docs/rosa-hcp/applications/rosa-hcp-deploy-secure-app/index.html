@@ -5,17 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
 oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
-oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
+oc create deployment standard-nginx --image nginx oc get pods で、pod の STATUS が CrashLooBackOff になっている事を確認します。
+これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。
 oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。
-oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.">
+oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="3. 標準の Nginx コンテナをセキュアにする" />
 <meta property="og:description" content="1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
 oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
-oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
+oc create deployment standard-nginx --image nginx oc get pods で、pod の STATUS が CrashLooBackOff になっている事を確認します。
+これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。
 oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。
-oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint." />
+oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" /><meta property="article:section" content="docs" />
 
@@ -663,7 +665,8 @@ https://github.com/alex-shpak/hugo-book
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project standard-nginx
 </span></span></code></pre></div><p>docker hub にある、nginx の<a href="https://hub.docker.com/_/nginx">公式イメージ</a>を Deployment を使用して Deploy します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> oc create deployment standard-nginx --image nginx
-</span></span></code></pre></div><p>pod が <code>CrashLooBackOff</code> になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。</p>
+</span></span></code></pre></div><p><code>oc get pods</code> で、pod の <code>STATUS</code> が <code>CrashLooBackOff</code> になっている事を確認します。</p>
+<p>これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>oc get pods
 </span></span></code></pre></div>
 <div class="book-expand">
@@ -737,29 +740,30 @@ podman が含まれた開発環境は
 </h3>
 <p>OpenShift で起動できるように、あらかじめ non root 化や、Kubernetes 環境用にカスタマイズされた nginx.conf ファイルと、イメージビルド用の Dockerfile をダウンロードして変更点を観察してみます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>git clone https://github.com/yuhkih/nginx-for-openshift.git 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd nginx-for-openshift 
 </span></span></code></pre></div><h3 id="22-変更点の観察">
   2.2 変更点の観察
   <a class="anchor" href="#22-%e5%a4%89%e6%9b%b4%e7%82%b9%e3%81%ae%e8%a6%b3%e5%af%9f">#</a>
 </h3>
 <p>変更点は以下の通りです。</p>
 <blockquote class="book-hint info">
-  <strong>ルール [1]:</strong><br>
+  <strong>変更点 [1]:</strong><br>
 non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定は、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）
 </blockquote>
 
 <blockquote class="book-hint info">
-  <strong>ルール [2]:</strong><br>
+  <strong>変更点 [2]:</strong><br>
 ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な&quot;有るべし&quot;)
 Kubernetes 環境には、ユーザーが意図的に PV を作成してそこにログを吐くようにしない限り、基本的にエフェメラルなストレージしか存在し無いためです。
 </blockquote>
 
 <blockquote class="book-hint info">
-  <strong>ルール [3]:</strong><br>
+  <strong>変更点 [3]:</strong><br>
 non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない
 </blockquote>
 
 <blockquote class="book-hint info">
-  <strong>ルール [4]:</strong><br>
+  <strong>変更点 [4]:</strong><br>
 non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない
 </blockquote>
 

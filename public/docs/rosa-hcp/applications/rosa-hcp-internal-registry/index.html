@@ -6,7 +6,8 @@
 <meta name="description" content="この手順は 標準の Ngix コンテナをセキュアにする の続きです。
 1. 内部 Image Registry の公開 # 内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。
 oc patch configs.imageregistry.operator.openshift.io/cluster --patch &#39;{&#34;spec&#34;:{&#34;defaultRoute&#34;:true}}&#39; --type=merge 2. ローカル Image Registry へのログイン # 内部 Image Registry の ドメイン名を取得します。
-export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&#39;{{ .spec.host }}&#39;` 内部 Image Registry に、Bearerトークン を使ってログインします。
+export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&#39;{{ .spec.host }}&#39;` 変数に値がセットされているか確認します。
+echo $IMAGE_SERVER 内部 Image Registry に、Bearerトークン を使ってログインします。
 podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、作業端末上にある image を確認します。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
@@ -14,7 +15,8 @@ podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ロ�
 <meta property="og:description" content="この手順は 標準の Ngix コンテナをセキュアにする の続きです。
 1. 内部 Image Registry の公開 # 内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。
 oc patch configs.imageregistry.operator.openshift.io/cluster --patch &#39;{&#34;spec&#34;:{&#34;defaultRoute&#34;:true}}&#39; --type=merge 2. ローカル Image Registry へのログイン # 内部 Image Registry の ドメイン名を取得します。
-export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&#39;{{ .spec.host }}&#39;` 内部 Image Registry に、Bearerトークン を使ってログインします。
+export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&#39;{{ .spec.host }}&#39;` 変数に値がセットされているか確認します。
+echo $IMAGE_SERVER 内部 Image Registry に、Bearerトークン を使ってログインします。
 podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、作業端末上にある image を確認します。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" /><meta property="article:section" content="docs" />
@@ -674,6 +676,8 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>内部 Image Registry の ドメイン名を取得します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&#39;<span style="color:#75715e">{{</span> <span style="color:#f92672">.</span><span style="color:#a6e22e">spec</span><span style="color:#f92672">.</span><span style="color:#a6e22e">host</span> <span style="color:#75715e">}}</span>&#39;`
+</span></span></code></pre></div><p>変数に値がセットされているか確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $IMAGE_SERVER
 </span></span></code></pre></div><p>内部 Image Registry に、<a href="https://ja.wikipedia.org/wiki/Bearer%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3">Bearerトークン</a> を使ってログインします。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>podman login -u `oc whoami` -p `oc whoami --show-token` $<span style="color:#75715e">{</span><span style="color:#a6e22e">IMAGE_SERVER</span><span style="color:#75715e">}</span>
 </span></span></code></pre></div><h2 id="3-ローカル-image-registry-への-image-の-push">

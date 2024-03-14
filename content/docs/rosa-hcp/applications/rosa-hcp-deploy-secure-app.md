@@ -17,7 +17,9 @@ docker hub にある、nginx の[公式イメージ](https://hub.docker.com/_/ng
  oc create deployment standard-nginx --image nginx
 ```
 
-pod が `CrashLooBackOff` になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
+`oc get pods` で、pod の `STATUS` が `CrashLooBackOff` になっている事を確認します。
+
+これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。
 
 ```bash
 oc get pods
@@ -75,29 +77,32 @@ OpenShift で起動できるように、あらかじめ non root 化や、Kubern
 git clone https://github.com/yuhkih/nginx-for-openshift.git 
 ```
 
+```tpl
+cd nginx-for-openshift 
+```
 ### 2.2 変更点の観察
 
 変更点は以下の通りです。
 
 {{< hint info >}}
-**ルール [1]:**  
+**変更点 [1]:**  
 non-root ユーザーで起動できるように、nginx 等の固有ユーザー名は使用しない (Dockerfile 内の USER 指定は、消す必要まではないが、書いてあっても OpenShiftでは無視される。ランダムな Userが割り当てられる）
 {{< /hint >}}
 
 {{< hint info >}}
-**ルール [2]:**   
+**変更点 [2]:**   
 ログやエラーはローカル・ファイルではなく、標準出力 / 標準入力に吐き出す (これはセキュリティというより Kubenretes 上のコンテナの一般的な"有るべし")
 Kubernetes 環境には、ユーザーが意図的に PV を作成してそこにログを吐くようにしない限り、基本的にエフェメラルなストレージしか存在し無いためです。
 {{< /hint >}}
 
 
 {{< hint info >}}
-**ルール [3]:**  
+**変更点 [3]:**  
 non-root ユーザーで起動できるように、Process ID 等の保存に /run 等の Linux のシステムディレクトリは使用しない
 {{< /hint >}}
 
 {{< hint info >}}
-**ルール [4]:**  
+**変更点 [4]:**  
 non-root ユーザーで起動できるように、well-know port と呼ばれる 1024以下の TCPポートは使用しない
 {{< /hint >}}
 
