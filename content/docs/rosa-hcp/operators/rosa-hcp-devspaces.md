@@ -7,7 +7,8 @@ weight: 1
 Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。
 
 1. `Operator Hub` に移動して、`Red Hat OpenShift Dev Spaces` をクリックします。
-![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/f4c686f9-fe6d-4c73-bd88-1e40048a917b)
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/a783e40d-f392-4f5c-9c3f-4441c80940ad)
+
 
 2. デフォルトのまま `Install` をクリックします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/1cc670c8-ff33-4e6d-94c6-149aef591220)
