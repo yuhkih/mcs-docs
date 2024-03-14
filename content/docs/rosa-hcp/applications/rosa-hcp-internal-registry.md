@@ -1,5 +1,5 @@
 ---
-title: 3. 内部 Image Registry を使用する
+title: 4. 内部 Image Registry を使用する
 weight: 1
 ---
 この手順は{{< button relref="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" >}}標準の Ngix コンテナをセキュアにする{{< /button >}} の続きです。

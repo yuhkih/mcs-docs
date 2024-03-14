@@ -1,5 +1,5 @@
 ---
-title: 2. 標準の Nginx コンテナをセキュアにする
+title: 3. 標準の Nginx コンテナをセキュアにする
 weight: 1
 ---
 
