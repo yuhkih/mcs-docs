@@ -58,5 +58,6 @@ Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作�
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/ee3bf673-23c4-456a-a452-8cf8251cca61)
 
 18. Terminal から `oc get nodes` を実行してクラスターにアクセスできている事を確認します。
-![image](https://github.com/yuhkih/mcs-docs/assets/8530492/b9f3521e-5b60-433e-9473-f8e064e529c5)
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/dc0323c6-b8ec-44e0-8204-e6c150abd144)
+
 
