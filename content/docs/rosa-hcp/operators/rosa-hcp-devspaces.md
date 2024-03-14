@@ -9,15 +9,13 @@ Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作�
 1. `Operator Hub` に移動して、`Red Hat OpenShift Dev Spaces` をクリックします。
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/a783e40d-f392-4f5c-9c3f-4441c80940ad)
 
-
 2. デフォルトのまま `Install` をクリックします。
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/7a23161d-5e19-438a-9d5f-f6f0b57eadbe)
 
-
 3. デフォルトのまま `Install` をクリックします。
-![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/cdb4fbcd-ac54-42ef-bd9b-568e5b089863)
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/295a1fe3-1d14-4fc9-838f-59546123f531)
 
-4. インストールが完了するまで暫く待ちます。(ここから新規キャプチャー)
+4. インストールが完了するまで暫く待ちます。
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/7e3e77ba-f104-4b22-8e6a-14a9f796e0bb)
 
 5. インストールが完了したら、「View Opearator」をクリックして Operator のページに移動します。
@@ -44,7 +42,7 @@ Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作�
 12. 連携している Identity Provider によって表示が違いますが、好きなユーザーでログインして大丈夫です。ここではデフォルトで必ず存在する `cluster-admin` を使ってログインします。
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/8b87dbfc-17b3-471f-a03c-b6aa182804b9)
 
-13. 
+13. ここでは `cluster-admin` とそのパスワードを入力します。
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/b5488bec-1f07-4aa1-a32b-056d2cfc7deb)
 
 14. 初回はアクセス許可を求められるので、許可します。
