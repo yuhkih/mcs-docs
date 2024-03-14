@@ -49,12 +49,12 @@ Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作�
 ![image](https://github.com/yuhkih/mcs-docs/assets/8530492/e2a0249d-8b24-4ddf-b0fd-a9be76d50930)
 
 13. ログインすると、以下のような画面が見えるはずです。
-![image](https://github.com/yuhkih/mcs-docs/assets/8530492/ce5b59ad-654f-4325-9ae1-53473a11d9e8)
+    ここでは `Empty Workspace` をクリックします。
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/a66cb62d-f30b-437c-ba77-d59661c6fe83)
 
+ワークスペースのデプロイが開始されるので、暫く待ちます。
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/0a621c6f-1399-41ba-8585-eeee6946f304)
 
-
-14. `Terminal` => `New Terminal` を選択します。
-![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a3e74b02-d314-4a3b-af7e-4419545d5ac8)
+14. 三点リーダーのメニューから `Terminal` => `New Terminal` を選択します。
 
 15. メニューから Terminal が作成できる事を確認します。
-![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/8009f106-3181-4dc7-84c6-3393b7131511)
