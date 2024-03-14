@@ -15,26 +15,29 @@ Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作�
 3. デフォルトのまま `Install` をクリックします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/cdb4fbcd-ac54-42ef-bd9b-568e5b089863)
 
-4. Install が完了したら、Operator のページに移動して `Red Hat OpenShift Dev Spaces instance Specification` というタブに移動します。
+4. インストールが完了するまで暫く待ちます。
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/7e3e77ba-f104-4b22-8e6a-14a9f796e0bb)
+
+5. Install が完了したら、Operator のページに移動して `Red Hat OpenShift Dev Spaces instance Specification` というタブに移動します。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/9f6fd23b-3c04-4bdf-8688-cdf9d4edd6a7)
 
-5. `Che` cluster を作成します。
+6. `Che` cluster を作成します。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/346f38e1-7305-4435-ac25-80f803e81d63)
 
-6. デプロイが完了すると、`Networking` => `Route` に移動します。外部からアクセスするための `URL` が発行されているので、URL にアクセスします。
+7. デプロイが完了すると、`Networking` => `Route` に移動します。外部からアクセスするための `URL` が発行されているので、URL にアクセスします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/da5b8722-6d70-4caf-989f-d571e4820e6a)
 
-7. `Login with OpenShift` をクリックしてログインします。
+8. `Login with OpenShift` をクリックしてログインします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/11f9ce5d-e358-4e06-a2af-f824e6917f33)
 
-8. 初回はアクセス許可を求められるので、許可します。
+9. 初回はアクセス許可を求められるので、許可します。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/6c3a9002-fd41-47a6-808e-54af76a066bd)
 
-9. 以下のような画面が見えるはずです。
+10. 以下のような画面が見えるはずです。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/cefc2628-73ad-45fa-b851-ab1c809ce9ce)
 
-10. `Terminal` => `New Terminal` を選択します。
+11. `Terminal` => `New Terminal` を選択します。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a3e74b02-d314-4a3b-af7e-4419545d5ac8)
 
-11. メニューから Terminal が作成できる事を確認します。
+12. メニューから Terminal が作成できる事を確認します。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/8009f106-3181-4dc7-84c6-3393b7131511)
