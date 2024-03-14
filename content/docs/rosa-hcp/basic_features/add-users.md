@@ -1,10 +1,13 @@
-## HTPasswd を使用したユーザーの追加
+---
+title: 2. HTPasswd を使用したユーザーの追加
+weight: 1
+---
+
+## 2. HTPasswd を使用したユーザーの追加
 
 本番環境では基本的には、GitHub や LDAP 等の外部の Identity Provider を使用する事が推奨されますが、実験で使用したい。という場合にそこまでの構成を準備するのは大変な事が多いでしょう。
 
 ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使ったユーザーの追加ができるようになっています。
-
-### cloud.redhat.com にログイン1
 
 1. [console.redhat.com](https://console.redhat.com/openshift/) にログインします。
 
