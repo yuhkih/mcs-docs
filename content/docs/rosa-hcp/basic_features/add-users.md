@@ -15,7 +15,7 @@ ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使っ
 ![select-htpasswd](https://github.com/yuhkih/mcs-docs/assets/8530492/1d8446b2-6aa6-4c84-88e7-0f56a31b765f)
 
 4. ユーザーを追加します。ここでは `yuhki` というユーザーを追加しています。
-![add-users-to-htpasswd](https://github.com/yuhkih/mcs-docs/assets/8530492/c3e3a7b2-c327-45d9-831e-ab6c49e0eff6)
+![add-users-to-htpasswd](https://github.com/yuhkih/mcs-docs/assets/8530492/efa71a4d-9971-4321-acbe-6f3fd2e54d4c)
 
 5. ここでは、追加したユーザーを `cluster-admin` グループに追加してみます。
 `Access Control` タブから、`Add User` を行います。
