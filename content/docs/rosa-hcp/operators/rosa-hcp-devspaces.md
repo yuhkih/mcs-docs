@@ -11,7 +11,8 @@ Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作�
 
 
 2. デフォルトのまま `Install` をクリックします。
-![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/1cc670c8-ff33-4e6d-94c6-149aef591220)
+![image](https://github.com/yuhkih/mcs-docs/assets/8530492/7a23161d-5e19-438a-9d5f-f6f0b57eadbe)
+
 
 3. デフォルトのまま `Install` をクリックします。
 ![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/cdb4fbcd-ac54-42ef-bd9b-568e5b089863)
