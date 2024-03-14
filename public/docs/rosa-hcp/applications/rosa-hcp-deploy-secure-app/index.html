@@ -10,7 +10,7 @@ oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-
 oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="2. 標準の Nginx コンテナをセキュアにする" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="3. 標準の Nginx コンテナをセキュアにする" />
 <meta property="og:description" content="1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。
 oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。
 oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。
@@ -21,13 +21,13 @@ oc logs &lt;Pod 名&gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr 
 
 
 
-<title>2. 標準の Nginx コンテナをセキュアにする | MCS Documents</title>
+<title>3. 標準の Nginx コンテナをセキュアにする | MCS Documents</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d918626c582badcdbd7d2618e280cf9b6a8b00c4da87cc126959544fb6f3aa5e.js" integrity="sha256-2RhibFgrrc29fSYY4oDPm2qLAMTah8wSaVlUT7bzql4=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.afb25ef74885f845dea81cf815be51b9ea43638426466d899b61756d29f66bfe.js" integrity="sha256-r7Je90iF&#43;EXeqBz4Fb5RuepDY4QmRm2Jm2F1bSn2a/4=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -228,7 +228,33 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
   
 
         </li>
@@ -288,7 +314,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="active">2. 標準の Nginx コンテナをセキュアにする</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
   
 
         </li>
@@ -301,7 +327,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">3. 内部 Image Registry を使用する</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="active">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 Image Registry を使用する</a>
   
 
         </li>
@@ -581,7 +620,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>2. 標準の Nginx コンテナをセキュアにする</strong>
+  <strong>3. 標準の Nginx コンテナをセキュアにする</strong>
 
   <label for="toc-control">
     
@@ -682,7 +721,16 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#2-nginx-%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%82%92%e3%82%bb%e3%82%ad%e3%83%a5%e3%82%a2%e3%81%ab%e4%bd%9c%e3%82%8a%e7%9b%b4%e3%81%99">#</a>
 </h2>
 <p>ここではコンテナをビルドするために、podman コマンドが使用できる環境が必要です。
-podman が含まれた開発環境は、<a href="/docs/rosa-hcp/operators/rosa-hcp-devspaces/">Dev Spaces Operator</a>を導入する事で、作成する事も可能です。</p>
+podman が含まれた開発環境は
+
+
+
+  
+
+<a  href="/docs/rosa-hcp/operators/rosa-hcp-devspaces/"   class="book-btn">
+  Dev Spaces Operator
+</a>
+  を導入する事で、作成する事も可能です。</p>
 <h3 id="21-kubernetes--openshift-用にカスタマイズされた-nginxconf-ファイルのダウンロード">
   2.1 Kubernetes / OpenShift 用にカスタマイズされた nginx.conf ファイルのダウンロード
   <a class="anchor" href="#21-kubernetes--openshift-%e7%94%a8%e3%81%ab%e3%82%ab%e3%82%b9%e3%82%bf%e3%83%9e%e3%82%a4%e3%82%ba%e3%81%95%e3%82%8c%e3%81%9f-nginxconf-%e3%83%95%e3%82%a1%e3%82%a4%e3%83%ab%e3%81%ae%e3%83%80%e3%82%a6%e3%83%b3%e3%83%ad%e3%83%bc%e3%83%89">#</a>

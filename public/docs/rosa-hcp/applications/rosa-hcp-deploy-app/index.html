@@ -4,16 +4,12 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&ldquo;Hello OpenShift&rdquo; とメッセージを返すシンプルなコンテナです。
-hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。
-oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。) oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。
-OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。 oc expose service hello-openshift route が作成されたか確認します。 oc get route 以下のような出力になるはずです。環境によって URL は違います。route の名前は、公開した service と同じ名前になっているはずです。これは、HTTP(Port 80) から Service の 8080 にマッピングされている事を意味しています。">
+1.1. namespace の作成 # hello-openshift という namespace を作成します。 kubectl create namespace hello-openshift namespace を hello-openshift に変更します。 kubectl config set-context $(kubectl config current-context) --namespace=hello-openshift 1.2. deployment の作成 # hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。 kubectl get deployment 出力例 ↕ $ kubectl get deployment NAME READY UP-TO-DATE AVAILABLE AGE hello-openshift 1/1 1 1 152m $ 1.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="1. Hello world コンテナのデプロイ" />
 <meta property="og:description" content="1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&ldquo;Hello OpenShift&rdquo; とメッセージを返すシンプルなコンテナです。
-hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。
-oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。) oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。
-OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。 oc expose service hello-openshift route が作成されたか確認します。 oc get route 以下のような出力になるはずです。環境によって URL は違います。route の名前は、公開した service と同じ名前になっているはずです。これは、HTTP(Port 80) から Service の 8080 にマッピングされている事を意味しています。" />
+1.1. namespace の作成 # hello-openshift という namespace を作成します。 kubectl create namespace hello-openshift namespace を hello-openshift に変更します。 kubectl config set-context $(kubectl config current-context) --namespace=hello-openshift 1.2. deployment の作成 # hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。 kubectl get deployment 出力例 ↕ $ kubectl get deployment NAME READY UP-TO-DATE AVAILABLE AGE hello-openshift 1/1 1 1 152m $ 1." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" /><meta property="article:section" content="docs" />
 
@@ -25,7 +21,7 @@ OpenShift での ingress と同等の概念である route を作成します。
 <link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d918626c582badcdbd7d2618e280cf9b6a8b00c4da87cc126959544fb6f3aa5e.js" integrity="sha256-2RhibFgrrc29fSYY4oDPm2qLAMTah8wSaVlUT7bzql4=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.afb25ef74885f845dea81cf815be51b9ea43638426466d899b61756d29f66bfe.js" integrity="sha256-r7Je90iF&#43;EXeqBz4Fb5RuepDY4QmRm2Jm2F1bSn2a/4=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -226,7 +222,33 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
   
 
         </li>
@@ -286,7 +308,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
   
 
         </li>
@@ -299,7 +321,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">3. 内部 Image Registry を使用する</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 Image Registry を使用する</a>
   
 
         </li>
@@ -595,10 +630,18 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-簡単なサンプルコンテナをデプロイしてみる">1. 簡単なサンプルコンテナをデプロイしてみる</a></li>
+    <li><a href="#1-簡単なサンプルコンテナをデプロイしてみる">1. 簡単なサンプルコンテナをデプロイしてみる</a>
+      <ul>
+        <li><a href="#11-namespace-の作成">1.1. namespace の作成</a></li>
+        <li><a href="#12-deployment-の作成">1.2. deployment の作成</a></li>
+        <li><a href="#13-serivce-の作成">1.3. serivce の作成</a></li>
+        <li><a href="#14-アプリケーションが使用するドメインの確認">1.4. アプリケーションが使用するドメインの確認</a></li>
+        <li><a href="#15-ingress-の作成-アプリの外部公開">1.5. ingress の作成 (アプリの外部公開)</a></li>
+        <li><a href="#16-curl-でのアクセス確認">1.6. curl でのアクセス確認</a></li>
+      </ul>
+    </li>
     <li><a href="#2-作成したアプリのレプリカ数を増やしてみる">2. 作成したアプリのレプリカ数を増やしてみる</a></li>
     <li><a href="#3-デプロイしたアプリケーションを削除する">3. デプロイしたアプリケーションを削除する</a></li>
-    <li><a href="#4-openshift-独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる">4. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる</a></li>
   </ul>
 </nav>
 
@@ -616,39 +659,159 @@ https://github.com/alex-shpak/hugo-book
   <a class="anchor" href="#1-%e7%b0%a1%e5%8d%98%e3%81%aa%e3%82%b5%e3%83%b3%e3%83%97%e3%83%ab%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%82%92%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8b">#</a>
 </h2>
 <p><code>hello-openshift</code> という Web Server のコンテナをデプロイしてみます。アクセスすると、&ldquo;Hello OpenShift&rdquo; とメッセージを返すシンプルなコンテナです。</p>
+<h3 id="11-namespace-の作成">
+  1.1. namespace の作成
+  <a class="anchor" href="#11-namespace-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h3>
 <ol>
-<li><code>hello-openshift</code> という <code>project</code> (OpenShift で使われる <code>namespace</code> の拡張概念) を作成します</li>
+<li><code>hello-openshift</code> という <code>namespace</code> を作成します。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project hello-openshift
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl create namespace hello-openshift
 </span></span></code></pre></div><ol start="2">
+<li>namespace を <code>hello-openshift</code> に変更します。</li>
+</ol>
+<pre tabindex="0"><code> kubectl config set-context $(kubectl config current-context) --namespace=hello-openshift
+</code></pre><h3 id="12-deployment-の作成">
+  1.2. deployment の作成
+  <a class="anchor" href="#12-deployment-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h3>
+<ol>
 <li><code>hello-openshift</code> イメージを使った <code>deployment</code> を作成します。名前はコンテナ名と同じ　<code>hello-openshift</code> にします。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift
-</span></span></code></pre></div><p><code>deployment</code> が作成されたか確認します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get deployment
-</span></span></code></pre></div><ol start="3">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift
+</span></span></code></pre></div><ol start="2">
+<li><code>deployment</code> が作成されたか確認します。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl get deployment
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ kubectl get deployment
+</span></span><span style="display:flex;"><span>NAME              READY   UP-TO-DATE   AVAILABLE   AGE
+</span></span><span style="display:flex;"><span>hello-openshift   1/1     1            1           152m
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h3 id="13-serivce-の作成">
+  1.3. serivce の作成
+  <a class="anchor" href="#13-serivce-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h3>
+<ol>
 <li><code>service</code> を作成します。 <code>hello-openshift</code> コンテナが使用している <code>8080</code> を公開します。<code>service</code> は <code>deployment</code> を <code>expose</code> する事で作成可能です。
 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。)</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc expose deployment hello-openshift --port=8080
-</span></span></code></pre></div><p>補則：<code>oc create service clusterip hello-openshift --tcp=8080:8080</code> でも上の操作と同じ事が可能です。</p>
-<ol start="4">
-<li>OpenShift での <code>ingress</code> と同等の概念である <code>route</code> を作成します。HTTP アプリケーションの場合、<code>route</code> は、<code>service</code> を <code>expose</code> する事で作成可能です。</li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl expose deployment hello-openshift --port=8080
+</span></span></code></pre></div><ol start="2">
+<li><code>Service</code> が作成されているはずです。以下のコマンドで確認します。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc expose service hello-openshift
-</span></span></code></pre></div><ol start="5">
-<li><code>route</code> が作成されたか確認します。</li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl get svc
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ kubectl get svc
+</span></span><span style="display:flex;"><span>NAME              TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+</span></span><span style="display:flex;"><span>hello-openshift   ClusterIP   172.30.169.213   &lt;none&gt;        8080/TCP   155m
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h3 id="14-アプリケーションが使用するドメインの確認">
+  1.4. アプリケーションが使用するドメインの確認
+  <a class="anchor" href="#14-%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%81%8c%e4%bd%bf%e7%94%a8%e3%81%99%e3%82%8b%e3%83%89%e3%83%a1%e3%82%a4%e3%83%b3%e3%81%ae%e7%a2%ba%e8%aa%8d">#</a>
+</h3>
+<ol>
+<li>Application が、クラスターの外に公開される時に使用されるドメイン名を確認します。
+<code>rosa</code> では、クラスターのアプリケーションが使用できるドメイン名が提供されています。<code>rosa list ingress</code> コマンドで取得できます。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get route
-</span></span></code></pre></div><p>以下のような出力になるはずです。環境によって URL は違います。<code>route</code> の名前は、公開した <code>service</code> と同じ名前になっているはずです。これは、HTTP(Port 80) から <code>Service</code> の <code>8080</code> にマッピングされている事を意味しています。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc get route
-</span></span><span style="display:flex;"><span>NAME              HOST/PORT                                                                  PATH   SERVICES          PORT        TERMINATION   WILDCARD
-</span></span><span style="display:flex;"><span>hello-openshift   hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com          hello-openshift   8080                      None
-</span></span><span style="display:flex;"><span>$
-</span></span></code></pre></div><ol start="6">
-<li>作成された <code>route</code> にアクセスしてみます。</li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa list ingress -c $CLUSTER_NAME
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list ingress -c $CLUSTER_NAME
+</span></span><span style="display:flex;"><span>ID    APPLICATION ROUTER                                        PRIVATE  DEFAULT  ROUTE SELECTORS  LB-TYPE  EXCLUDED NAMESPACE  WILDCARD POLICY  NAMESPACE OWNERSHIP  HOSTNAME  TLS SECRET REF
+</span></span><span style="display:flex;"><span>v4u4  https://apps.rosa.myhcpcluster.erth.p3.openshiftapps.com  no       yes                       nlb                                                                          
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>上記の出力の<code>APPLICATION_ROUTER</code>が、アプリケーションが使用するベースのドメインです。</p>
+<ol start="2">
+<li>このドメイン名を APP_DOMAIN 変数にセットします。コマンドが複雑ですが、dns_name の値を抜いているだけです。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ curl hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>APP_DOMAIN=$(rosa list ingress -c myhcpcluster -o yaml | grep dns_name | awk -F&#39;: &#39; &#39;<span style="color:#75715e">{</span><span style="color:#a6e22e">print</span> <span style="color:#960050;background-color:#1e0010">$</span><span style="color:#ae81ff">2</span><span style="color:#75715e">}</span>&#39; | sed &#34;s/\&#34;//g&#34;)
+</span></span></code></pre></div><ol start="3">
+<li>変数に値がセットされているのか確かめます。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $APP_DOMAIN
+</span></span></code></pre></div><h3 id="15-ingress-の作成-アプリの外部公開">
+  1.5. ingress の作成 (アプリの外部公開)
+  <a class="anchor" href="#15-ingress-%e3%81%ae%e4%bd%9c%e6%88%90-%e3%82%a2%e3%83%97%e3%83%aa%e3%81%ae%e5%a4%96%e9%83%a8%e5%85%ac%e9%96%8b">#</a>
+</h3>
+<ol>
+<li><code>ingress</code> を作成して Service をクラスターの外に公開します。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl create ingress hello-openshift --rule=&#34;hello-openshift.$APP_DOMAIN/*=hello-openshift:8080&#34;
+</span></span></code></pre></div><ol start="2">
+<li><code>ingress</code> が作成されたか確認します。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl get ingress
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ kubectl get ingress
+</span></span><span style="display:flex;"><span>NAME              CLASS    HOSTS                                                              ADDRESS                                                           PORTS   AGE
+</span></span><span style="display:flex;"><span>hello-openshift   &lt;none&gt;   hello-openshift.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com   router-default.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com   80      11m
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<ol start="3">
+<li>ingress が使用している host 名を変数にセットします。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>HOST=$(kubectl get ingress/hello-openshift -o jsonpath=&#39;<span style="color:#75715e">{</span><span style="color:#f92672">.</span><span style="color:#a6e22e">spec</span><span style="color:#f92672">.</span><span style="color:#a6e22e">rules</span><span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">].</span><span style="color:#a6e22e">host</span><span style="color:#75715e">}</span>&#39;)
+</span></span></code></pre></div><p>変数のセットを確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $HOST
+</span></span></code></pre></div><h3 id="16-curl-でのアクセス確認">
+  1.6. curl でのアクセス確認
+  <a class="anchor" href="#16-curl-%e3%81%a7%e3%81%ae%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e7%a2%ba%e8%aa%8d">#</a>
+</h3>
+<ol>
+<li>作成された <code>ingress</code> にアクセスしてみます。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ curl $HOST
 </span></span><span style="display:flex;"><span>Hello OpenShift!
 </span></span><span style="display:flex;"><span>$
 </span></span></code></pre></div><h2 id="2-作成したアプリのレプリカ数を増やしてみる">
@@ -658,52 +821,45 @@ https://github.com/alex-shpak/hugo-book
 <ol>
 <li>可用性を保つために <code>Pod</code> の replica 数を3つに増やしてみます。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc scale deployment hello-openshift --replicas=3
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl scale deployment hello-openshift --replicas=3
 </span></span></code></pre></div><ol start="2">
 <li>Pod が ３つになっている事を以下のコマンドで確認します。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get pods
-</span></span></code></pre></div><ol start="3">
-<li>３つに増やしても引き続きアプリケーションにアクセスできることを curl コマンドで確認します。(アクセス先 URL は <code>oc get route</code> で表示される URL です)</li>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl get pods
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ oc get pods
+</span></span><span style="display:flex;"><span>NAME                               READY   STATUS              RESTARTS   AGE
+</span></span><span style="display:flex;"><span>hello-openshift-6f5d96958d-7j6wv   1/1     Running             0          3s
+</span></span><span style="display:flex;"><span>hello-openshift-6f5d96958d-fwv7j   0/1     ContainerCreating   0          3s
+</span></span><span style="display:flex;"><span>hello-openshift-6f5d96958d-r9w5m   1/1     Running             0          148m
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<ol start="3">
+<li>３つに増やしても引き続きアプリケーションにアクセスできることを curl コマンドで確認します。(アクセス先 URL は <code>kubectl get ingress</code> で表示される URL です)</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>curl hello-openshift-test2.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>curl $HOST
 </span></span></code></pre></div><h2 id="3-デプロイしたアプリケーションを削除する">
   3. デプロイしたアプリケーションを削除する
   <a class="anchor" href="#3-%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%97%e3%81%9f%e3%82%a2%e3%83%97%e3%83%aa%e3%82%b1%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3%e3%82%92%e5%89%8a%e9%99%a4%e3%81%99%e3%82%8b">#</a>
 </h2>
 <ol>
-<li>作成した <code>deployment</code>、<code>service</code>、<code>route</code> は、<code>project</code> を削除することで全て消す事ができます。
+<li>作成した <code>deployment</code>、<code>service</code>、<code>ingress</code> は、<code>namespace</code> を削除することで全て消す事ができます。
 以下のコマンドで実験で使用したアプリケーションを削除します。</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc delete project hello-openshift
-</span></span></code></pre></div><h2 id="4-openshift-独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる">
-  4. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる
-  <a class="anchor" href="#4-openshift-%e7%8b%ac%e8%87%aa%e3%81%ae%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%82%92%e4%bd%bf%e7%94%a8%e3%81%97%e3%81%a6%e7%b0%a1%e5%8d%98%e3%81%aa%e3%82%b5%e3%83%b3%e3%83%97%e3%83%ab%e3%82%b3%e3%83%b3%e3%83%86%e3%83%8a%e3%82%92%e3%83%87%e3%83%97%e3%83%ad%e3%82%a4%e3%81%97%e3%81%a6%e3%81%bf%e3%82%8b">#</a>
-</h2>
-<p>今度は OpenShift の独自コマンドを使用して、一番はじめにデプロイした <code>hello-openshift</code> コンテナをデプロイしてみます。</p>
-<ol>
-<li>新しい <code>project</code> を作成します。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-project hello-openshift2
-</span></span></code></pre></div><ol start="2">
-<li>以下のコマンドで <code>hello-openshift</code> コンテナを使った <code>deployment</code> と <code>service</code> を一気に作成します。この <code>oc new-app</code> は OpenShift の独自コマンドです。
-container のイメージが公開している port の情報を持っている場合は、<code>service</code> まで作成してくれます。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc new-app hello-openshift --image quay.io/openshift/origin-hello-openshift
-</span></span></code></pre></div><ol start="3">
-<li><code>route</code> を作成します。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc expose service hello-oppenshift
-</span></span></code></pre></div><p>作成された <code>route</code> を確認します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get route
-</span></span></code></pre></div><ol start="4">
-<li><code>curl</code> コマンドでアクセスして確認します。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ curl hello-openshift-hello-openshift.apps.rosa.my-hpc-cluster.rc4b.p3.openshiftapps.com
-</span></span><span style="display:flex;"><span>Hello OpenShift!
-</span></span><span style="display:flex;"><span>$
-</span></span></code></pre></div><p>ちょっとだけですが、OpenShift の独自コマンドを使うことで手数を減らす事ができるようになっています。</p>
-</article>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>kubectl delete namespace hello-openshift
+</span></span></code></pre></div></article>
  
       
 
@@ -744,10 +900,18 @@ container のイメージが公開している port の情報を持っている�
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-簡単なサンプルコンテナをデプロイしてみる">1. 簡単なサンプルコンテナをデプロイしてみる</a></li>
+    <li><a href="#1-簡単なサンプルコンテナをデプロイしてみる">1. 簡単なサンプルコンテナをデプロイしてみる</a>
+      <ul>
+        <li><a href="#11-namespace-の作成">1.1. namespace の作成</a></li>
+        <li><a href="#12-deployment-の作成">1.2. deployment の作成</a></li>
+        <li><a href="#13-serivce-の作成">1.3. serivce の作成</a></li>
+        <li><a href="#14-アプリケーションが使用するドメインの確認">1.4. アプリケーションが使用するドメインの確認</a></li>
+        <li><a href="#15-ingress-の作成-アプリの外部公開">1.5. ingress の作成 (アプリの外部公開)</a></li>
+        <li><a href="#16-curl-でのアクセス確認">1.6. curl でのアクセス確認</a></li>
+      </ul>
+    </li>
     <li><a href="#2-作成したアプリのレプリカ数を増やしてみる">2. 作成したアプリのレプリカ数を増やしてみる</a></li>
     <li><a href="#3-デプロイしたアプリケーションを削除する">3. デプロイしたアプリケーションを削除する</a></li>
-    <li><a href="#4-openshift-独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる">4. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる</a></li>
   </ul>
 </nav>
 

@@ -14,13 +14,17 @@
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</loc>
+    <loc>http://localhost:1313/docs/rosa-hcp/basic_features/add-users/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</loc>
+    <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-debug/</loc>
   </url><url>

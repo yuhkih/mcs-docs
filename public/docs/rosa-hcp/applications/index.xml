@@ -12,17 +12,24 @@
       <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</guid>
-      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&amp;ldquo;Hello OpenShift&amp;rdquo; とメッセージを返すシンプルなコンテナです。&#xA;hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。) oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。&#xA;OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。 oc expose service hello-openshift route が作成されたか確認します。 oc get route 以下のような出力になるはずです。環境によって URL は違います。route の名前は、公開した service と同じ名前になっているはずです。これは、HTTP(Port 80) から Service の 8080 にマッピングされている事を意味しています。</description>
+      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&amp;ldquo;Hello OpenShift&amp;rdquo; とメッセージを返すシンプルなコンテナです。&#xA;hello-openshift という namespace を作成します。 kubectl create namespace hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;kubectl get deployment 出力例 ↕ $ kubectl get deployment NAME READY UP-TO-DATE AVAILABLE AGE hello-openshift 1/1 1 1 152m $ service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。) kubectl expose deployment hello-openshift --port=8080 これにより Service が作成されているはずです。以下のコマンドで確認します。</description>
     </item>
     <item>
-      <title>2. 標準の Nginx コンテナをセキュアにする</title>
+      <title>2. oc new-app を使った Hello world コンテナのデプロイ</title>
+      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</guid>
+      <description>1. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる # 今度は OpenShift の独自コマンド oc new-appを使用して、一番はじめにデプロイした hello-openshift コンテナをデプロイしてみます。&#xA;1.1. Project の作成 # 新しい project を作成します。 oc new-project hello-openshift2 1.2. Deployment / Service の作成 # 以下のコマンドで hello-openshift コンテナを使った deployment と service を一気に作成します。この oc new-app は OpenShift の独自コマンドです。 container のイメージが公開している port の情報を持っている場合は、service まで作成してくれます。 oc new-app hello-openshift --image quay.io/openshift/origin-hello-openshift 1.3. Service の公開 # route を作成します。 oc expose service hello-oppenshift 作成された route を確認します。 oc get route route で設定されたホスト名の部分を変数 HOST に取り出します。 HOST=$(oc get route/hello-openshift -o jsonpath={.</description>
+    </item>
+    <item>
+      <title>3. 標準の Nginx コンテナをセキュアにする</title>
       <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
       <description>1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.</description>
     </item>
     <item>
-      <title>3. 内部 Image Registry を使用する</title>
+      <title>4. 内部 Image Registry を使用する</title>
       <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>

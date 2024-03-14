@@ -3,27 +3,29 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。
+<meta name="description" content="rosa コマンド # rosa コマンドは、OpenShift Cluster が設置される AWS 周りのインフラを管理するために OpenShift に追加されたコマンドです。 また oc コマンドや kubectl コマンドと違い、複数のクラスターを管理する前提で作られています。そのため、通常、対象となるクラスター名を引数に指定します。
+1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。
 rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。
-rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5.">
+rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="1. rosa CLI" />
-<meta property="og:description" content="1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="2. rosa コマンド" />
+<meta property="og:description" content="rosa コマンド # rosa コマンドは、OpenShift Cluster が設置される AWS 周りのインフラを管理するために OpenShift に追加されたコマンドです。 また oc コマンドや kubectl コマンドと違い、複数のクラスターを管理する前提で作られています。そのため、通常、対象となるクラスター名を引数に指定します。
+1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。
 rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。
-rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.xlarge us-east-2c subnet-00e5abea4e74f6852 4.14.4 Yes workers-1 No 1/1 m5." />
+rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" /><meta property="article:section" content="docs" />
 
 
 
-<title>1. rosa CLI | MCS Documents</title>
+<title>2. rosa コマンド | MCS Documents</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d918626c582badcdbd7d2618e280cf9b6a8b00c4da87cc126959544fb6f3aa5e.js" integrity="sha256-2RhibFgrrc29fSYY4oDPm2qLAMTah8wSaVlUT7bzql4=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.afb25ef74885f845dea81cf815be51b9ea43638426466d899b61756d29f66bfe.js" integrity="sha256-r7Je90iF&#43;EXeqBz4Fb5RuepDY4QmRm2Jm2F1bSn2a/4=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -224,7 +226,33 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="active">1. rosa CLI</a>
+    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="active">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
   
 
         </li>
@@ -284,7 +312,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
   
 
         </li>
@@ -297,7 +325,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">3. 内部 Image Registry を使用する</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 Image Registry を使用する</a>
   
 
         </li>
@@ -577,7 +618,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>1. rosa CLI</strong>
+  <strong>2. rosa コマンド</strong>
 
   <label for="toc-control">
     
@@ -610,7 +651,13 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h2 id="1-作成されたクラスターのリスト">
+  <article class="markdown book-article"><h1 id="rosa-コマンド">
+  rosa コマンド
+  <a class="anchor" href="#rosa-%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89">#</a>
+</h1>
+<p><code>rosa</code> コマンドは、OpenShift Cluster が設置される AWS 周りのインフラを管理するために OpenShift に追加されたコマンドです。
+また <code>oc</code> コマンドや <code>kubectl</code> コマンドと違い、複数のクラスターを管理する前提で作られています。そのため、通常、対象となるクラスター名を引数に指定します。</p>
+<h2 id="1-作成されたクラスターのリスト">
   1. 作成されたクラスターのリスト
   <a class="anchor" href="#1-%e4%bd%9c%e6%88%90%e3%81%95%e3%82%8c%e3%81%9f%e3%82%af%e3%83%a9%e3%82%b9%e3%82%bf%e3%83%bc%e3%81%ae%e3%83%aa%e3%82%b9%e3%83%88">#</a>
 </h2>

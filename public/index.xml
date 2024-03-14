@@ -13,7 +13,7 @@
       <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</guid>
-      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&amp;ldquo;Hello OpenShift&amp;rdquo; とメッセージを返すシンプルなコンテナです。&#xA;hello-openshift という project (OpenShift で使われる namespace の拡張概念) を作成します oc new-project hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 oc create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;oc get deployment service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。) oc expose deployment hello-openshift --port=8080 補則：oc create service clusterip hello-openshift --tcp=8080:8080 でも上の操作と同じ事が可能です。&#xA;OpenShift での ingress と同等の概念である route を作成します。HTTP アプリケーションの場合、route は、service を expose する事で作成可能です。 oc expose service hello-openshift route が作成されたか確認します。 oc get route 以下のような出力になるはずです。環境によって URL は違います。route の名前は、公開した service と同じ名前になっているはずです。これは、HTTP(Port 80) から Service の 8080 にマッピングされている事を意味しています。</description>
+      <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&amp;ldquo;Hello OpenShift&amp;rdquo; とメッセージを返すシンプルなコンテナです。&#xA;hello-openshift という namespace を作成します。 kubectl create namespace hello-openshift hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。&#xA;kubectl get deployment 出力例 ↕ $ kubectl get deployment NAME READY UP-TO-DATE AVAILABLE AGE hello-openshift 1/1 1 1 152m $ service を作成します。 hello-openshift コンテナが使用している 8080 を公開します。service は deployment を expose する事で作成可能です。 (コンテナイメージがどのポートを使用しているかをコマンド等で突き止める事もできますが、基本的に事前に知っている必要があります。) kubectl expose deployment hello-openshift --port=8080 これにより Service が作成されているはずです。以下のコマンドで確認します。</description>
     </item>
     <item>
       <title>1. rosa CLI</title>
@@ -51,11 +51,18 @@
       <description> Dev Spaces Operator のインストール # Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。&#xA;Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 Install が完了したら、Operator のページに移動して Red Hat OpenShift Dev Spaces instance Specification というタブに移動します。 Che cluster を作成します。 デプロイが完了すると、Networking =&amp;gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 初回はアクセス許可を求められるので、許可します。 以下のような画面が見えるはずです。 Terminal =&amp;gt; New Terminal を選択します。 メニューから Terminal が作成できる事を確認します。 </description>
     </item>
     <item>
-      <title>2. 標準の Nginx コンテナをセキュアにする</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
+      <title>2. htpasswd を使用したユーザーの追加</title>
+      <link>http://localhost:1313/docs/rosa-hcp/basic_features/add-users/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
-      <description>1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.</description>
+      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/add-users/</guid>
+      <description> 2. htpasswd を使用したユーザーの追加 # 本番環境では基本的には、GitHub や LDAP 等の外部の Identity Provider を使用する事が推奨されますが、実験で使用したい。という場合にそこまでの構成を準備するのは大変な事が多いでしょう。&#xA;ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使ったユーザーの追加ができるようになっています。&#xA;console.redhat.com にログインします。&#xA;作業の対象の Cluster を選択します。 Access Control タブに移動して、htpasswd を選択します。 ユーザーを追加します。ここでは yuhki というユーザーを追加しています。 ここでは、追加したユーザーを cluster-admins グループに追加してみます。 Access Control タブから、Add User を行います。 先ほど作成したユーザー名を入力し、cluster admins を選んで OK をクリックします。 作成された cluster-admins グループのユーザーは以下のように表示されます。 CLI からも cluster-admins のユーザーに yuhki が追加されている事が確認できます。&#xA;$ oc get groups -o wide NAME USERS cluster-admins cluster-admin, yuhki dedicated-admins $ </description>
+    </item>
+    <item>
+      <title>2. oc new-app を使った Hello world コンテナのデプロイ</title>
+      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</guid>
+      <description>1. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる # 今度は OpenShift の独自コマンド oc new-appを使用して、一番はじめにデプロイした hello-openshift コンテナをデプロイしてみます。&#xA;1.1. Project の作成 # 新しい project を作成します。 oc new-project hello-openshift2 1.2. Deployment / Service の作成 # 以下のコマンドで hello-openshift コンテナを使った deployment と service を一気に作成します。この oc new-app は OpenShift の独自コマンドです。 container のイメージが公開している port の情報を持っている場合は、service まで作成してくれます。 oc new-app hello-openshift --image quay.io/openshift/origin-hello-openshift 1.3. Service の公開 # route を作成します。 oc expose service hello-oppenshift 作成された route を確認します。 oc get route route で設定されたホスト名の部分を変数 HOST に取り出します。 HOST=$(oc get route/hello-openshift -o jsonpath={.</description>
     </item>
     <item>
       <title>3. ROSA HCP Cluster の作成</title>
@@ -65,11 +72,11 @@
       <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。&#xA;export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。&#xA;export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。</description>
     </item>
     <item>
-      <title>3. 内部 Image Registry を使用する</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
+      <title>3. 標準の Nginx コンテナをセキュアにする</title>
+      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
-      <description>この手順は 標準の Ngix コンテナをセキュアにする の続きです。&#xA;1. 内部 Image Registry の公開 # 内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # 内部 Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` 内部 Image Registry に、Bearerトークン を使ってログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、作業端末上にある image を確認します。</description>
+      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
+      <description>1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx pod が CrashLooBackOff になっている事を確認します。これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが生成できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration /docker-entrypoint.</description>
     </item>
     <item>
       <title>4. ROSA HCP Cluster の削除</title>
@@ -77,6 +84,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</guid>
       <description>1.変数を確認する # クラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
+    </item>
+    <item>
+      <title>4. 内部 Image Registry を使用する</title>
+      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
+      <description>この手順は 標準の Ngix コンテナをセキュアにする の続きです。&#xA;1. 内部 Image Registry の公開 # 内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # 内部 Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` 内部 Image Registry に、Bearerトークン を使ってログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、作業端末上にある image を確認します。</description>
     </item>
     <item>
       <title>5.[補則] Network 疎通の確認</title>

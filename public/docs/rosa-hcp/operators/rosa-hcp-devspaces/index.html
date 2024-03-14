@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content=" Dev Spaces Operator のインストール # Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。
-Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 Install が完了したら、Operator のページに移動して Red Hat OpenShift Dev Spaces instance Specification というタブに移動します。 Che cluster を作成します。 デプロイが完了すると、Networking =&gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 初回はアクセス許可を求められるので、許可します。 以下のような画面が見えるはずです。 Terminal =&gt; New Terminal を選択します。 メニューから Terminal が作成できる事を確認します。 ">
+Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 インストールが完了するまで暫く待ちます。 インストールが完了したら、「View Opearator」をクリックして Operator のページに移動します。 Red Hat OpenShift Dev Spaces instance Specification というタブに移動して、 Create CheClsuter をクリックします。 設定はデフォルトのままでCreateをクリックします。 これで devspaces という名前の CheCluster というオブジェクトが作成されました。 Workload =&gt; Pod に移動すると Pod が作成されはじめているのがわかります。収まるまで暫く待ちます。 Pod の作成が収まったら、Networking =&gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 連携している Identity Provider によって表示が違いますが、好きなユーザーでログインして大丈夫です。ここではデフォルトで必ず存在する cluster-admin を使ってログインします。 ここでは cluster-admin とそのパスワードを入力します。 初回はアクセス許可を求められるので、許可します。 ログインすると、以下のような画面が見えるはずです。ここでは Empty Workspace をクリックします。 ワークスペースのデプロイが開始されるので、暫く待ちます。 三点リーダーのメニューから Terminal =&gt; New Terminal を選択します。 Terminal から oc get nodes を実行してクラスターにアクセスできている事を確認します。 ">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="2. Dev Spaces Operator" />
 <meta property="og:description" content=" Dev Spaces Operator のインストール # Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。
-Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 Install が完了したら、Operator のページに移動して Red Hat OpenShift Dev Spaces instance Specification というタブに移動します。 Che cluster を作成します。 デプロイが完了すると、Networking =&gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 初回はアクセス許可を求められるので、許可します。 以下のような画面が見えるはずです。 Terminal =&gt; New Terminal を選択します。 メニューから Terminal が作成できる事を確認します。 " />
+Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 インストールが完了するまで暫く待ちます。 インストールが完了したら、「View Opearator」をクリックして Operator のページに移動します。 Red Hat OpenShift Dev Spaces instance Specification というタブに移動して、 Create CheClsuter をクリックします。 設定はデフォルトのままでCreateをクリックします。 これで devspaces という名前の CheCluster というオブジェクトが作成されました。 Workload =&gt; Pod に移動すると Pod が作成されはじめているのがわかります。収まるまで暫く待ちます。 Pod の作成が収まったら、Networking =&gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 連携している Identity Provider によって表示が違いますが、好きなユーザーでログインして大丈夫です。ここではデフォルトで必ず存在する cluster-admin を使ってログインします。 ここでは cluster-admin とそのパスワードを入力します。 初回はアクセス許可を求められるので、許可します。 ログインすると、以下のような画面が見えるはずです。ここでは Empty Workspace をクリックします。 ワークスペースのデプロイが開始されるので、暫く待ちます。 三点リーダーのメニューから Terminal =&gt; New Terminal を選択します。 Terminal から oc get nodes を実行してクラスターにアクセスできている事を確認します。 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/" /><meta property="article:section" content="docs" />
 
@@ -21,7 +21,7 @@ Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックし�
 <link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.d918626c582badcdbd7d2618e280cf9b6a8b00c4da87cc126959544fb6f3aa5e.js" integrity="sha256-2RhibFgrrc29fSYY4oDPm2qLAMTah8wSaVlUT7bzql4=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.afb25ef74885f845dea81cf815be51b9ea43638426466d899b61756d29f66bfe.js" integrity="sha256-r7Je90iF&#43;EXeqBz4Fb5RuepDY4QmRm2Jm2F1bSn2a/4=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -222,7 +222,33 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">1. rosa CLI</a>
+    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
   
 
         </li>
@@ -282,7 +308,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">2. 標準の Nginx コンテナをセキュアにする</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
   
 
         </li>
@@ -295,7 +321,20 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">3. 内部 Image Registry を使用する</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 Image Registry を使用する</a>
   
 
         </li>
@@ -612,47 +651,75 @@ https://github.com/alex-shpak/hugo-book
 <ol>
 <li>
 <p><code>Operator Hub</code> に移動して、<code>Red Hat OpenShift Dev Spaces</code> をクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/f4c686f9-fe6d-4c73-bd88-1e40048a917b" alt="image" /></p>
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/a783e40d-f392-4f5c-9c3f-4441c80940ad" alt="image" /></p>
 </li>
 <li>
 <p>デフォルトのまま <code>Install</code> をクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/1cc670c8-ff33-4e6d-94c6-149aef591220" alt="image" /></p>
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/7a23161d-5e19-438a-9d5f-f6f0b57eadbe" alt="image" /></p>
 </li>
 <li>
 <p>デフォルトのまま <code>Install</code> をクリックします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/cdb4fbcd-ac54-42ef-bd9b-568e5b089863" alt="image" /></p>
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/295a1fe3-1d14-4fc9-838f-59546123f531" alt="image" /></p>
 </li>
 <li>
-<p>Install が完了したら、Operator のページに移動して <code>Red Hat OpenShift Dev Spaces instance Specification</code> というタブに移動します。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/9f6fd23b-3c04-4bdf-8688-cdf9d4edd6a7" alt="image" /></p>
+<p>インストールが完了するまで暫く待ちます。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/7e3e77ba-f104-4b22-8e6a-14a9f796e0bb" alt="image" /></p>
 </li>
 <li>
-<p><code>Che</code> cluster を作成します。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/346f38e1-7305-4435-ac25-80f803e81d63" alt="image" /></p>
+<p>インストールが完了したら、「View Opearator」をクリックして Operator のページに移動します。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/d8418a8b-02e9-442a-b809-0c109c44a712" alt="image" /></p>
 </li>
 <li>
-<p>デプロイが完了すると、<code>Networking</code> =&gt; <code>Route</code> に移動します。外部からアクセスするための <code>URL</code> が発行されているので、URL にアクセスします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/da5b8722-6d70-4caf-989f-d571e4820e6a" alt="image" /></p>
+<p><code>Red Hat OpenShift Dev Spaces instance Specification</code> というタブに移動して、 <code>Create CheClsuter</code> をクリックします。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/b7aaa774-8f00-4638-86a2-68120b8cd6e3" alt="image" /></p>
+</li>
+<li>
+<p>設定はデフォルトのままで<code>Create</code>をクリックします。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/72fbf066-e686-4f98-83de-060e571b7f8a" alt="image" /></p>
+</li>
+<li>
+<p>これで <code>devspaces</code> という名前の <code>CheCluster</code> というオブジェクトが作成されました。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/07d847cf-dcb3-4fd6-8b0b-0a7f72407142" alt="image" /></p>
+</li>
+<li>
+<p><code>Workload</code> =&gt; <code>Pod</code> に移動すると Pod が作成されはじめているのがわかります。収まるまで暫く待ちます。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/79786118-0518-411d-b6a8-852f1c45af59" alt="image" /></p>
+</li>
+<li>
+<p>Pod の作成が収まったら、<code>Networking</code> =&gt; <code>Route</code> に移動します。外部からアクセスするための <code>URL</code> が発行されているので、URL にアクセスします。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/68a15345-66b1-4baa-9989-e50c64fc4abd" alt="image" /></p>
 </li>
 <li>
 <p><code>Login with OpenShift</code> をクリックしてログインします。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/11f9ce5d-e358-4e06-a2af-f824e6917f33" alt="image" /></p>
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/a73b57f4-0736-40f5-aee1-a3703b4d683e" alt="image" /></p>
+</li>
+<li>
+<p>連携している Identity Provider によって表示が違いますが、好きなユーザーでログインして大丈夫です。ここではデフォルトで必ず存在する <code>cluster-admin</code> を使ってログインします。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/8b87dbfc-17b3-471f-a03c-b6aa182804b9" alt="image" /></p>
+</li>
+<li>
+<p>ここでは <code>cluster-admin</code> とそのパスワードを入力します。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/b5488bec-1f07-4aa1-a32b-056d2cfc7deb" alt="image" /></p>
 </li>
 <li>
 <p>初回はアクセス許可を求められるので、許可します。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/6c3a9002-fd41-47a6-808e-54af76a066bd" alt="image" /></p>
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/e2a0249d-8b24-4ddf-b0fd-a9be76d50930" alt="image" /></p>
 </li>
 <li>
-<p>以下のような画面が見えるはずです。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/cefc2628-73ad-45fa-b851-ab1c809ce9ce" alt="image" /></p>
+<p>ログインすると、以下のような画面が見えるはずです。ここでは <code>Empty Workspace</code> をクリックします。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/a66cb62d-f30b-437c-ba77-d59661c6fe83" alt="image" /></p>
 </li>
 <li>
-<p><code>Terminal</code> =&gt; <code>New Terminal</code> を選択します。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a3e74b02-d314-4a3b-af7e-4419545d5ac8" alt="image" /></p>
+<p>ワークスペースのデプロイが開始されるので、暫く待ちます。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/0a621c6f-1399-41ba-8585-eeee6946f304" alt="image" /></p>
 </li>
 <li>
-<p>メニューから Terminal が作成できる事を確認します。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/8009f106-3181-4dc7-84c6-3393b7131511" alt="image" /></p>
+<p>三点リーダーのメニューから <code>Terminal</code> =&gt; <code>New Terminal</code> を選択します。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/ee3bf673-23c4-456a-a452-8cf8251cca61" alt="image" /></p>
+</li>
+<li>
+<p>Terminal から <code>oc get nodes</code> を実行してクラスターにアクセスできている事を確認します。
+<img src="https://github.com/yuhkih/mcs-docs/assets/8530492/dc0323c6-b8ec-44e0-8204-e6c150abd144" alt="image" /></p>
 </li>
 </ol>
 </article>
