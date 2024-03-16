@@ -1,118 +1,21 @@
 ---
-title: 3. ROSA HCP Cluster の作成
+title: 4. ROSA HCP Cluster の作成
 weight: 1
 ---
 
-## 1. Terraform を使用した ROSA を install する AWS Network の作成
+## 1.ROSA HCP Cluster の 作成
 
-HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。
-ここでは Terraform を使用して AWS　上に Network を作成します。
-
-この手順は、公式ドキュメントの「<a href="https://docs.openshift.com/rosa/rosa_hcp/rosa-hcp-sts-creating-a-cluster-quickly.html#rosa-hcp-creating-vpc" target="_blank">Creating a Vritual Private Cloud for your ROSA with HCP clusters</a>
-」をベースにしています。
-
-
-### 1.1. Terraform を使用した AWS Network リソースの作成
-
-サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
-
-1. Repository からサンプルの terraform をダウンロードし初期化します。
+必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
 
 ```tpl
-git clone https://github.com/openshift-cs/terraform-vpc-example
+echo $CLUSTER_NAME
 ```
-
 ```tpl
-cd terraform-vpc-example
+echo $REGION
 ```
-
 ```tpl
-terraform init
+echo $SUBNET_IDS
 ```
-
-2. 変数を準備しておきます。
-
-CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
-
-```tpl
-export CLUSTER_NAME=myhcpcluster
-```
-
-ここでは`ap-northeast-1` にクラスターを作成します。
-```tpl
-export REGION=ap-northeast-1
-```
-
-3. Terraform の plan を作成します。
-
-Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。
-
-
-{{< tabs "deply network type" >}}
-# Single AZ Network
-{{< tab "Single AZ Network" >}}
-
-```tpl
-terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
-```
-
-
-{{< /tab >}}
-
-
-# Multi AZ Network
-{{< tab "Multi AZ Network" >}}
-
-```tpl
-terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
-```
-{{< /tab >}}
-
-{{< /tabs >}}
-
-
-4. Plan を apply して Network を作成します。
-
-```tpl
-terraform apply rosa.tfplan
-```
-
-5. 作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで6つのサブネットIDが変数にセットされます。
-
-```tpl
-export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
-```
-
-以上で Network の準備は完了です。
-
-### 1.2. 作成された Subnet と NAT Gateway の確認 (オプショナル)
-
-
-ROSA の構築で一番のはまりポイントは、AWS Network の構成です。この手順では terraform で Network を構成するので、嵌まる事はまずありませんが、手動で AWS GUI から作成した場合などはきちんと構成できてない事がありデバッグ用に CLI を覚えて置くと便利です。
-
-ここでは CLI を使って作成した Network の情報を確認する方法をご紹介します。
-
-{{< expand "AWS CLI 実行例" >}}
-
-terraform で apply した時のログにも出ていますが、ここでは AWS CLI の練習も兼ねて、AWS CLI を使用して作成された VPC と Subnet 等を確認します。
-
-VPC をリストします。
-```tpl
-aws ec2 describe-vpcs | jq -r '.Vpcs[] | [.CidrBlock, .VpcId, .State] | @csv'
-```
-
-Subnet をリストします。
-```tpl
-aws ec2 describe-subnets | jq -r '.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv'
-```
-
-NAT Gateway をリストします。
-```tpl
-aws ec2 describe-nat-gateways | jq -r '.NatGateways[] | [.NatGatewayId, .State] | @csv'
-```
-{{< /expand >}}
-
-## 2.ROSA HCP Cluster の 作成
 
 クラスターを作成するには、Red Hat Customer ポータルの User アカウントが必要です。無料で作成できます。Red Hat Customer ポータルの Userを作成した後、以下のコマンドでログインします。
 
@@ -131,18 +34,6 @@ OIDC Config を作成します。いろいろ聞かれますが、全てデフ�
 
 ```tpl
  rosa create oidc-config 
-```
-
-必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
-
-```tpl
-echo $CLUSTER_NAME
-```
-```tpl
-echo $REGION
-```
-```tpl
-echo $SUBNET_IDS
 ```
 
 Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
@@ -297,7 +188,7 @@ ployment has 1 unavailable replicas, control-plane-operator deployment has 1 una
 $ 
 {{< /expand >}}
 
-## 3.ROSA HCP Cluster へのアクセス確認
+## 2.ROSA HCP Cluster へのアクセス確認
 
 インストールが完了したら管理者ユーザーを作成します。
 ログインコマンド (`oc login`) パスワード付きで標準出力に表示されます。これはコマンドが終了してから、数分待つ必要があります。
@@ -362,7 +253,7 @@ $
 ```
 {{< /expand >}}
 
-## 4.構成を探って見る
+## 3.構成を探って見る
 
 `rosa list machinepool` コマンドで、AZ毎に `machinepool` が出来ている事を確認します。`machinepool`単位で Node 数を増やす事ができます。
 

@@ -1,5 +1,5 @@
 ---
-title: 5.[補則] Network 疎通の確認
+title: 7.[補則] Network 疎通の確認
 weight: 1
 ---
 

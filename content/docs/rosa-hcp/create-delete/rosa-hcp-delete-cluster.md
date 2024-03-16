@@ -1,5 +1,5 @@
 ---
-title: 4. ROSA HCP Cluster の削除
+title: 5. ROSA HCP Cluster の削除
 weight: 1
 ---
 
@@ -76,10 +76,3 @@ OIDC Provider を削除します。これは、`rosa delete cluster` コマン�
 rosa delete oidc-provider --oidc-config-id <OIDC provider config ID> -m auto --yes
 ```
 
-## 4.Terraform で作成した AWS のネットワークを削除する
-
-Red Hat で提供している terraform のサンプルを使用して Network を作成した場合は、git clone したディレクトリに移動して、以下のコマンドで削除します。
-
-```tpl
-terraform destroy
-```
