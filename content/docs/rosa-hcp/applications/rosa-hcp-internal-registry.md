@@ -1,21 +1,25 @@
 ---
-title: 4. 内部 Image Registry を使用する
+title: 4. 内部 OpenShift Registry を使用する
 weight: 1
 ---
 この手順は{{< button relref="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" >}}標準の Ngix コンテナをセキュアにする{{< /button >}} の続きです。
 
-## 1. 内部 Image Registry の公開
+ROSA では、コンテナアプリケーションの開発に必要な Docker Registry が既にセットアップされて使えるようになっています。
+
+主に、この ROSA Cluster の内部のプロジェクトから使用される事を目的とした、シンプルな Docker Image Registry なので、`内部 OpenShift Registry` のように呼ばれています。
+
+## 1. 内部 OpenShift Registry の公開
 
 
-内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。
+コンテナをビルドした端末から、直接、内部 OpenShift Registry にアクセスできるようにするために、Route を使って 内部 OpenShift Registry をクラスター外のネットワークに公開します。
 
 ```tpl
 oc patch configs.imageregistry.operator.openshift.io/cluster --patch '{"spec":{"defaultRoute":true}}' --type=merge
 ```
 
-## 2. ローカル Image Registry へのログイン
+## 2. 内部 OpenShift Registry へのログイン
 
-内部 Image Registry の ドメイン名を取得します。
+内部 OpenShift Registry の ドメイン名を取得します。
 
 ```tpl
 export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}'`
@@ -27,22 +31,22 @@ export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --te
 echo $IMAGE_SERVER
 ```
 
-内部 Image Registry に、[Bearerトークン](https://ja.wikipedia.org/wiki/Bearer%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3) を使ってログインします。
+内部 OpenShift Registry に、[Bearerトークン](https://ja.wikipedia.org/wiki/Bearer%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3) を使ってログインします。
 
 ```tpl
 podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER}
 ```
 
-## 3. ローカル Image Registry への Image の Push
+## 3. 内部 OpenShift Registry への Image の Push
 
 
-新しい project を作成します。内部 Imagre Registry は、プロジェクト名を持った名前空間で区切られます。
+新しい project を作成します。内部 OpenShift Registry は、プロジェクト名を持った名前空間で区切られます。
 
 ```tpl
 export PROJECT_NAME=secure-nginx
 ```
 
-```
+```tpl
 oc new-project $PROJECT_NAME
 ```
 
@@ -68,9 +72,9 @@ podman tag localhost/new-nginx:latest $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
 podman push  $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
 ```
 
-これで内部レジストリにビルドした image が push されました。
+これで内部 OpenShift Registryにビルドした image が push されました。
 
-## 4. Push した Image を使用した Deployment の作成
+## 4. Push した Image の OpenShift 上へのデプロイ
 
 内部 Image Registry に Push したイメージを使用してアプリケーションを Deploy します。
 
@@ -82,18 +86,18 @@ oc project
 
 2. コンテナをデプロイします。
 
-`oc new-app` コマンドで一気に Service まで作成します。
+`oc new-app` コマンドで一気に Depoloyment と  Service を作成します。
 
 ```tpl
 oc new-app --name new-nginx --image $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
 ```
+
 {{< hint info >}}
 **豆知識:**   
-`oc new-app` コマンドが、image 名を引数に指定するだけで、Service まで作成できるのは、OpenShift がコンテナ image で EXPOSE されているポートを認識しているためです。
+`oc new-app` コマンドが、image 名を引数に指定するだけで、Service まで作成できるのは、OpenShift がコンテナ image で、明示的に EXPOSE されているポートを認識しているためです。EXPOSE が行われてない場合は、Service は自動では作成されません。反対に EXPOSE で公開ポートを container image で指定していない場合は、Service は自動では作成されません。
 {{< /hint >}}
 
 `new-nginx` という名前で Deployment と Service が作成されている事を確認します。
-
 
 ```tpl
 oc get deployment,service
@@ -153,10 +157,16 @@ $
 ```
 {{< /expand >}}
 
-curl でアクセスしてみます。
+route の HOST 名を変数 `HOST` に取り出します。
 
 ```tpl
-curl <Route の Host名>
+HOST=$(oc get route/hello-openshift -o jsonpath={.spec.host})
+```
+
+curl でアクセスできる事を確認します。
+
+```tpl
+curl $HOST 
 ```
 
 {{< expand "実行例">}}
