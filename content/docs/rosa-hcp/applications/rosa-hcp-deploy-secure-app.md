@@ -193,7 +193,7 @@ Hello OpenShift World !
 普通の Dockerfile です。OpenShift の場合は、もしここに `USER` が指定してあって無視されます。
 
 ```tpl Dockerfile
-FROM redhat/ubi8
+FROM registry.access.redhat.com/ubi8/ubi
 RUN yum install -y nginx
 COPY index.html /usr/share/nginx/html/index.html
 COPY nginx.conf /etc/nginx/nginx.conf

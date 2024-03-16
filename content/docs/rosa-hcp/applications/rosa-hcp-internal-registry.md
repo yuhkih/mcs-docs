@@ -35,6 +35,18 @@ podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER}
 
 ## 3. ローカル Image Registry への Image の Push
 
+
+新しい project を作成します。内部 Imagre Registry は、プロジェクト名を持った名前空間で区切られます。
+
+```tpl
+export PROJECT_NAME=secure-nginx
+```
+
+```
+oc new-project $PROJECT_NAME
+```
+
+
 現在、作業端末上にある image を確認します。
 
 ```shell 
@@ -47,13 +59,13 @@ localhost/new-nginx  latest      d623ca329bc4  19 minutes ago  303 MB
 作成したローカルイメージにタグを付けます。
 
 ```shell 
-podman tag localhost/new-nginx:latest $IMAGE_SERVER/new-nginx/mynginx:latest
+podman tag localhost/new-nginx:latest $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
 ```
 
 イメージを push します
 
 ```tpl
-podman push  $IMAGE_SERVER/new-nginx/mynginx:latest
+podman push  $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
 ```
 
 これで内部レジストリにビルドした image が push されました。
@@ -62,10 +74,10 @@ podman push  $IMAGE_SERVER/new-nginx/mynginx:latest
 
 内部 Image Registry に Push したイメージを使用してアプリケーションを Deploy します。
 
-1. プロジェクトを作成します。
+1. 現在いるプロジェクトを確認します。タグ付けに使った $PROJECT_NAME である事を確認します。
 
 ```tpl
-oc new-project new-nginx
+oc project                 
 ```
 
 2. コンテナをデプロイします。
@@ -73,7 +85,7 @@ oc new-project new-nginx
 `oc new-app` コマンドで一気に Service まで作成します。
 
 ```tpl
-oc new-app --name new-nginx --image $IMAGE_SERVER/new-nginx/mynginx:latest
+oc new-app --name new-nginx --image $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
 ```
 {{< hint info >}}
 **豆知識:**   
