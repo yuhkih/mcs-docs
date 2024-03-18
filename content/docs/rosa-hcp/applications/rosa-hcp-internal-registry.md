@@ -40,7 +40,7 @@ podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER}
 ## 3. 内部 OpenShift Registry への Image の Push
 
 
-新しい project を作成します。内部 OpenShift Registry は、プロジェクト名を持った名前空間で区切られます。
+新しい project を作成します。
 
 ```tpl
 export PROJECT_NAME=secure-nginx
@@ -61,6 +61,9 @@ localhost/new-nginx  latest      d623ca329bc4  19 minutes ago  303 MB
 ```
 
 作成したローカルイメージにタグを付けます。
+
+内部 OpenShift Registry は、プロジェクト名を持った名前空間で区切られます。
+tag 名に $PROJECT_NAME を入れる事で、特に追加の設定をしなくても、イメージが $PROJECT_NAME 内からアクセスできるようになります。
 
 ```shell 
 podman tag localhost/new-nginx:latest $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
