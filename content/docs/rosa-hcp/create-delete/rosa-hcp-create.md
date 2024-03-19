@@ -1,5 +1,5 @@
 ---
-title: 4. ROSA HCP Cluster の作成
+title: 5. ROSA HCP Cluster の作成
 weight: 1
 ---
 

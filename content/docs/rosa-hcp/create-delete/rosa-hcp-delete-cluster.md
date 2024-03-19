@@ -1,5 +1,5 @@
 ---
-title: 5. ROSA HCP Cluster の削除
+title: 6. ROSA HCP Cluster の削除
 weight: 1
 ---
 

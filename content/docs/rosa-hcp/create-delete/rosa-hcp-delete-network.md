@@ -1,5 +1,5 @@
 ---
-title: 6. Cluster 用 Network の削除
+title: 7. Cluster 用 Network の削除
 weight: 1
 ---
 

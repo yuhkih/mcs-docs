@@ -1,5 +1,5 @@
 ---
-title: 3. Cluster 用の Network の作成
+title: 4. Cluster 用の Network の作成
 weight: 1
 ---
 
@@ -82,6 +82,12 @@ terraform apply rosa.tfplan
 ```tpl
 export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
 ```
+
+{{< hint info >}}
+この手順ではインターネットに公開されたクラスタ (`Public Cluster`)を作成します。`Public Cluster` を作った後に、インターネットに公開された `API Server` 、`Ingress` を非公開(`Private Subnet` からのみアクセス可能にする)に設定する事も可能です。そのためほとんどの要件は `Public Cluster` でカバーできると思います。
+
+一方、あらかじめ非公開のクラスタ(`Private Cluster`)を作る方法もあります。この場合は、AWS の `Pubilc Subnet` は必要はありません。ただし、後から ROSA 側の機能で `Ingress` をインターネットに公開する形に変更することはできません。`Private Cluster` については、Network 構成として少し難易度が高い構成になるので、ここでは取り扱いません。
+{{< /hint >}}
 
 以上で Network の準備は完了です。
 
