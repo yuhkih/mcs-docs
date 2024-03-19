@@ -122,3 +122,69 @@ m5d.xlarge         storage_optimized      4          16.0 GiB
 $ 
 ```
 {{< /expand >}}
+
+## 6. ROSA Cluster 情報の表示
+
+ROSA Cluster の使用している `OpenShift` の `Version` や、割り当てられている `domain name`、使用している AWS サブネット等の基本的な情報を表示します。
+
+```tpl
+rosa describe cluster --cluster=$CLUSTER_NAME
+```
+
+{{< expand "コマンド実行例" >}}
+```tpl
+$ rosa describe cluster --cluster=$CLUSTER_NAME
+
+Name:                       myhcpcluster
+Display Name:               myhcpcluster
+ID:                         2a3d7b6j9d98mqlrp0b5che2656ah2tc
+External ID:                2c53ac5e-5300-4160-aa6c-5e764a37f555
+Control Plane:              ROSA Service Hosted
+OpenShift Version:          4.14.16
+Channel Group:              stable
+DNS:                        myhcpcluster.rc4b.p3.openshiftapps.com
+AWS Account:                337001183099
+AWS Billing Account:        337001183099
+API URL:                    https://api.myhcpcluster.rc4b.p3.openshiftapps.com:443
+Console URL:                https://console-openshift-console.apps.rosa.myhcpcluster.rc4b.p3.openshiftapps.com
+Region:                     ap-northeast-1
+Availability:
+ - Control Plane:           MultiAZ
+ - Data Plane:              SingleAZ
+Nodes:
+ - Compute (desired):       2
+ - Compute (current):       2
+Network:
+ - Type:                    OVNKubernetes
+ - Service CIDR:            172.30.0.0/16
+ - Machine CIDR:            10.0.0.0/16
+ - Pod CIDR:                10.128.0.0/14
+ - Host Prefix:             /23
+ - Subnets:                 subnet-0171ae3ce0b83daae, subnet-0625be1c3ce548538
+EC2 Metadata Http Tokens:   optional
+Role (STS) ARN:             arn:aws:iam::337001183099:role/ManagedOpenShift-HCP-ROSA-Installer-Role
+Support Role ARN:           arn:aws:iam::337001183099:role/ManagedOpenShift-HCP-ROSA-Support-Role
+Instance IAM Roles:
+ - Worker:                  arn:aws:iam::337001183099:role/ManagedOpenShift-HCP-ROSA-Worker-Role
+Operator IAM Roles:
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-openshift-image-registry-installer-cloud-crede
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-openshift-ingress-operator-cloud-credentials
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-kube-system-kube-controller-manager
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-kube-system-capa-controller-manager
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-kube-system-control-plane-operator
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-kube-system-kms-provider
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-openshift-cluster-csi-drivers-ebs-cloud-creden
+ - arn:aws:iam::337001183099:role/myhcpcluster-z3s7-openshift-cloud-network-config-controller-clou
+Managed Policies:           Yes
+State:                      ready 
+Private:                    No
+Created:                    Mar 19 2024 05:25:04 UTC
+User Workload Monitoring:   Enabled
+Details Page:               https://console.redhat.com/openshift/details/s/2dtSVRvDHK0u3NXFytuM2t4xdI6
+OIDC Endpoint URL:          https://rh-oidc.s3.us-east-1.amazonaws.com/24a7tma9k0v2fnjcg6904pbt4pvv6mgh (Managed)
+Audit Log Forwarding:       Disabled
+
+$ 
+```
+{{< /expand >}}
+
