@@ -77,7 +77,7 @@ terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_N
 terraform apply rosa.tfplan
 ```
 
-5. 作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで6つのサブネットIDが変数にセットされます。
+5. 作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで2つ(Single AZ) もしくは6つ(Multi AZ) のサブネットIDが変数にセットされます。
 
 ```tpl
 export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
