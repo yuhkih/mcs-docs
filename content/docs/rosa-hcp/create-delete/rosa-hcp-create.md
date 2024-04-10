@@ -46,9 +46,9 @@ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$RE
 $ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
 I: Using '993114993799' as billing account
 I: To use a different billing account, add --billing-account xxxxxxxxxx to previous command
-I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
-I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
-I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
+I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
+I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
+I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
 ? OIDC Configuration ID (default = '29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7'): 29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7
 ? Tags (optional): 
 ? AWS region (default = 'ap-northeast-1'): ap-northeast-1
