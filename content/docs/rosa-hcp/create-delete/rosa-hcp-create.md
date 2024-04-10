@@ -137,24 +137,11 @@ Cluster の作成を開始した後に Operator Role を作成します。**こ�
 ```tpl
 rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
 ```
-{{< expand "コマンド実行例" >}}
-```tpl
-$  rosa create operator-roles --cluster myhcpcluster
-? Role creation mode (default = 'auto'): auto
-? Permissions boundary ARN (optional): 
 
-I: Creating roles using 'arn:aws:iam::923114993793:user/open-environment-shr8g-admin'
-I: Created role 'myhcpcluster-a2m3-openshift-cluster-csi-drivers-ebs-cloud-creden' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cluster-csi-drivers-ebs-cloud-creden'
-I: Created role 'myhcpcluster-a2m3-openshift-cloud-network-config-controller-clou' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cloud-network-config-controller-clou'
-I: Created role 'myhcpcluster-a2m3-openshift-image-registry-installer-cloud-crede' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-image-registry-installer-cloud-crede'
-I: Created role 'myhcpcluster-a2m3-kube-system-capa-controller-manager' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-capa-controller-manager'
-I: Created role 'myhcpcluster-a2m3-kube-system-control-plane-operator' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-control-plane-operator'
-I: Created role 'myhcpcluster-a2m3-kube-system-kms-provider' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kms-provider'
-I: Created role 'myhcpcluster-a2m3-kube-system-kube-controller-manager' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kube-controller-manager'
-I: Created role 'myhcpcluster-a2m3-openshift-ingress-operator-cloud-credentials' with ARN 'arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-ingress-operator-cloud-credentials'
-$
+Cluster の作成を開始した後に、OIDC Provider を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい>。**
+```tpl
+rosa create oidc-provider --cluster $CLUSTER_NAME -m auto --yes
 ```
-{{< /expand >}}
 
 ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。
 
