@@ -44,7 +44,7 @@ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$RE
 {{< expand "コマンド実行例" >}}
 ```tpl
 $ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
-I: Using '923114993793' as billing account
+I: Using '993114993799' as billing account
 I: To use a different billing account, add --billing-account xxxxxxxxxx to previous command
 I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
 I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
@@ -81,8 +81,8 @@ Control Plane:              ROSA Service Hosted
 OpenShift Version:          4.14.15
 Channel Group:              stable
 DNS:                        Not ready
-AWS Account:                923114993793
-AWS Billing Account:        923114993793
+AWS Account:                993114993799
+AWS Billing Account:        993114993799
 API URL:                    
 Console URL:                
 Region:                     ap-northeast-1
