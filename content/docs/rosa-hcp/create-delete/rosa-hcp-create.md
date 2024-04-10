@@ -138,7 +138,7 @@ Cluster の作成を開始した後に Operator Role を作成します。**こ�
 rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
 ```
 
-Cluster の作成を開始した後に、OIDC Provider を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい>。**
+Cluster の作成を開始した後に、OIDC Provider を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい。**
 ```tpl
 rosa create oidc-provider --cluster $CLUSTER_NAME -m auto --yes
 ```
