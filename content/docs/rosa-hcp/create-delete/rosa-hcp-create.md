@@ -24,16 +24,16 @@ rosa login
 ```
 
 
-必要な IAM Role を作成します。いろいろ聞かれますが、全てデフォルト(エンター)で大丈夫です。
+必要な IAM Role を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
 
 ```tpl
-rosa create account-roles --hosted-cp
+rosa create account-roles --hosted-cp -y -m auto
 ```
 
-OIDC Config を作成します。いろいろ聞かれますが、全てデフォルト(エンター)で大丈夫です。
+OIDC Config を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
 
 ```tpl
- rosa create oidc-config 
+ rosa create oidc-config  -y -m auto
 ```
 
 Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
