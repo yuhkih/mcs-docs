@@ -163,7 +163,7 @@ $
 route の HOST 名を変数 `HOST` に取り出します。
 
 ```tpl
-HOST=$(oc get route/hello-openshift -o jsonpath={.spec.host})
+HOST=$(oc get route/new-nginx -o jsonpath={.spec.host})
 ```
 
 curl でアクセスできる事を確認します。
