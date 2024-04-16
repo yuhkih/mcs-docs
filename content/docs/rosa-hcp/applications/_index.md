@@ -1,5 +1,5 @@
 ---
-title: Application の作成
+title: サンプル Application の作成
 bookCollapseSection: true  
 weight: 4
 ---
