@@ -132,8 +132,20 @@ $
 ```
 {{< /expand >}}
 
-Cluster の作成を開始した後に Operator Role を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい。**
+{{< expand "\"billing account is required\" エラー" >}}
+以下のエラーが出た時は、HCPが有効化されてなかったり AWSアカウントとRed Hatアカウントが紐付いてない可能性があります。
+"1.ROSA HCPの有効化" の手順を再実行して、`rosa logout` した後 `rosa login` してから再実行してみてください。
 
+```
+$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
+E: A billing account is required for Hosted Control Plane clusters. To see the list of billing account options, you can use interactive mode by passing '-i'.
+I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
+I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
+< 省略 > 
+```
+{{< /expand >}}
+
+Cluster の作成を開始した後に Operator Role を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい。**
 ```tpl
 rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
 ```
