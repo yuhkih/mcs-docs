@@ -134,7 +134,7 @@ $
 
 {{< expand "\"billing account is required\" エラーが出た場合" >}}
 以下のエラーが出た時は、HCPが有効化されてなかったり AWSアカウントとRed Hatアカウントが紐付いてない可能性があります。
-"1.ROSA HCPの有効化" の手順を再実行して、`rosa logout` した後 `rosa login` してから再実行してみてください。
+"1.ROSA HCPの有効化" の手順を再実行して、`rosa logout` した後 `rosa login` してから`rosa create ...` を再実行してみてください。
 
 ```
 $ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
