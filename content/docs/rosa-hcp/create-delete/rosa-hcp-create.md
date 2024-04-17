@@ -39,11 +39,11 @@ OIDC Config を作成します。(インタラクティブに構成したい場�
 Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
 
 ```tpl
-rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
+rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
 ```
 {{< expand "コマンド実行例" >}}
 ```tpl
-$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
+$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
 I: Using '993114993799' as billing account
 I: To use a different billing account, add --billing-account xxxxxxxxxx to previous command
 I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
@@ -145,15 +145,6 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role fo
 ```
 {{< /expand >}}
 
-Cluster の作成を開始した後に Operator Role を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい。**
-```tpl
-rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
-```
-
-Cluster の作成を開始した後に、OIDC Provider を作成します。**これを行わないと Cluster の作成が進行しないのでご注意下さい。**
-```tpl
-rosa create oidc-provider --cluster $CLUSTER_NAME -m auto --yes
-```
 
 ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。
 
