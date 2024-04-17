@@ -282,8 +282,8 @@ $
 
 GUI の URLは以下のコマンドで確認できます。
 
-```
+```tpl
 oc whoami --show-console
 ```
 
-:
+
