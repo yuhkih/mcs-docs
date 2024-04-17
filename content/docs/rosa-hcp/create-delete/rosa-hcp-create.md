@@ -278,3 +278,12 @@ $
 ```
 {{< /expand >}}
 
+## 4.GUIにアクセスする
+
+GUI の URLは以下のコマンドで確認できます。
+
+```
+oc whoami --show-console
+```
+
+:
