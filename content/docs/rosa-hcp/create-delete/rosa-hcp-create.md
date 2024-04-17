@@ -235,7 +235,7 @@ $
 ```
 {{< /expand >}}
 
-`oc get nodes` コマンドで compute node ができたか確認します。Worker node が 3本表示されるはずです。
+`oc get nodes` コマンドで compute node ができたか確認します。Worker node が 2本(Single AZ構成) もしくは3本(Multi AZ構成)表示されるはずです。
 (まれに node の作成に時間がかかる場合があります。何も node が表示されない場合は、さらに10分程度待ってく見てください)
 
 ```tpl
