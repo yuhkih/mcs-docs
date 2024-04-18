@@ -280,7 +280,7 @@ $
 
 ## 4.GUIにアクセスする
 
-GUI の URLは以下のコマンドで確認できます。
+GUI の URLは以下のコマンドで確認できます。`rosa create admin` 実行時のログに表示された cluster-admin とそのパスワードでログインできます。
 
 ```tpl
 oc whoami --show-console
