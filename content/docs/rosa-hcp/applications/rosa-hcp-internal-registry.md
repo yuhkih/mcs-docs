@@ -89,10 +89,10 @@ oc project
 
 2. コンテナをデプロイします。
 
-`oc new-app` コマンドで一気に Depoloyment と  Service を作成します。
+`oc new-app` コマンドで Depoloyment と  Service を作成します。
 
 ```tpl
-oc new-app --name new-nginx --image $IMAGE_SERVER/$PROJECT_NAME/mynginx:latest
+oc new-app --name new-nginx --image mynginx:latest
 ```
 
 {{< hint info >}}
