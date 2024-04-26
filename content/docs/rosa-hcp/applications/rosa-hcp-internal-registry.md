@@ -96,7 +96,6 @@ oc new-app --name new-nginx --image mynginx:latest
 ```
 
 {{< hint info >}}
-**豆知識:**   
 `oc new-app` コマンドが、image 名を引数に指定するだけで、Service まで作成できるのは、OpenShift が、コンテナ image 内でEXPOSE されているポートを自動的に認識しているためです。コンテナ image 内で EXPOSE が行われてない場合は、Service は自動では作成されません。
 {{< /hint >}}
 
