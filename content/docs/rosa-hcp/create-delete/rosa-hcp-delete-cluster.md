@@ -19,7 +19,7 @@ echo $CLUSTER_NAME
  rosa delete cluster -c $CLUSTER_NAME
 ```
 
-ログの最後の出てくる以下の部分はメモしておきます。
+ログの最後に出てくる以下の部分はメモしておきます。
 ```tpl
         rosa delete operator-roles --prefix <IAM Role prefix>
         rosa delete oidc-provider --oidc-config-id <OIDC provider config ID>
