@@ -5,6 +5,12 @@ weight: 1
 
 ## 1. ROSA 作成用の token の取得
 
+実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。
+
+```tpl
+rosa logout
+```
+
 ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。
 
 ```tpl

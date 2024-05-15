@@ -17,13 +17,6 @@ echo $REGION
 echo $SUBNET_IDS
 ```
 
-クラスターを作成するには、Red Hat Customer ポータルの User アカウントが必要です。無料で作成できます。Red Hat Customer ポータルの Userを作成した後、以下のコマンドでログインします。
-
-```tpl
-rosa login
-```
-
-
 必要な IAM Role を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
 
 ```tpl
