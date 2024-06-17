@@ -190,8 +190,6 @@ ployment has 1 unavailable replicas, control-plane-operator deployment has 1 una
 $ 
 {{< /expand >}}
 
-## 2.ROSA HCP Cluster へのアクセス確認
-
 {{< hint warning >}}
 注意: Private Cluster を作成した場合、`oc` コマンドは、AWS上の Compute Node が作成された Private Network に接続された Network から実行する必要があります。また、Controlplane 機能を提供する VPC Endpoint の設定で oc コマンドを実行する Network からのアクセスを明示的に許可して上げる必要があります。
 {{< /hint >}}
@@ -222,6 +220,8 @@ $
 ```
 {{< /expand >}}
 
+
+## 2.ROSA HCP Cluster へのアクセス確認
 
 数分待ってから、`rosa create admin`の出力で現れた上記のコマンドを使ってログインコマンド(`oc login`) を実行します。
 (準備ができるまで 401 Unauthorized が出ます) 
