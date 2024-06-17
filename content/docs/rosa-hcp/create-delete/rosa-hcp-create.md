@@ -31,9 +31,26 @@ OIDC Config を作成します。(インタラクティブに構成したい場�
 
 Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
 
+{{< tabs "Cluster create" >}}
+
+# Public Cluster
+{{< tab "Public Cluster を作成する場合" >}}
 ```tpl
-rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
+rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto
 ```
+{{< /tab >}}
+
+# Private Cluster 
+{{< tab "Private Cluster を作成する場合" >}}
+**注意**: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。
+
+```tpl
+rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i --private-link -y -m auto
+```
+{{< /tab >}}
+
+{{< /tabs >}}
+
 {{< expand "コマンド実行例" >}}
 ```tpl
 $ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
@@ -125,7 +142,9 @@ $
 ```
 {{< /expand >}}
 
-{{< expand "\"billing account is required\" エラーが出た場合" >}}
+{{< hint info >}}
+**"billing account is required\" エラーが出た場合**
+
 以下のエラーが出た時は、HCPが有効化されてなかったり AWSアカウントとRed Hatアカウントが紐付いてない可能性があります。
 "1.ROSA HCPの有効化" の手順を再実行して、`rosa logout` した後 `rosa login` してから`rosa create ...` を再実行してみてください。
 
@@ -136,8 +155,8 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Installer-Role
 I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
 < 省略 > 
 ```
-{{< /expand >}}
 
+{{< /hint >}}
 
 ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。
 
@@ -172,6 +191,10 @@ $
 {{< /expand >}}
 
 ## 2.ROSA HCP Cluster へのアクセス確認
+
+{{< hint warning >}}
+注意: Private Cluster を作成した場合、`oc` コマンドは、AWS上の Compute Node が作成された Private Network に接続された Network から実行する必要があります。また、Controlplane 機能を提供する VPC Endpoint の設定で oc コマンドを実行する Network からのアクセスを明示的に許可して上げる必要があります。
+{{< /hint >}}
 
 インストールが完了したら管理者ユーザーを作成します。
 ログインコマンド (`oc login`) パスワード付きで標準出力に表示されます。これはコマンドが終了してから、数分待つ必要があります。
