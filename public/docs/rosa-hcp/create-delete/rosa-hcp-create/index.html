@@ -3,33 +3,31 @@
 <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。
-この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。
-1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
-Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
-export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。
-export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。">
+<meta name="description" content="1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
+echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
+rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
+rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
+Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="3. ROSA HCP Cluster の作成" />
-<meta property="og:description" content="1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。
-この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。
-1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
-Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
-export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。
-export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="5. ROSA HCP Cluster の作成" />
+<meta property="og:description" content="1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
+echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
+rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
+rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
+Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/" /><meta property="article:section" content="docs" />
 
 
 
-<title>3. ROSA HCP Cluster の作成 | MCS Documents</title>
+<title>5. ROSA HCP Cluster の作成 | MCS Documents</title>
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" href="/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/">
 <link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.ca785564b88389cc708df12b7fe29991ce268eda7587a1a7acf176c269c1440a.js" integrity="sha256-ynhVZLiDicxwjfErf&#43;KZkc4mjtp1h6GnrPF2wmnBRAo=" crossorigin="anonymous"></script>
+  <script defer src="/en.search.min.e0fe7ad33ca16dcd37f3dbbe072db225c9671fa449da4edcc719d5cb78540294.js" integrity="sha256-4P560zyhbc0389u&#43;By2yJclnH6RJ2k7cxxnVy3hUApQ=" crossorigin="anonymous"></script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -81,9 +79,9 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle" checked />
-    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
-      <a role="button" class="">ROSA Cluster の作成と削除</a>
+    <input type="checkbox" id="section-0b1cd17e634be7cb65a477fa33665677" class="toggle"  />
+    <label for="section-0b1cd17e634be7cb65a477fa33665677" class="flex justify-between">
+      <a role="button" class="">ROSA Classic Cluster の作成と削除 (terraform)</a>
     </label>
   
 
@@ -97,7 +95,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+    <a href="/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
   
 
         </li>
@@ -110,7 +108,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+    <a href="/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -123,7 +121,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="active">3. ROSA HCP Cluster の作成</a>
+    <a href="/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -136,7 +134,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">4. ROSA HCP Cluster の削除</a>
+    <a href="/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
   
 
         </li>
@@ -149,7 +147,132 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">5.[補則] Network 疎通の確認</a>
+    <a href="/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle" checked />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA HCP Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="active">5. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">6. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/" class="">7. Cluster 用 Network の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
   
 
         </li>
@@ -289,7 +412,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle"  />
     <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
-      <a role="button" class="">Application の作成</a>
+      <a role="button" class="">サンプル Application の作成</a>
     </label>
   
 
@@ -342,7 +465,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 Image Registry を使用する</a>
+    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 OpenShift Registry を使用する</a>
   
 
         </li>
@@ -622,7 +745,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>3. ROSA HCP Cluster の作成</strong>
+  <strong>5. ROSA HCP Cluster の作成</strong>
 
   <label for="toc-control">
     
@@ -638,15 +761,10 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-terraform-を使用した-rosa-を-install-する-aws-network-の作成">1. Terraform を使用した ROSA を install する AWS Network の作成</a>
-      <ul>
-        <li><a href="#11-terraform-を使用した-aws-network-リソースの作成">1.1. Terraform を使用した AWS Network リソースの作成</a></li>
-        <li><a href="#12-作成された-subnet-と-nat-gateway-の確認-オプショナル">1.2. 作成された Subnet と NAT Gateway の確認 (オプショナル)</a></li>
-      </ul>
-    </li>
-    <li><a href="#2rosa-hcp-cluster-の-作成">2.ROSA HCP Cluster の 作成</a></li>
-    <li><a href="#3rosa-hcp-cluster-へのアクセス確認">3.ROSA HCP Cluster へのアクセス確認</a></li>
-    <li><a href="#4構成を探って見る">4.構成を探って見る</a></li>
+    <li><a href="#1rosa-hcp-cluster-の-作成">1.ROSA HCP Cluster の 作成</a></li>
+    <li><a href="#2rosa-hcp-cluster-へのアクセス確認">2.ROSA HCP Cluster へのアクセス確認</a></li>
+    <li><a href="#3構成を探って見る">3.構成を探って見る</a></li>
+    <li><a href="#4guiにアクセスする">4.GUIにアクセスする</a></li>
   </ul>
 </nav>
 
@@ -659,101 +777,33 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h2 id="1-terraform-を使用した-rosa-を-install-する-aws-network-の作成">
-  1. Terraform を使用した ROSA を install する AWS Network の作成
-  <a class="anchor" href="#1-terraform-%e3%82%92%e4%bd%bf%e7%94%a8%e3%81%97%e3%81%9f-rosa-%e3%82%92-install-%e3%81%99%e3%82%8b-aws-network-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+  <article class="markdown book-article"><h2 id="1rosa-hcp-cluster-の-作成">
+  1.ROSA HCP Cluster の 作成
+  <a class="anchor" href="#1rosa-hcp-cluster-%e3%81%ae-%e4%bd%9c%e6%88%90">#</a>
 </h2>
-<p>HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。
-ここでは Terraform を使用して AWS　上に Network を作成します。</p>
-<p>この手順は、公式ドキュメントの「<!-- raw HTML omitted -->Creating a Vritual Private Cloud for your ROSA with HCP clusters<!-- raw HTML omitted -->
-」をベースにしています。</p>
-<h3 id="11-terraform-を使用した-aws-network-リソースの作成">
-  1.1. Terraform を使用した AWS Network リソースの作成
-  <a class="anchor" href="#11-terraform-%e3%82%92%e4%bd%bf%e7%94%a8%e3%81%97%e3%81%9f-aws-network-%e3%83%aa%e3%82%bd%e3%83%bc%e3%82%b9%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
-</h3>
-<p>サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。</p>
-<ol>
-<li>Repository からサンプルの terraform をダウンロードし初期化します。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>git clone https://github.com/openshift-cs/terraform-vpc-example
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd terraform-vpc-example
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
-</span></span></code></pre></div><ol start="2">
-<li>変数を準備しておきます。</li>
-</ol>
-<p>CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export CLUSTER_NAME=myhcpcluster
-</span></span></code></pre></div><p>ここでは<code>ap-northeast-1</code> にクラスターを作成します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export REGION=ap-northeast-1
-</span></span></code></pre></div><ol start="3">
-<li>Terraform の plan を作成します。</li>
-</ol>
-<p>Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。</p>
-
-
-
-
-<div class="book-tabs"><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-0" checked="checked" />
-  <label for="tabs-deply network type-0">Single AZ Network</label>
-  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
-</span></span></code></pre></div></div><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-1"  />
-  <label for="tabs-deply network type-1">Multi AZ Network</label>
-  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
-</span></span></code></pre></div></div></div>
-
-<ol start="4">
-<li>Plan を apply して Network を作成します。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform apply rosa.tfplan
-</span></span></code></pre></div><ol start="5">
-<li>作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで6つのサブネットIDが変数にセットされます。</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
-</span></span></code></pre></div><p>以上で Network の準備は完了です。</p>
-<h3 id="12-作成された-subnet-と-nat-gateway-の確認-オプショナル">
-  1.2. 作成された Subnet と NAT Gateway の確認 (オプショナル)
-  <a class="anchor" href="#12-%e4%bd%9c%e6%88%90%e3%81%95%e3%82%8c%e3%81%9f-subnet-%e3%81%a8-nat-gateway-%e3%81%ae%e7%a2%ba%e8%aa%8d-%e3%82%aa%e3%83%97%e3%82%b7%e3%83%a7%e3%83%8a%e3%83%ab">#</a>
-</h3>
-<p>ROSA の構築で一番のはまりポイントは、AWS Network の構成です。この手順では terraform で Network を構成するので、嵌まる事はまずありませんが、手動で AWS GUI から作成した場合などはきちんと構成できてない事がありデバッグ用に CLI を覚えて置くと便利です。</p>
-<p>ここでは CLI を使って作成した Network の情報を確認する方法をご紹介します。</p>
-
-<div class="book-expand">
-  <label>
-    <div class="book-expand-head flex justify-between">
-      <span>AWS CLI 実行例</span>
-      <span>↕</span>
-    </div>
-    <input type="checkbox" class="hidden" />
-    <div class="book-expand-content markdown-inner">
-      <p>terraform で apply した時のログにも出ていますが、ここでは AWS CLI の練習も兼ねて、AWS CLI を使用して作成された VPC と Subnet 等を確認します。</p>
-<p>VPC をリストします。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>aws ec2 describe-vpcs | jq -r &#39;.Vpcs[] | [.CidrBlock, .VpcId, .State] | @csv&#39;
-</span></span></code></pre></div><p>Subnet をリストします。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39;
-</span></span></code></pre></div><p>NAT Gateway をリストします。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>aws ec2 describe-nat-gateways | jq -r &#39;.NatGateways[] | [.NatGatewayId, .State] | @csv&#39;
-</span></span></code></pre></div>
-    </div>
-  </label>
-</div>
-
-<h2 id="2rosa-hcp-cluster-の-作成">
-  2.ROSA HCP Cluster の 作成
-  <a class="anchor" href="#2rosa-hcp-cluster-%e3%81%ae-%e4%bd%9c%e6%88%90">#</a>
-</h2>
-<p>クラスターを作成するには、Red Hat Customer ポータルの User アカウントが必要です。無料で作成できます。Red Hat Customer ポータルの Userを作成した後、以下のコマンドでログインします。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa login
-</span></span></code></pre></div><p>必要な IAM Role を作成します。いろいろ聞かれますが、全てデフォルト(エンター)で大丈夫です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create account-roles --hosted-cp
-</span></span></code></pre></div><p>OIDC Config を作成します。いろいろ聞かれますが、全てデフォルト(エンター)で大丈夫です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> rosa create oidc-config 
-</span></span></code></pre></div><p>必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。</p>
+<p>必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $CLUSTER_NAME
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $REGION
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $SUBNET_IDS
+</span></span></code></pre></div><p>必要な IAM Role を作成します。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create account-roles --hosted-cp -y -m auto
+</span></span></code></pre></div><p>OIDC Config を作成します。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> rosa create oidc-config  -y -m auto
 </span></span></code></pre></div><p>Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
-</span></span></code></pre></div>
+
+
+
+
+<div class="book-tabs"><input type="radio" class="toggle" name="tabs-Cluster create" id="tabs-Cluster create-0" checked="checked" />
+  <label for="tabs-Cluster create-0">Public Cluster を作成する場合</label>
+  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto
+</span></span></code></pre></div></div><input type="radio" class="toggle" name="tabs-Cluster create" id="tabs-Cluster create-1"  />
+  <label for="tabs-Cluster create-1">Private Cluster を作成する場合</label>
+  <div class="book-tabs-content markdown-inner"><p><strong>注意</strong>: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i --private-link -y -m auto
+</span></span></code></pre></div></div></div>
+
+
 <div class="book-expand">
   <label>
     <div class="book-expand-head flex justify-between">
@@ -762,12 +812,12 @@ https://github.com/alex-shpak/hugo-book
     </div>
     <input type="checkbox" class="hidden" />
     <div class="book-expand-content markdown-inner">
-      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
-</span></span><span style="display:flex;"><span>I: Using &#39;923114993793&#39; as billing account
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
+</span></span><span style="display:flex;"><span>I: Using &#39;993114993799&#39; as billing account
 </span></span><span style="display:flex;"><span>I: To use a different billing account, add --billing-account xxxxxxxxxx to previous command
-</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
-</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
-</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
+</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
+</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
+</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
 </span></span><span style="display:flex;"><span>? OIDC Configuration ID (default = &#39;29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7&#39;): 29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7
 </span></span><span style="display:flex;"><span>? Tags (optional): 
 </span></span><span style="display:flex;"><span>? AWS region (default = &#39;ap-northeast-1&#39;): ap-northeast-1
@@ -800,8 +850,8 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span>OpenShift Version:          4.14.15
 </span></span><span style="display:flex;"><span>Channel Group:              stable
 </span></span><span style="display:flex;"><span>DNS:                        Not ready
-</span></span><span style="display:flex;"><span>AWS Account:                923114993793
-</span></span><span style="display:flex;"><span>AWS Billing Account:        923114993793
+</span></span><span style="display:flex;"><span>AWS Account:                993114993799
+</span></span><span style="display:flex;"><span>AWS Billing Account:        993114993799
 </span></span><span style="display:flex;"><span>API URL:                    
 </span></span><span style="display:flex;"><span>Console URL:                
 </span></span><span style="display:flex;"><span>Region:                     ap-northeast-1
@@ -853,35 +903,17 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
-<p>Cluster の作成を開始した後に Operator Role を作成します。<strong>これを行わないと Cluster の作成が進行しないのでご注意下さい。</strong></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create operator-roles --cluster $CLUSTER_NAME -m auto --yes
-</span></span></code></pre></div>
-<div class="book-expand">
-  <label>
-    <div class="book-expand-head flex justify-between">
-      <span>コマンド実行例</span>
-      <span>↕</span>
-    </div>
-    <input type="checkbox" class="hidden" />
-    <div class="book-expand-content markdown-inner">
-      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$  rosa create operator-roles --cluster myhcpcluster
-</span></span><span style="display:flex;"><span>? Role creation mode (default = &#39;auto&#39;): auto
-</span></span><span style="display:flex;"><span>? Permissions boundary ARN (optional): 
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>I: Creating roles using &#39;arn:aws:iam::923114993793:user/open-environment-shr8g-admin&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-openshift-cluster-csi-drivers-ebs-cloud-creden&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cluster-csi-drivers-ebs-cloud-creden&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-openshift-cloud-network-config-controller-clou&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cloud-network-config-controller-clou&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-openshift-image-registry-installer-cloud-crede&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-image-registry-installer-cloud-crede&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-kube-system-capa-controller-manager&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-capa-controller-manager&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-kube-system-control-plane-operator&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-control-plane-operator&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-kube-system-kms-provider&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kms-provider&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-kube-system-kube-controller-manager&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kube-controller-manager&#39;
-</span></span><span style="display:flex;"><span>I: Created role &#39;myhcpcluster-a2m3-openshift-ingress-operator-cloud-credentials&#39; with ARN &#39;arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-ingress-operator-cloud-credentials&#39;
-</span></span><span style="display:flex;"><span>$
-</span></span></code></pre></div>
-    </div>
-  </label>
-</div>
+<blockquote class="book-hint info">
+  <p><strong>&ldquo;billing account is required&quot; エラーが出た場合</strong></p>
+<p>以下のエラーが出た時は、HCPが有効化されてなかったり AWSアカウントとRed Hatアカウントが紐付いてない可能性があります。
+&ldquo;1.ROSA HCPの有効化&rdquo; の手順を再実行して、<code>rosa logout</code> した後 <code>rosa login</code> してから<code>rosa create ...</code> を再実行してみてください。</p>
+<pre tabindex="0"><code>$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
+E: A billing account is required for Hosted Control Plane clusters. To see the list of billing account options, you can use interactive mode by passing &#39;-i&#39;.
+I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
+I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
+&lt; 省略 &gt; 
+</code></pre>
+</blockquote>
 
 <p>ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa logs install -c $CLUSTER_NAME --watch
@@ -921,10 +953,10 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
-<h2 id="3rosa-hcp-cluster-へのアクセス確認">
-  3.ROSA HCP Cluster へのアクセス確認
-  <a class="anchor" href="#3rosa-hcp-cluster-%e3%81%b8%e3%81%ae%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e7%a2%ba%e8%aa%8d">#</a>
-</h2>
+<blockquote class="book-hint warning">
+  注意: Private Cluster を作成した場合、<code>oc</code> コマンドは、AWS上の Compute Node が作成された Private Network に接続された Network から実行する必要があります。また、Controlplane 機能を提供する VPC Endpoint の設定で oc コマンドを実行する Network からのアクセスを明示的に許可して上げる必要があります。
+</blockquote>
+
 <p>インストールが完了したら管理者ユーザーを作成します。
 ログインコマンド (<code>oc login</code>) パスワード付きで標準出力に表示されます。これはコマンドが終了してから、数分待つ必要があります。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create admin --cluster=$CLUSTER_NAME
@@ -953,6 +985,10 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
+<h2 id="2rosa-hcp-cluster-へのアクセス確認">
+  2.ROSA HCP Cluster へのアクセス確認
+  <a class="anchor" href="#2rosa-hcp-cluster-%e3%81%b8%e3%81%ae%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e7%a2%ba%e8%aa%8d">#</a>
+</h2>
 <p>数分待ってから、<code>rosa create admin</code>の出力で現れた上記のコマンドを使ってログインコマンド(<code>oc login</code>) を実行します。
 (準備ができるまで 401 Unauthorized が出ます)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc login &lt;API_SERVER&gt; --username cluster-admin --password &lt;PASSWORD&gt;
@@ -977,7 +1013,7 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
-<p><code>oc get nodes</code> コマンドで compute node ができたか確認します。Worker node が 3本表示されるはずです。
+<p><code>oc get nodes</code> コマンドで compute node ができたか確認します。Worker node が 2本(Single AZ構成) もしくは3本(Multi AZ構成)表示されるはずです。
 (まれに node の作成に時間がかかる場合があります。何も node が表示されない場合は、さらに10分程度待ってく見てください)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get nodes
 </span></span></code></pre></div>
@@ -1000,9 +1036,9 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
-<h2 id="4構成を探って見る">
-  4.構成を探って見る
-  <a class="anchor" href="#4%e6%a7%8b%e6%88%90%e3%82%92%e6%8e%a2%e3%81%a3%e3%81%a6%e8%a6%8b%e3%82%8b">#</a>
+<h2 id="3構成を探って見る">
+  3.構成を探って見る
+  <a class="anchor" href="#3%e6%a7%8b%e6%88%90%e3%82%92%e6%8e%a2%e3%81%a3%e3%81%a6%e8%a6%8b%e3%82%8b">#</a>
 </h2>
 <p><code>rosa list machinepool</code> コマンドで、AZ毎に <code>machinepool</code> が出来ている事を確認します。<code>machinepool</code>単位で Node 数を増やす事ができます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list machinepool -c $CLUSTER_NAME
@@ -1047,7 +1083,13 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
-</article>
+<h2 id="4guiにアクセスする">
+  4.GUIにアクセスする
+  <a class="anchor" href="#4gui%e3%81%ab%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>GUI の URLは以下のコマンドで確認できます。<code>rosa create admin</code> 実行時のログに表示された cluster-admin とそのパスワードでログインできます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc whoami --show-console
+</span></span></code></pre></div></article>
  
       
 
@@ -1088,15 +1130,10 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1-terraform-を使用した-rosa-を-install-する-aws-network-の作成">1. Terraform を使用した ROSA を install する AWS Network の作成</a>
-      <ul>
-        <li><a href="#11-terraform-を使用した-aws-network-リソースの作成">1.1. Terraform を使用した AWS Network リソースの作成</a></li>
-        <li><a href="#12-作成された-subnet-と-nat-gateway-の確認-オプショナル">1.2. 作成された Subnet と NAT Gateway の確認 (オプショナル)</a></li>
-      </ul>
-    </li>
-    <li><a href="#2rosa-hcp-cluster-の-作成">2.ROSA HCP Cluster の 作成</a></li>
-    <li><a href="#3rosa-hcp-cluster-へのアクセス確認">3.ROSA HCP Cluster へのアクセス確認</a></li>
-    <li><a href="#4構成を探って見る">4.構成を探って見る</a></li>
+    <li><a href="#1rosa-hcp-cluster-の-作成">1.ROSA HCP Cluster の 作成</a></li>
+    <li><a href="#2rosa-hcp-cluster-へのアクセス確認">2.ROSA HCP Cluster へのアクセス確認</a></li>
+    <li><a href="#3構成を探って見る">3.構成を探って見る</a></li>
+    <li><a href="#4guiにアクセスする">4.GUIにアクセスする</a></li>
   </ul>
 </nav>
 

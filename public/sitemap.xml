@@ -2,15 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</loc>
+  </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</loc>
+    <loc>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</loc>
+    <loc>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</loc>
   </url><url>
@@ -20,15 +24,29 @@
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-add-users/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</loc>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</loc>
   </url><url>
-    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</loc>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</loc>
   </url><url>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</loc>
+  </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-debug/</loc>
+  </url><url>
+    <loc>http://localhost:1313/docs/rosa-classic/create-delete/</loc>
   </url><url>
     <loc>http://localhost:1313/docs/rosa-hcp/create-delete/</loc>
   </url><url>

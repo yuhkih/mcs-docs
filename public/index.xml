@@ -9,6 +9,13 @@
     <lastBuildDate>Wed, 06 Mar 2024 08:16:14 +0900</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>1. CLIの準備</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</guid>
+      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
+    </item>
+    <item>
       <title>1. Hello world コンテナのデプロイ</title>
       <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -23,10 +30,10 @@
       <description> oc コマンド # oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。&#xA;基本的に kubectl を拡張した上位互換ですので、ほとんどのケースで、kubetl get pods のようなコマンドは oc get pods のように置き換える事ができます。&#xA;1. OpenShift console の URL の表示 # oc whoami --show-console コマンド実行例 ↕ $ oc whoami --show-console https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com $ </description>
     </item>
     <item>
-      <title>1. ROSA HCP の有効化</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</link>
+      <title>1. ROSA Classic の有効化</title>
+      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</guid>
+      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</guid>
       <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
     </item>
     <item>
@@ -38,10 +45,17 @@
     </item>
     <item>
       <title>2. CLIの準備</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</link>
+      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</guid>
+      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</guid>
       <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
+    </item>
+    <item>
+      <title>2. Cluster 用の Network の作成</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</guid>
+      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。&#xA;export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。&#xA;export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。</description>
     </item>
     <item>
       <title>2. Dev Spaces Operator</title>
@@ -72,11 +86,18 @@
       <description> 2. htpasswd を使用したユーザーの追加 # 本番環境では基本的には、GitHub や LDAP 等の外部の Identity Provider を使用する事が推奨されますが、実験で使用したい。という場合にそこまでの構成を準備するのは大変な事が多いでしょう。&#xA;ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使ったユーザーの追加ができるようになっています。&#xA;console.redhat.com にログインします。&#xA;作業の対象の Cluster を選択します。 Access Control タブに移動して、htpasswd を選択します。 ユーザーを追加します。ここでは yuhki というユーザーを追加しています。 ここでは、追加したユーザーを cluster-admins グループに追加してみます。 Access Control タブから、Add User を行います。 先ほど作成したユーザー名を入力し、cluster admins を選んで OK をクリックします。 作成された cluster-admins グループのユーザーは以下のように表示されます。 CLI からも cluster-admins のユーザーに yuhki が追加されている事が確認できます。&#xA;$ oc get groups -o wide NAME USERS cluster-admins cluster-admin, yuhki dedicated-admins $ </description>
     </item>
     <item>
-      <title>3. ROSA HCP Cluster の作成</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</link>
+      <title>3. ROSA HCP の有効化</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</guid>
-      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。&#xA;export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。&#xA;export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。</description>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</guid>
+      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
+    </item>
+    <item>
+      <title>3. ROSA 作成用 token の取得</title>
+      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</guid>
+      <description>1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
     </item>
     <item>
       <title>3. 標準の Nginx コンテナをセキュアにする</title>
@@ -86,21 +107,56 @@
       <description>1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx oc get pods で、pod の STATUS が CrashLooBackOff になっている事を確認します。&#xA;これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.</description>
     </item>
     <item>
-      <title>4. ROSA HCP Cluster の削除</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</link>
+      <title>4. ROSA 作成用 token の取得</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</guid>
-      <description>1.変数を確認する # クラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後の出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</guid>
+      <description>1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。&#xA;rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
     </item>
     <item>
-      <title>4. 内部 Image Registry を使用する</title>
+      <title>4. Terraform を使用した ROSA Classic Cluster の 作成</title>
+      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</guid>
+      <description>ここでは、最も簡単な方法で ROSA Classic Cluster (Single AZ) を作ってみます。 一番、少ない手順で作成したい場合は、terraform を使うのが手っ取り早いです。&#xA;一番、簡単な方法ですが、この方法を覚えておけば、terraform のファイルをカスタマイズして、好みのクラスタを作る事も可能です。&#xA;1.ROSA 作成用 Token の取得 # rosa login token を環境変数に設定します。この環境変数は terrafomr から参照されます。&#xA;2.ROSA Classic Cluster の作成 # あらかじめ必要な Terraform の設定ファイルを同梱した Git Repository を作成してあるので、それをダウンロードして、作成されたディレクトリーに移動します。&#xA;git clone https://github.com/yuhkih/rosa-classic-terraform.git &amp;amp;&amp;amp; cd rosa-classic-terraform 初期化します。&#xA;terraform init apply します。50分程でクラスターが作成されされます。&#xA;terraform apply 作成されたクラスターの名前を確認します。&#xA;rosa list cluster 出力例&#xA;$ rosa list clusters ID NAME STATE TOPOLOGY 2aa9097v25puk2c01h9i69lqvqc2pj99 rosa-mbkgqo ready Classic (STS) $ 管理者ユーザーを作成します。これで cluster-admin という管理者ユーザーが作成されます。&#xA;rosa create admin -c $CLUSTER_NAME ログインしてみます。</description>
+    </item>
+    <item>
+      <title>4. 内部 OpenShift Registry を使用する</title>
       <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
-      <description>この手順は 標準の Ngix コンテナをセキュアにする の続きです。&#xA;1. 内部 Image Registry の公開 # 内部 Image Registry を Route を使ってクラスター外のネットワークに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. ローカル Image Registry へのログイン # 内部 Image Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` 変数に値がセットされているか確認します。&#xA;echo $IMAGE_SERVER 内部 Image Registry に、Bearerトークン を使ってログインします。&#xA;podman login -u `oc whoami` -p `oc whoami --show-token` ${IMAGE_SERVER} 3. ローカル Image Registry への Image の Push # 現在、作業端末上にある image を確認します。</description>
+      <description>この手順は 標準の Ngix コンテナをセキュアにする の続きです。&#xA;ROSA では、コンテナアプリケーションの開発に必要な Docker Registry が既にセットアップされて使えるようになっています。&#xA;主に、この ROSA Cluster の内部のプロジェクトから使用される事を目的とした、シンプルな Docker Image Registry なので、内部 OpenShift Registry のように呼ばれています。&#xA;1. 内部 OpenShift Registry の公開 # コンテナをビルドした端末から、直接、内部 OpenShift Registry にアクセスできるようにするために、Route を使って 内部 OpenShift Registry をクラスター外のネットワークに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. 内部 OpenShift Registry へのログイン # 内部 OpenShift Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` 変数に値がセットされているか確認します。&#xA;echo $IMAGE_SERVER 内部 OpenShift Registry に、Bearerトークン を使ってログインします。</description>
     </item>
     <item>
-      <title>5.[補則] Network 疎通の確認</title>
+      <title>5. ROSA HCP Cluster の作成</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</guid>
+      <description>1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。&#xA;echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。&#xA;Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</description>
+    </item>
+    <item>
+      <title>5. Terraform を使用した ROSA Classic Cluster の削除</title>
+      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</guid>
+      <description> 1.terraform による Cluster の削除 # terraform を使用して、ROSA Cluster を作成した事が前提です。&#xA;以下のコマンドでクラスターを削除できます。&#xA;terraform destory </description>
+    </item>
+    <item>
+      <title>6. ROSA HCP Cluster の削除</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</guid>
+      <description>1.変数を確認する # 削除対象のクラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。これはクラスター作成後、Nodeを追加していても、それらの Node も含めて削除されます。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後に出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
+    </item>
+    <item>
+      <title>7. Cluster 用 Network の削除</title>
+      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</guid>
+      <description>この手順は、Red Hat で提供している terraform を使用して、ROSA HCP Cluster を作成している事が前提になります。&#xA;1.Terraform で作成した AWS のネットワークを削除する # git clone したディレクトリに移動して、以下のコマンドで削除します。&#xA;terraform destroy </description>
+    </item>
+    <item>
+      <title>8. [補則] Network 疎通の確認</title>
       <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-debug/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-debug/</guid>
