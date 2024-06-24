@@ -1,5 +1,6 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://yuhkih.github.io/mcs-docs'
 languageCode = 'ja-JP'
 title = 'MCS Documents'
 theme = "hugo-book" 
+googleAnalytics = "G-YJ1FJGEVLK"
 
