@@ -59,13 +59,6 @@ virtctl version
 ./create-virtual-machine.sh
 ```
 
-仮想マシンは、`my-vms` と言う `project` 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。
-
-
-```tpl
-oc get pvc -n my-vms
-```
-
 ## 3.Virtual Machine 作成の確認
 
 以下のコマンドで作成状況が確認できます。
@@ -74,7 +67,23 @@ oc get pvc -n my-vms
 watch oc get virtualmachine my-first-fedora-vm
 ```
 
+{{< expand "出力例" >}}
+```tpl
+Every 2.0s: oc get virtualmachine my-first-fedora-vm                        
+
+NAME                 AGE     STATUS         READY
+my-first-fedora-vm   3m27s   Provisioning   False
+```
+{{< /expand >}}
+
 `Status` が `Running` になるまで待ちます。
+
+参考情報ですが、仮想マシンは、`my-vms` と言う `project` 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。
+
+
+```tpl
+oc get pvc -n my-vms
+```
 
 ## 4.仮想マシンへのログイン
 
