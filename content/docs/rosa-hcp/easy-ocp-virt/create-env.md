@@ -69,13 +69,13 @@ ROSA Cluster のインストールスクリプトが完成したら、以下の�
 
 ## 5.Baremetal Node の 作成
 
-上記のスクリプトが完了したら、Baremetal の Worker Node を2本追加します。
+上記のスクリプトが完了したら、`Baremetal` の `Worker Node` を2本追加します。
 
-現状、OCP Virtualization の仮想マシンは、Baremetal Node 上にしか作成(Schedulging)されないため、Baremetal Node が必要になります。
+現状、`OCP Virtualization` の仮想マシンは、`Baremetal Node` 上にしか作成(Schedulging)されないため、`Baremetal Node` が必要になります。
 
-Baremetal の Worker Node は、非常に高価であるので、この手順は最後にもってきています。
+`Baremetal` の `Worker Node` は、非常に高価であるので、この手順は最後にもってきています。
 
-以下のスクリプトを実行する事で、新規の machinepool が作成されそこに、Baremetal の Worker Node が 2本作成されます。
+以下のスクリプトを実行する事で、新規の `machinepool` が作成されそこに、`Baremetal` の `Worker Node` が 2本作成されます。
 
 30分以上かかるはずです。
 
