@@ -19,6 +19,7 @@ cd $BASE_DIR/rosa-ocpv/test-virtual-machine
 ./ocp-show-console-url.sh
 ```
 
+
 `OpenShift Console` の右上のメニューから、`コマンドラインツール`をえらびます。
 ![clidownload1](https://github.com/user-attachments/assets/f8314638-e3d2-4aa1-b7b1-ce733b930528)
 
