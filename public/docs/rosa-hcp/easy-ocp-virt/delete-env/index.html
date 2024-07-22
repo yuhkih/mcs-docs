@@ -4,21 +4,23 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content=" 1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。
+<meta name="description" content="1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。
 cd $BASE_DIR/rosa-ocpv/delete-environment 1. 仮想マシンの削除 # 仮想マシンを削除していない場合は、削除します。
 oc delete vm my-first-fedora-vm oc delete project my-vms 2. Baremetal Node の削除 # Baremetal Node は高価なので、一番初めに処理しておきましょう。以下で削除されます。スクリプトは一瞬で終わり、裏で削除が進みますが、次のステップに進んで問題ありません。
-./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。
+./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。20分以上かかるはずです。
 ./delete-fsx-ontap.sh 4. ROSA Cluster の削除 # 以下のスクリプトでROSA HCP クラスターを削除します。
-./delete-rosa-cluster.sh ">
+./delete-rosa-cluster.sh 途中で以下のように確認を求められるので、yes と入力してください。
+... Do you really want to destroy all resources? Terraform will destroy all your managed infrastructure, as shown above. There is no undo.">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="6.環境の削除" />
-<meta property="og:description" content=" 1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。
+<meta property="og:description" content="1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。
 cd $BASE_DIR/rosa-ocpv/delete-environment 1. 仮想マシンの削除 # 仮想マシンを削除していない場合は、削除します。
 oc delete vm my-first-fedora-vm oc delete project my-vms 2. Baremetal Node の削除 # Baremetal Node は高価なので、一番初めに処理しておきましょう。以下で削除されます。スクリプトは一瞬で終わり、裏で削除が進みますが、次のステップに進んで問題ありません。
-./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。
+./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。20分以上かかるはずです。
 ./delete-fsx-ontap.sh 4. ROSA Cluster の削除 # 以下のスクリプトでROSA HCP クラスターを削除します。
-./delete-rosa-cluster.sh " />
+./delete-rosa-cluster.sh 途中で以下のように確認を求められるので、yes と入力してください。
+... Do you really want to destroy all resources? Terraform will destroy all your managed infrastructure, as shown above. There is no undo." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" /><meta property="article:section" content="docs" />
 
@@ -30,7 +32,7 @@ oc delete vm my-first-fedora-vm oc delete project my-vms 2. Baremetal Node の�
 <link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/">
 <link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/mcs-docs/flexsearch.min.js"></script>
-  <script defer src="/mcs-docs/en.search.min.19d6ace73b2e2297a7659910f5b12fa4c8aa1707508ec189c8e11affe4638b62.js" integrity="sha256-Gdas5zsuIpenZZkQ9bEvpMiqFwdQjsGJyOEa/&#43;Rji2I=" crossorigin="anonymous"></script>
+  <script defer src="/mcs-docs/en.search.min.22feb1f5d3d3068369d9fc14fdcb0ccf78e14e8d058ef969dcdc11e69999fd3b.js" integrity="sha256-Iv6x9dPTBoNp2fwU/csMz3jhTo0Fjvlp3NwR5pmZ/Ts=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
 <script>
@@ -85,92 +87,6 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-0b1cd17e634be7cb65a477fa33665677" class="toggle"  />
-    <label for="section-0b1cd17e634be7cb65a477fa33665677" class="flex justify-between">
-      <a role="button" class="">ROSA Classic Cluster の作成と削除 (terraform)</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
     
       
         <li>
@@ -498,19 +414,6 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
-  
-
-        </li>
-      
-    
   </ul>
 
         </li>
@@ -589,227 +492,6 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
-    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
-      <a role="button" class="">Collapsed</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li class="book-section-flat" >
-          
-  
-  
-
-  
-    <span>Shortcodes</span>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/buttons/" class="">Buttons</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/columns/" class="">Columns</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/details/" class="">Details</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/expand/" class="">Expand</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/hints/" class="">Hints</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/mermaid/" class="">Mermaid</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
-    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
-      <a href="/mcs-docs/docs/shortcodes/section/" class="">Section</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/section/first-page/" class="">First Page</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/section/second-page/" class="">Second Page</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/tabs/" class="">Tabs</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/shortcodes/katex/" class="">KaTeX</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
   </ul>
 
 
@@ -820,18 +502,6 @@ https://github.com/alex-shpak/hugo-book
 
 
 
-
-
-  
-<ul>
-  
-  <li>
-    <a href="/mcs-docs/posts/"  >
-        Blog
-      </a>
-  </li>
-  
-</ul>
 
 
 
@@ -914,7 +584,7 @@ https://github.com/alex-shpak/hugo-book
   3. FSx ONTAP の削除
   <a class="anchor" href="#3-fsx-ontap-%e3%81%ae%e5%89%8a%e9%99%a4">#</a>
 </h2>
-<p>FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。</p>
+<p>FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。20分以上かかるはずです。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>./delete-fsx-ontap.sh 
 </span></span></code></pre></div><h2 id="4-rosa-cluster-の削除">
   4. ROSA Cluster の削除
@@ -922,7 +592,16 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>以下のスクリプトでROSA HCP クラスターを削除します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>./delete-rosa-cluster.sh
-</span></span></code></pre></div></article>
+</span></span></code></pre></div><p>途中で以下のように確認を求められるので、<code>yes</code> と入力してください。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>Do you really want to destroy all resources?
+</span></span><span style="display:flex;"><span>  Terraform will destroy all your managed infrastructure, as shown above.
+</span></span><span style="display:flex;"><span>  There is no undo. Only &#39;yes&#39; will be accepted to confirm.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  Enter a value: yes
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>目安として、30分程度で削除が完了するはずです。</p>
+</article>
  
       
 

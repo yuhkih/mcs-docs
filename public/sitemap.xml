@@ -10,11 +10,7 @@
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/</loc>
   </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</loc>
-  </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</loc>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</loc>
   </url><url>
@@ -30,15 +26,11 @@
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</loc>
   </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</loc>
-  </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</loc>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</loc>
   </url><url>
@@ -48,8 +40,6 @@
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/</loc>
   </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</loc>
-  </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</loc>
@@ -57,8 +47,6 @@
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/</loc>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/</loc>
   </url><url>
@@ -75,14 +63,6 @@
   </url><url>
     <loc>http://localhost:1313/mcs-docs/posts/migrate-from-jekyll/</loc>
     <lastmod>2014-03-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/examples/collapsed/</loc>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/posts/</loc>
-    <lastmod>2024-03-06T08:16:14+09:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/posts/hello-world/</loc>
-    <lastmod>2024-03-06T08:16:14+09:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/</loc>
     <lastmod>2024-03-06T08:16:14+09:00</lastmod>
@@ -127,11 +107,7 @@
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/examples/collapsed/3rd-level/</loc>
   </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</loc>
-  </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/rosa-hcp/hidden/</loc>
-  </url><url>
-    <loc>http://localhost:1313/mcs-docs/docs/shortcodes/</loc>
   </url><url>
     <loc>http://localhost:1313/mcs-docs/docs/shortcodes/buttons/</loc>
   </url><url>

@@ -6,7 +6,7 @@
     <description>Recent content in Introduction on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <lastBuildDate>Wed, 06 Mar 2024 08:16:14 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 28 Sep 2014 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/mcs-docs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. CLIの準備</title>
@@ -37,25 +37,11 @@
       <description> oc コマンド # oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。&#xA;基本的に kubectl を拡張した上位互換ですので、ほとんどのケースで、kubetl get pods のようなコマンドは oc get pods のように置き換える事ができます。&#xA;1. OpenShift console の URL の表示 # oc whoami --show-console コマンド実行例 ↕ $ oc whoami --show-console https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com $ </description>
     </item>
     <item>
-      <title>1. ROSA Classic の有効化</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</guid>
-      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
-    </item>
-    <item>
       <title>1. Web Terminal Operator</title>
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</guid>
       <description> Web Terminal Operator のインストール # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
-    </item>
-    <item>
-      <title>2. CLIの準備</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</guid>
-      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
     </item>
     <item>
       <title>2. Cluster 用の Network の作成</title>
@@ -108,13 +94,6 @@
     </item>
     <item>
       <title>3. ROSA 作成用 token の取得</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</guid>
-      <description>1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
-    </item>
-    <item>
-      <title>3. ROSA 作成用 token の取得</title>
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</guid>
@@ -135,13 +114,6 @@
       <description>1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。&#xA;rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
     </item>
     <item>
-      <title>4. Terraform を使用した ROSA Classic Cluster の 作成</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</guid>
-      <description>ここでは、最も簡単な方法で ROSA Classic Cluster (Single AZ) を作ってみます。 一番、少ない手順で作成したい場合は、terraform を使うのが手っ取り早いです。&#xA;一番、簡単な方法ですが、この方法を覚えておけば、terraform のファイルをカスタマイズして、好みのクラスタを作る事も可能です。&#xA;1.ROSA 作成用 Token の取得 # rosa login token を環境変数に設定します。この環境変数は terrafomr から参照されます。&#xA;2.ROSA Classic Cluster の作成 # あらかじめ必要な Terraform の設定ファイルを同梱した Git Repository を作成してあるので、それをダウンロードして、作成されたディレクトリーに移動します。&#xA;git clone https://github.com/yuhkih/rosa-classic-terraform.git &amp;amp;&amp;amp; cd rosa-classic-terraform 初期化します。&#xA;terraform init apply します。50分程でクラスターが作成されされます。&#xA;terraform apply 作成されたクラスターの名前を確認します。&#xA;rosa list cluster 出力例&#xA;$ rosa list clusters ID NAME STATE TOPOLOGY 2aa9097v25puk2c01h9i69lqvqc2pj99 rosa-mbkgqo ready Classic (STS) $ 管理者ユーザーを作成します。これで cluster-admin という管理者ユーザーが作成されます。&#xA;rosa create admin -c $CLUSTER_NAME ログインしてみます。</description>
-    </item>
-    <item>
       <title>4. 内部 OpenShift Registry を使用する</title>
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -160,7 +132,7 @@
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/</guid>
-      <description>1. virtctl コマンドのダウンロード # 仮想マシン操作のための CLI ツールをダウンロードします。これは OpenShift Console から行います。&#xA;以下のディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/test-virtual-machine 以下のコマンドを実行すると、OpenShift Console の URL とログイン方法が表示されます。&#xA;./ocp-show-console-url.sh curl -OL https://hyperconverged-cluster-cli-download-openshift-cnv.apps.rosa.yuhki-hcp.mkkx.p3.openshiftapps.com/amd64/linux/virtctl.tar.gz ダウンロードしたら解凍します。&#xA;tar xzf virtctl.tar.gz /usr/local/bin に移動させておきます。&#xA;sudo mv virtctl /usr/local/bin インストールを確認します。&#xA;virtctl version 2.仮想マシンの作成 # Repository ディレクトリ配下の、rosa-ocpv/test-virt に移動します。&#xA;cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine 以下のスクリプトで仮想マシン my-first-fedora-vm が my-vms という project に作成されます。&#xA;仮想マシン用の秘密鍵を ~/.ssh/id_vm_rsa として作成します。何か聞かれたとりあえず、Enter キーで大丈夫です。&#xA;10分程度で仮想マシンが作成されます。&#xA;./create-virtual-machine.sh 仮想マシンは、my-vms と言う project 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。&#xA;oc get pvc -n my-vms 3.</description>
+      <description>1. virtctl コマンドのダウンロード # 仮想マシン操作のための CLI ツールをダウンロードします。これは OpenShift Console から行います。&#xA;以下のディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/test-virtual-machine 以下のコマンドを実行すると、OpenShift Console の URL とログイン方法が表示されるので、その情報を使って OpenShift Console にログインします。&#xA;./ocp-show-console-url.sh OpenShift Console の右上のメニューから、コマンドラインツールをえらびます。 以下のリンクからコマンドをダウンロードします。(この例は Linux です） ダウンロードしたら解凍します。&#xA;tar xzf virtctl.tar.gz /usr/local/bin に移動させておきます。&#xA;sudo mv virtctl /usr/local/bin インストールを確認します。&#xA;virtctl version 2.仮想マシンの作成 # Repository ディレクトリ配下の、rosa-ocpv/test-virt に移動します。&#xA;cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine 以下のスクリプトで仮想マシン my-first-fedora-vm が my-vms という project に作成されます。&#xA;仮想マシン用の秘密鍵を ~/.ssh/id_vm_rsa として作成します。何か聞かれたとりあえず、Enter キーで大丈夫です。&#xA;10分程度で仮想マシンが作成されます。&#xA;./create-virtual-machine.sh 仮想マシンは、my-vms と言う project 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。</description>
     </item>
     <item>
       <title>5. ROSA HCP Cluster の作成</title>
@@ -168,13 +140,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/</guid>
       <description>1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。&#xA;echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。&#xA;Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</description>
-    </item>
-    <item>
-      <title>5. Terraform を使用した ROSA Classic Cluster の削除</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</guid>
-      <description> 1.terraform による Cluster の削除 # terraform を使用して、ROSA Cluster を作成した事が前提です。&#xA;以下のコマンドでクラスターを削除できます。&#xA;terraform destory </description>
     </item>
     <item>
       <title>6. ROSA HCP Cluster の削除</title>
@@ -188,7 +153,7 @@
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</guid>
-      <description> 1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/delete-environment 1. 仮想マシンの削除 # 仮想マシンを削除していない場合は、削除します。&#xA;oc delete vm my-first-fedora-vm oc delete project my-vms 2. Baremetal Node の削除 # Baremetal Node は高価なので、一番初めに処理しておきましょう。以下で削除されます。スクリプトは一瞬で終わり、裏で削除が進みますが、次のステップに進んで問題ありません。&#xA;./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。&#xA;./delete-fsx-ontap.sh 4. ROSA Cluster の削除 # 以下のスクリプトでROSA HCP クラスターを削除します。&#xA;./delete-rosa-cluster.sh </description>
+      <description>1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/delete-environment 1. 仮想マシンの削除 # 仮想マシンを削除していない場合は、削除します。&#xA;oc delete vm my-first-fedora-vm oc delete project my-vms 2. Baremetal Node の削除 # Baremetal Node は高価なので、一番初めに処理しておきましょう。以下で削除されます。スクリプトは一瞬で終わり、裏で削除が進みますが、次のステップに進んで問題ありません。&#xA;./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。20分以上かかるはずです。&#xA;./delete-fsx-ontap.sh 4. ROSA Cluster の削除 # 以下のスクリプトでROSA HCP クラスターを削除します。&#xA;./delete-rosa-cluster.sh 途中で以下のように確認を求められるので、yes と入力してください。&#xA;... Do you really want to destroy all resources? Terraform will destroy all your managed infrastructure, as shown above. There is no undo.</description>
     </item>
     <item>
       <title>7. Cluster 用 Network の削除</title>
@@ -219,13 +184,6 @@
       <description>Move static content to static # Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like&#xA;▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png should become&#xA;▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
     </item>
     <item>
-      <title>Hello World</title>
-      <link>http://localhost:1313/mcs-docs/posts/hello-world/</link>
-      <pubDate>Wed, 06 Mar 2024 08:16:14 +0900</pubDate>
-      <guid>http://localhost:1313/mcs-docs/posts/hello-world/</guid>
-      <description> Hello! World # This is a test site </description>
-    </item>
-    <item>
       <title>(Hu)go Template Primer</title>
       <link>http://localhost:1313/mcs-docs/posts/goisforlovers/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
@@ -245,13 +203,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/</guid>
       <description>4th Level of Menu # Caesorum illa tu sentit micat vestes papyriferi # Inde aderam facti; Theseus vis de tauri illa peream. Oculos uberaque non regisque vobis cursuque, opus venit quam vulnera. Et maiora necemque, lege modo; gestanda nitidi, vero? Dum ne pectoraque testantur.&#xA;Venasque repulsa Samos qui, exspectatum eram animosque hinc, aut manes, Assyrii. Cupiens auctoribus pariter rubet, profana magni super nocens. Vos ius sibilat inpar turba visae iusto!</description>
-    </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</guid>
-      <description> Ingress と Route # </description>
     </item>
     <item>
       <title></title>
