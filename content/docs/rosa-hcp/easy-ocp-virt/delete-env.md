@@ -58,3 +58,4 @@ Do you really want to destroy all resources?
 ...
 ```
 
+目安として、30分程度で削除が完了するはずです。
