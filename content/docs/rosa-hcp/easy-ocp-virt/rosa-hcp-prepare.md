@@ -170,7 +170,7 @@ I: Your ROSA CLI is up to date.
 
 [こちらのページ](https://jqlang.github.io/jq/download/)を参考に jq コマンドをインストールします。
 
-## 6. helm CLI のインストール
+## 6. helm CLI の準備
 
 [こちらのページ](https://helm.sh/ja/docs/intro/install/)を参考に helm コマンドをインストールします。
 
