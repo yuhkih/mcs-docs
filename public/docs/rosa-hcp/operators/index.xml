@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ROSA Operators on MCS Documents</title>
-    <link>http://localhost:1313/docs/rosa-hcp/operators/</link>
+    <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/</link>
     <description>Recent content in ROSA Operators on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <atom:link href="http://localhost:1313/docs/rosa-hcp/operators/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. Web Terminal Operator</title>
-      <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</guid>
       <description> Web Terminal Operator のインストール # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
     </item>
     <item>
       <title>2. Dev Spaces Operator</title>
-      <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/</guid>
       <description> Dev Spaces Operator のインストール # Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。&#xA;Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 インストールが完了するまで暫く待ちます。 インストールが完了したら、「View Opearator」をクリックして Operator のページに移動します。 Red Hat OpenShift Dev Spaces instance Specification というタブに移動して、 Create CheClsuter をクリックします。 設定はデフォルトのままでCreateをクリックします。 これで devspaces という名前の CheCluster というオブジェクトが作成されました。 Workload =&amp;gt; Pod に移動すると Pod が作成されはじめているのがわかります。収まるまで暫く待ちます。 Pod の作成が収まったら、Networking =&amp;gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 連携している Identity Provider によって表示が違いますが、好きなユーザーでログインして大丈夫です。ここではデフォルトで必ず存在する cluster-admin を使ってログインします。 ここでは cluster-admin とそのパスワードを入力します。 初回はアクセス許可を求められるので、許可します。 ログインすると、以下のような画面が見えるはずです。ここでは Empty Workspace をクリックします。 ワークスペースのデプロイが開始されるので、暫く待ちます。 三点リーダーのメニューから Terminal =&amp;gt; New Terminal を選択します。 Terminal から oc get nodes を実行してクラスターにアクセスできている事を確認します。 </description>
     </item>
   </channel>

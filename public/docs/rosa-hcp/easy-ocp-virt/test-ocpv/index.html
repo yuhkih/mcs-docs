@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/mcs-docs/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=mcs-docs/livereload" data-no-instant defer></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. virtctl コマンドのダウンロード # 仮想マシン操作のための CLI ツールをダウンロードします。これは OpenShift Console から行います。
+以下のディレクトリに移動します。
+cd $BASE_DIR/rosa-ocpv/test-virtual-machine 以下のコマンドを実行すると、OpenShift Console の URL とログイン方法が表示されます。
+./ocp-show-console-url.sh curl -OL https://hyperconverged-cluster-cli-download-openshift-cnv.apps.rosa.yuhki-hcp.mkkx.p3.openshiftapps.com/amd64/linux/virtctl.tar.gz ダウンロードしたら解凍します。
+tar xzf virtctl.tar.gz /usr/local/bin に移動させておきます。
+sudo mv virtctl /usr/local/bin インストールを確認します。
+virtctl version 2.仮想マシンの作成 # Repository ディレクトリ配下の、rosa-ocpv/test-virt に移動します。
+cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine 以下のスクリプトで仮想マシン my-first-fedora-vm が my-vms という project に作成されます。
+仮想マシン用の秘密鍵を ~/.ssh/id_vm_rsa として作成します。何か聞かれたとりあえず、Enter キーで大丈夫です。
+10分程度で仮想マシンが作成されます。
+./create-virtual-machine.sh 仮想マシンは、my-vms と言う project 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。
+oc get pvc -n my-vms 3.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="5. OCP-V を試して見る" />
+<meta property="og:description" content="1. virtctl コマンドのダウンロード # 仮想マシン操作のための CLI ツールをダウンロードします。これは OpenShift Console から行います。
+以下のディレクトリに移動します。
+cd $BASE_DIR/rosa-ocpv/test-virtual-machine 以下のコマンドを実行すると、OpenShift Console の URL とログイン方法が表示されます。
+./ocp-show-console-url.sh curl -OL https://hyperconverged-cluster-cli-download-openshift-cnv.apps.rosa.yuhki-hcp.mkkx.p3.openshiftapps.com/amd64/linux/virtctl.tar.gz ダウンロードしたら解凍します。
+tar xzf virtctl.tar.gz /usr/local/bin に移動させておきます。
+sudo mv virtctl /usr/local/bin インストールを確認します。
+virtctl version 2.仮想マシンの作成 # Repository ディレクトリ配下の、rosa-ocpv/test-virt に移動します。
+cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine 以下のスクリプトで仮想マシン my-first-fedora-vm が my-vms という project に作成されます。
+仮想マシン用の秘密鍵を ~/.ssh/id_vm_rsa として作成します。何か聞かれたとりあえず、Enter キーで大丈夫です。
+10分程度で仮想マシンが作成されます。
+./create-virtual-machine.sh 仮想マシンは、my-vms と言う project 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。
+oc get pvc -n my-vms 3." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" /><meta property="article:section" content="docs" />
+
+
+
+<title>5. OCP-V を試して見る | MCS Documents</title>
+<link rel="manifest" href="/mcs-docs/manifest.json">
+<link rel="icon" href="/mcs-docs/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/">
+<link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
+  <script defer src="/mcs-docs/flexsearch.min.js"></script>
+  <script defer src="/mcs-docs/en.search.min.19d6ace73b2e2297a7659910f5b12fa4c8aa1707508ec189c8e11affe4638b62.js" integrity="sha256-Gdas5zsuIpenZZkQ9bEvpMiqFwdQjsGJyOEa/&#43;Rji2I=" crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YJ1FJGEVLK', { 'anonymize_ip': false });
+}
+</script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/mcs-docs/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-0b1cd17e634be7cb65a477fa33665677" class="toggle"  />
+    <label for="section-0b1cd17e634be7cb65a477fa33665677" class="flex justify-between">
+      <a role="button" class="">ROSA Classic Cluster の作成と削除 (terraform)</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA HCP Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">5. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">6. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/" class="">7. Cluster 用 Network の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle" checked />
+    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
+      <a role="button" class="">簡単 OCP Virtulaization</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="active">5. OCP-V を試して見る</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle"  />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">サンプル Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 OpenShift Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/mcs-docs/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/mcs-docs/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>5. OCP-V を試して見る</strong>
+
+  <label for="toc-control">
+    
+    <img src="/mcs-docs/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-virtctl-コマンドのダウンロード">1. virtctl コマンドのダウンロード</a></li>
+    <li><a href="#2仮想マシンの作成">2.仮想マシンの作成</a></li>
+    <li><a href="#3virtual-machine-作成の確認">3.Virtual Machine 作成の確認</a></li>
+    <li><a href="#4仮想マシンへのログイン">4.仮想マシンへのログイン</a></li>
+    <li><a href="#5仮想マシンのライブマイグレーション">5.仮想マシンのライブマイグレーション</a></li>
+    <li><a href="#6仮想マシンの削除">6.仮想マシンの削除</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-virtctl-コマンドのダウンロード">
+  1. virtctl コマンドのダウンロード
+  <a class="anchor" href="#1-virtctl-%e3%82%b3%e3%83%9e%e3%83%b3%e3%83%89%e3%81%ae%e3%83%80%e3%82%a6%e3%83%b3%e3%83%ad%e3%83%bc%e3%83%89">#</a>
+</h2>
+<p>仮想マシン操作のための CLI ツールをダウンロードします。これは <code>OpenShift Console</code> から行います。</p>
+<p>以下のディレクトリに移動します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd $BASE_DIR/rosa-ocpv/test-virtual-machine
+</span></span></code></pre></div><p>以下のコマンドを実行すると、OpenShift Console の URL とログイン方法が表示されます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>./ocp-show-console-url.sh
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>curl -OL https://hyperconverged-cluster-cli-download-openshift-cnv.apps.rosa.yuhki-hcp.mkkx.p3.openshiftapps.com/amd64/linux/virtctl.tar.gz
+</span></span></code></pre></div><p>ダウンロードしたら解凍します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>tar xzf virtctl.tar.gz
+</span></span></code></pre></div><p><code>/usr/local/bin</code> に移動させておきます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>sudo mv virtctl /usr/local/bin
+</span></span></code></pre></div><p>インストールを確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>virtctl version
+</span></span></code></pre></div><h2 id="2仮想マシンの作成">
+  2.仮想マシンの作成
+  <a class="anchor" href="#2%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h2>
+<p>Repository ディレクトリ配下の、<code>rosa-ocpv/test-virt</code> に移動します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine
+</span></span></code></pre></div><p>以下のスクリプトで仮想マシン <code>my-first-fedora-vm</code> が <code>my-vms</code> という <code>project</code> に作成されます。</p>
+<p>仮想マシン用の秘密鍵を <code>~/.ssh/id_vm_rsa</code> として作成します。何か聞かれたとりあえず、Enter キーで大丈夫です。</p>
+<p>10分程度で仮想マシンが作成されます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>./create-virtual-machine.sh
+</span></span></code></pre></div><p>仮想マシンは、<code>my-vms</code> と言う <code>project</code> 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc get pvc -n my-vms
+</span></span></code></pre></div><h2 id="3virtual-machine-作成の確認">
+  3.Virtual Machine 作成の確認
+  <a class="anchor" href="#3virtual-machine-%e4%bd%9c%e6%88%90%e3%81%ae%e7%a2%ba%e8%aa%8d">#</a>
+</h2>
+<p>以下のコマンドで作成状況が確認できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>watch oc get virtualmachine my-first-fedora-vm
+</span></span></code></pre></div><p><code>Status</code> が <code>Running</code> になるまで待ちます。</p>
+<h2 id="4仮想マシンへのログイン">
+  4.仮想マシンへのログイン
+  <a class="anchor" href="#4%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%b8%e3%81%ae%e3%83%ad%e3%82%b0%e3%82%a4%e3%83%b3">#</a>
+</h2>
+<p>以下のスクリプトで 仮想マシンにログインできます。ログインして遊んでみましょう。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ virtctl ssh fedora@my-first-fedora-vm -i ~/.ssh/id_vm_rsa
+</span></span><span style="display:flex;"><span>The authenticity of host &#39;vmi/my-first-fedora-vm.my-vms (&lt;no hostip for proxy command&gt;)&#39; can&#39;t be established.
+</span></span><span style="display:flex;"><span>ED25519 key fingerprint is SHA256:0XVwG2F+s9r9Dfv4XOFP/JU5M4ZoCxfrRceoOuxNO7c.
+</span></span><span style="display:flex;"><span>This key is not known by any other names
+</span></span><span style="display:flex;"><span>Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+</span></span><span style="display:flex;"><span>Warning: Permanently added &#39;vmi/my-first-fedora-vm.my-vms&#39; (ED25519) to the list of known hosts.
+</span></span><span style="display:flex;"><span>[fedora@my-first-fedora-vm ~]$ ls -ltr
+</span></span><span style="display:flex;"><span>total 0
+</span></span><span style="display:flex;"><span>[fedora@my-first-fedora-vm ~]$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h2 id="5仮想マシンのライブマイグレーション">
+  5.仮想マシンのライブマイグレーション
+  <a class="anchor" href="#5%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%ae%e3%83%a9%e3%82%a4%e3%83%96%e3%83%9e%e3%82%a4%e3%82%b0%e3%83%ac%e3%83%bc%e3%82%b7%e3%83%a7%e3%83%b3">#</a>
+</h2>
+<p>この環境では、2本の <code>Baremetal Node</code> がインストールされています。そのどちらかの <code>Node</code> に 仮想マシンがデプロイされています。</p>
+<p>以下のコマンドで現在、仮想マシンがデプロイされている <code>Node</code> がわかります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> oc get pod -l &#34;kubevirt.io/domain=my-first-fedora-vm&#34; -o jsonpath=&#34;<span style="color:#75715e">{</span><span style="color:#f92672">.</span><span style="color:#a6e22e">items</span><span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">].</span><span style="color:#a6e22e">metadata</span><span style="color:#f92672">.</span><span style="color:#a6e22e">labels</span><span style="color:#f92672">.</span><span style="color:#a6e22e">kubevirt</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#f92672">.</span><span style="color:#a6e22e">io</span><span style="color:#f92672">/</span><span style="color:#a6e22e">nodeName</span><span style="color:#75715e">}</span>&#34;
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>ip-10-10-3-59.ap-northeast-1.compute.internal$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>仮想マシンを、別の <code>Node</code> に <code>Live Migration</code> (<code>VMWare</code> で言う所の <code>vMotion</code>) してみます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>virtctl migrate my-first-fedora-vm
+</span></span></code></pre></div><p>少し待ってから、もう一度、仮想マシンがデプロイされている <code>Node</code> を確認してみます</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> oc get pod -l &#34;kubevirt.io/domain=my-first-fedora-vm&#34; -o jsonpath=&#34;<span style="color:#75715e">{</span><span style="color:#f92672">.</span><span style="color:#a6e22e">items</span><span style="color:#f92672">[</span><span style="color:#ae81ff">0</span><span style="color:#f92672">].</span><span style="color:#a6e22e">metadata</span><span style="color:#f92672">.</span><span style="color:#a6e22e">labels</span><span style="color:#f92672">.</span><span style="color:#a6e22e">kubevirt</span><span style="color:#960050;background-color:#1e0010">\</span><span style="color:#f92672">.</span><span style="color:#a6e22e">io</span><span style="color:#f92672">/</span><span style="color:#a6e22e">nodeName</span><span style="color:#75715e">}</span>&#34;
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>出力例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <p><code>Node</code>名が変わっているはずです。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>ip-10-10-0-229.ap-northeast-1.compute.internal$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>違う <code>Node</code> 上に仮想マシンが移動しているがわかると思います。この環境では、10秒以内には <code>Live Migration</code> が完了しているはずです。</p>
+<h2 id="6仮想マシンの削除">
+  6.仮想マシンの削除
+  <a class="anchor" href="#6%e4%bb%ae%e6%83%b3%e3%83%9e%e3%82%b7%e3%83%b3%e3%81%ae%e5%89%8a%e9%99%a4">#</a>
+</h2>
+<p>以下のコマンドで仮想マシンが削除できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc delete vm my-first-fedora-vm
+</span></span><span style="display:flex;"><span>oc delete project my-vms
+</span></span></code></pre></div></article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-virtctl-コマンドのダウンロード">1. virtctl コマンドのダウンロード</a></li>
+    <li><a href="#2仮想マシンの作成">2.仮想マシンの作成</a></li>
+    <li><a href="#3virtual-machine-作成の確認">3.Virtual Machine 作成の確認</a></li>
+    <li><a href="#4仮想マシンへのログイン">4.仮想マシンへのログイン</a></li>
+    <li><a href="#5仮想マシンのライブマイグレーション">5.仮想マシンのライブマイグレーション</a></li>
+    <li><a href="#6仮想マシンの削除">6.仮想マシンの削除</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

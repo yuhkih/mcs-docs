@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/mcs-docs/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=mcs-docs/livereload" data-no-instant defer></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。 そのため、一番多いトラブルが、AWS Network に関するものです。
+ここでは、Network の疎通確認ツールである、rosa verify network を使用してみます。
+rosa verify network を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。
+コマンドを実行する前にいくつか準備が必要なので、順を追ってやっていきます。
+1. AWS network の SubnetId を確認する # AWS の Subnet id を取得します。
+aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39; コマンド実行例 ↕ $ aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39; &#34;10.">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="8. [補則] Network 疎通の確認" />
+<meta property="og:description" content="HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。 そのため、一番多いトラブルが、AWS Network に関するものです。
+ここでは、Network の疎通確認ツールである、rosa verify network を使用してみます。
+rosa verify network を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。
+コマンドを実行する前にいくつか準備が必要なので、順を追ってやっていきます。
+1. AWS network の SubnetId を確認する # AWS の Subnet id を取得します。
+aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39; コマンド実行例 ↕ $ aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39; &#34;10." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-debug/" /><meta property="article:section" content="docs" />
+
+
+
+<title>8. [補則] Network 疎通の確認 | MCS Documents</title>
+<link rel="manifest" href="/mcs-docs/manifest.json">
+<link rel="icon" href="/mcs-docs/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-debug/">
+<link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
+  <script defer src="/mcs-docs/flexsearch.min.js"></script>
+  <script defer src="/mcs-docs/en.search.min.bad786598a1e4a660a25aafbda58b51ac8e9d5347eff988f0b957603adeaf083.js" integrity="sha256-uteGWYoeSmYKJar72li1Gsjp1TR&#43;/5iPC5V2A63q8IM=" crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YJ1FJGEVLK', { 'anonymize_ip': false });
+}
+</script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/mcs-docs/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA HCP Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">5. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">6. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/" class="">7. Cluster 用 Network の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle" checked />
+    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
+      <a role="button" class="">簡単 OCP Virtulaization</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-debug/" class="active">8. [補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle"  />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">サンプル Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 OpenShift Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>8. [補則] Network 疎通の確認</strong>
+
+  <label for="toc-control">
+    
+    <img src="/mcs-docs/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-aws-network-の-subnetid-を確認する">1. AWS network の SubnetId を確認する</a></li>
+    <li><a href="#2-managedopenshift-installer-role-iam-role-の-arn-を確認する">2. ManagedOpenShift-Installer-Role IAM Role の ARN を確認する。</a></li>
+    <li><a href="#3-作成した-rosa-用の-network-の疎通を検証する">3. 作成した ROSA 用の Network の疎通を検証する</a></li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><p>HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。
+そのため、一番多いトラブルが、AWS Network に関するものです。</p>
+<p>ここでは、Network の疎通確認ツールである、<code>rosa verify network</code> を使用してみます。</p>
+<p><code>rosa verify network</code> を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。</p>
+<p>コマンドを実行する前にいくつか準備が必要なので、順を追ってやっていきます。</p>
+<h2 id="1-aws-network-の-subnetid-を確認する">
+  1. AWS network の SubnetId を確認する
+  <a class="anchor" href="#1-aws-network-%e3%81%ae-subnetid-%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>AWS の Subnet id を取得します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39;
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ aws ec2 describe-subnets | jq -r &#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&#39;
+</span></span><span style="display:flex;"><span>&#34;10.0.128.0/24&#34;,&#34;subnet-07098183112673e5e&#34;,&#34;us-east-2a&#34;,&#34;true&#34;,&#34;1&#34;,&#34;ROSA&#34;,&#34;my-hpc-cluster-vpc-public-use2-az1&#34;,&#34;my-hpc-cluster&#34;
+</span></span><span style="display:flex;"><span>&#34;10.0.0.0/24&#34;,&#34;subnet-06cf09e21d4ab1e8f&#34;,&#34;us-east-2a&#34;,&#34;ROSA&#34;,&#34;1&#34;,&#34;true&#34;,&#34;my-hpc-cluster&#34;,&#34;my-hpc-cluster-vpc-private-use2-az1&#34;
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<p>この例では ROSA Public Cluster 用に <code>subnet-07098183112673e5e</code> (Pulbic Subnet) と <code>subnet-06cf09e21d4ab1e8f</code> (Private Sunbet) を作成しています。</p>
+<h2 id="2-managedopenshift-installer-role-iam-role-の-arn-を確認する">
+  2. ManagedOpenShift-Installer-Role IAM Role の ARN を確認する。
+  <a class="anchor" href="#2-managedopenshift-installer-role-iam-role-%e3%81%ae-arn-%e3%82%92%e7%a2%ba%e8%aa%8d%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>作成された IAM Role は以下の方法で確認できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa list account-roles
+</span></span></code></pre></div>
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list account-roles
+</span></span><span style="display:flex;"><span>I: Fetching account roles
+</span></span><span style="display:flex;"><span>ROLE NAME                           ROLE TYPE      ROLE ARN                                                           OPENSHIFT VERSION  AWS Managed
+</span></span><span style="display:flex;"><span>ManagedOpenShift-ControlPlane-Role  Control plane  arn:aws:iam::864046375925:role/ManagedOpenShift-ControlPlane-Role  4.14               No
+</span></span><span style="display:flex;"><span>ManagedOpenShift-Installer-Role     Installer      arn:aws:iam::864046375925:role/ManagedOpenShift-Installer-Role     4.14               No
+</span></span><span style="display:flex;"><span>ManagedOpenShift-Support-Role       Support        arn:aws:iam::864046375925:role/ManagedOpenShift-Support-Role       4.14               No
+</span></span><span style="display:flex;"><span>ManagedOpenShift-Worker-Role        Worker         arn:aws:iam::864046375925:role/ManagedOpenShift-Worker-Role        4.14               No
+</span></span><span style="display:flex;"><span>$ 
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+<h2 id="3-作成した-rosa-用の-network-の疎通を検証する">
+  3. 作成した ROSA 用の Network の疎通を検証する
+  <a class="anchor" href="#3-%e4%bd%9c%e6%88%90%e3%81%97%e3%81%9f-rosa-%e7%94%a8%e3%81%ae-network-%e3%81%ae%e7%96%8e%e9%80%9a%e3%82%92%e6%a4%9c%e8%a8%bc%e3%81%99%e3%82%8b">#</a>
+</h2>
+<p>ネットワークの検証を行います。検証したい <code>subnet id</code> と、<code>ManagedOpenShift-Installer-Role</code> IAM Role の arn が必要になります。</p>
+<p>必要な情報を環境変数にセットします。Subnetが複数ある場合は、カンマで区切って並べます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export REGION=ap-northeast-1
+</span></span><span style="display:flex;"><span>export SUBNET_IDS=subnet-07098183112673e5e,subnet-06cf09e21d4ab1e8f
+</span></span><span style="display:flex;"><span>export INSTALL_IAM_ROLE_ARN=arn:aws:iam::864046375925:role/ManagedOpenShift-Installer-Role
+</span></span></code></pre></div><p>以下のコマンドを実行する事で ROSA の稼働に必要な疎通が取れているか確認できます。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa verify network --watch --region $REGION --subnet-ids $SUBNET_IDS  --role-arn $INSTALL_IAM_ROLE_ARN
+</span></span></code></pre></div><p>以下は Network の疎通確認テストがパスした際の出力例です。</p>
+
+<div class="book-expand">
+  <label>
+    <div class="book-expand-head flex justify-between">
+      <span>コマンド実行例</span>
+      <span>↕</span>
+    </div>
+    <input type="checkbox" class="hidden" />
+    <div class="book-expand-content markdown-inner">
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa verify network --watch --region $REGION --subnet-ids $SUBNET_IDS  --role-arn $INSTALL_IAM_ROLE_ARN
+</span></span><span style="display:flex;"><span>I: Verifying the following subnet IDs are configured correctly: [subnet-07098183112673e5e subnet-06cf09e21d4ab1e8f]
+</span></span><span style="display:flex;"><span>I: subnet-07098183112673e5e: passed
+</span></span><span style="display:flex;"><span>I: subnet-06cf09e21d4ab1e8f: passed
+</span></span><span style="display:flex;"><span>$
+</span></span></code></pre></div>
+    </div>
+  </label>
+</div>
+
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-aws-network-の-subnetid-を確認する">1. AWS network の SubnetId を確認する</a></li>
+    <li><a href="#2-managedopenshift-installer-role-iam-role-の-arn-を確認する">2. ManagedOpenShift-Installer-Role IAM Role の ARN を確認する。</a></li>
+    <li><a href="#3-作成した-rosa-用の-network-の疎通を検証する">3. 作成した ROSA 用の Network の疎通を検証する</a></li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

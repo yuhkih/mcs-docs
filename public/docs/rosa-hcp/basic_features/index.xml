@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ROSA 基本機能 on MCS Documents</title>
-    <link>http://localhost:1313/docs/rosa-hcp/basic_features/</link>
+    <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/</link>
     <description>Recent content in ROSA 基本機能 on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <atom:link href="http://localhost:1313/docs/rosa-hcp/basic_features/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. oc コマンド</title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/</guid>
       <description> oc コマンド # oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。&#xA;基本的に kubectl を拡張した上位互換ですので、ほとんどのケースで、kubetl get pods のようなコマンドは oc get pods のように置き換える事ができます。&#xA;1. OpenShift console の URL の表示 # oc whoami --show-console コマンド実行例 ↕ $ oc whoami --show-console https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com $ </description>
     </item>
     <item>
       <title>2. rosa コマンド</title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</guid>
       <description>rosa コマンド # rosa コマンドは、OpenShift Cluster が設置される AWS 周りのインフラを管理するために OpenShift に追加されたコマンドです。 また oc コマンドや kubectl コマンドと違い、複数のクラスターを管理する前提で作られています。そのため、通常、対象となるクラスター名を引数に指定します。&#xA;1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。&#xA;rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。&#xA;rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.</description>
     </item>
     <item>
       <title>3. htpasswd を使用したユーザーの追加</title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-add-users/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-add-users/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/</guid>
       <description> 2. htpasswd を使用したユーザーの追加 # 本番環境では基本的には、GitHub や LDAP 等の外部の Identity Provider を使用する事が推奨されますが、実験で使用したい。という場合にそこまでの構成を準備するのは大変な事が多いでしょう。&#xA;ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使ったユーザーの追加ができるようになっています。&#xA;console.redhat.com にログインします。&#xA;作業の対象の Cluster を選択します。 Access Control タブに移動して、htpasswd を選択します。 ユーザーを追加します。ここでは yuhki というユーザーを追加しています。 ここでは、追加したユーザーを cluster-admins グループに追加してみます。 Access Control タブから、Add User を行います。 先ほど作成したユーザー名を入力し、cluster admins を選んで OK をクリックします。 作成された cluster-admins グループのユーザーは以下のように表示されます。 CLI からも cluster-admins のユーザーに yuhki が追加されている事が確認できます。&#xA;$ oc get groups -o wide NAME USERS cluster-admins cluster-admin, yuhki dedicated-admins $ </description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</guid>
       <description> Ingress と Route # </description>
     </item>
   </channel>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>簡単 OCP Virtulaization on MCS Documents</title>
+    <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/</link>
+    <description>Recent content in 簡単 OCP Virtulaization on MCS Documents</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-JP</language>
+    <atom:link href="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1. CLIの準備</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/</guid>
+      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
+    </item>
+    <item>
+      <title>2. ROSA HCP の有効化</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/</guid>
+      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
+    </item>
+    <item>
+      <title>3. ROSA 作成用 token の取得</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</guid>
+      <description>1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。&#xA;rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
+    </item>
+    <item>
+      <title>4. 環境の作成</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/</guid>
+      <description>1.各種スクリプトのダウンロード # この環境は、Linux での動作を想定しています。(Windows の WSL2 Ubuntu 上で作成しました)&#xA;このテスト環境の作成では、複数のスクリプトを実行しますが、環境変数を引きついでいるので、全て同じシェルウィンドウで実行してください。&#xA;以下の git repository をダウンロードします。&#xA;git clone https://github.com/yuhkih/rosa-ocpv.git cd ./rosa-copv/create-environment 2.ROSA HCP Cluster の 作成 # 以下のスクリプトで 仮想マシンの Worker Node を2本持った、ROSA HCP クラスターが作成されます。&#xA;20分くらいかかるはずです。&#xA;./create-rosa-cluster.sh 上記のスクリプトが完了したら、以下のスクリプトを実行して、OpenShift Virtualization Operator を導入します。&#xA;以下のスクリプトで、OCP Virtulzation の Operator と必要なオペランドが作成されます。&#xA;./install-ocpv-operator.sh 3.共有ストレージ (FSx for NetApp ONTAP) の 作成 # 上記のスクリプトが完了したら、RWX のストレージ用に FSx ONTAP を導入します。&#xA;以下のスクリプトを実行する事で、FSx と必要な CSI Driver が構成されます。30分以上かかるはずです。&#xA;./install-fsx-ontap.sh 4.Baremetal Node の 作成 # 上記のスクリプトが完了したら、Baremetal の Worker Node を2本追加します。</description>
+    </item>
+    <item>
+      <title>5. OCP-V を試して見る</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/</guid>
+      <description>1.仮想マシンの作成 # この環境は、Linux での動作を想定しています。&#xA;このテスト環境の作成では、複数のスクリプトを実行しますが、環境変数を引きついでいるので、全て同じシェルウィンドウで実行してください。&#xA;以下の git repository を適当なディレクトリにインストールします。&#xA;git clone https://github.com/yuhkih/rosa-ocpv.git cd ./rosa-copv/create-environment 2.OpenShift Console での確認 # 3.仮想マシンへのログイン # 以下のスクリプトで 仮想マシンの Worker Node を2本持った、ROSA HCP クラスターが作成されます。&#xA;create-rosa-cluster.sh 上記のスクリプトが完了したら、以下のスクリプトを実行します。&#xA;このスクリプトで、OCP Virtulzation の Operator と必要な、オペランドが作成されます。&#xA;4.仮想マシンのライブマイグレーション # install-ocpv-operator.sh 上記のスクリプトが完了したら、RWX のストレージ用に FSx ONTAP を導入します。&#xA;以下のスクリプトを実行する事で、FSx と必要な CSI Driver が構成されます。30分以上かかるはずです。&#xA;install-fsx-ontap.sh 上記のスクリプトが完了したら、Baremetal の Worker Node を2本追加します。&#xA;Baremetal の Worker Node は、非常に高価であるので、この手順は最後にもってきています。&#xA;以下のスクリプトを実行する事で、新規の machinepool が作成されそこに、Baremetal の Worker Node が 2本作成されます。30分以上かかるはずです。&#xA;5.仮想マシンの削除 # install-fsx-ontap.sh このスクリプトが完了すれば、テスト環境の作成は完了です。</description>
+    </item>
+    <item>
+      <title>6.環境の削除</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</guid>
+      <description> 1. ディレクトリの移動 # 削除関連のスクリプトは、ダウンロードした git repository の rosa-ocpv/delete-enviroment ディレクトリにあります。&#xA;以下のディレクトリに移動します。&#xA;cd &amp;lt;ダウンロード先&amp;gt;/rosa-ocpv/delete-environment 1. 仮想マシンの削除 # 仮想マシンを削除していない場合は、削除します。&#xA;git clone https://github.com/yuhkih/rosa-ocpv.git 2. Baremetal Node の削除 # Baremetal Node は高価なので、一番初めに処理します。&#xA;./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除します。この Volume を削除しなければ、ONTAP の削除に失敗するので、必ず ONTAP の削除前に行います。&#xA;./delete-fsx-volume.sh Volume の削除が完了したら、以下のスクリプトで、FSx ONTAP を削除します。&#xA;./delete-fsx-ontap.sh 4. Baremetal Node の削除 # k 以下のスクリプトでROSA HCP クラスターを削除します。&#xA;./delete-rosa-cluster.sh </description>
+    </item>
+  </channel>
+</rss>

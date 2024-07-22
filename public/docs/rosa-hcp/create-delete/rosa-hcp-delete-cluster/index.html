@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja-JP" dir="ltr">
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
-  <meta charset="UTF-8">
+<head><script src="/mcs-docs/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=mcs-docs/livereload" data-no-instant defer></script>
+
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="1.変数を確認する # 削除対象のクラスター名が変数にセットされているか確認します。
 echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。これはクラスター作成後、Nodeを追加していても、それらの Node も含めて削除されます。
@@ -15,17 +16,28 @@ echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでク
 rosa delete cluster -c $CLUSTER_NAME ログの最後に出てくる以下の部分はメモしておきます。
 rosa delete operator-roles --prefix &lt;IAM Role prefix&gt; rosa delete oidc-provider --oidc-config-id &lt;OIDC provider config ID&gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &#39;my-hpc-cluster&#39; will start uninstalling now I: Your cluster &#39;my-hpc-cluster&#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" /><meta property="article:section" content="docs" />
+<meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" /><meta property="article:section" content="docs" />
 
 
 
 <title>6. ROSA HCP Cluster の削除 | MCS Documents</title>
-<link rel="manifest" href="/manifest.json">
-<link rel="icon" href="/favicon.png" >
-<link rel="canonical" href="http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/">
-<link rel="stylesheet" href="/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
-  <script defer src="/flexsearch.min.js"></script>
-  <script defer src="/en.search.min.e0fe7ad33ca16dcd37f3dbbe072db225c9671fa449da4edcc719d5cb78540294.js" integrity="sha256-4P560zyhbc0389u&#43;By2yJclnH6RJ2k7cxxnVy3hUApQ=" crossorigin="anonymous"></script>
+<link rel="manifest" href="/mcs-docs/manifest.json">
+<link rel="icon" href="/mcs-docs/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/">
+<link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
+  <script defer src="/mcs-docs/flexsearch.min.js"></script>
+  <script defer src="/mcs-docs/en.search.min.19d6ace73b2e2297a7659910f5b12fa4c8aa1707508ec189c8e11affe4638b62.js" integrity="sha256-Gdas5zsuIpenZZkQ9bEvpMiqFwdQjsGJyOEa/&#43;Rji2I=" crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YJ1FJGEVLK', { 'anonymize_ip': false });
+}
+</script>
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
@@ -41,7 +53,7 @@ https://github.com/alex-shpak/hugo-book
         
   <nav>
 <h2 class="book-brand">
-  <a class="flex align-center" href="/"><span>MCS Documents</span>
+  <a class="flex align-center" href="/mcs-docs/"><span>MCS Documents</span>
   </a>
 </h2>
 
@@ -93,7 +105,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
   
 
         </li>
@@ -106,7 +118,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -119,7 +131,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -132,7 +144,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
   
 
         </li>
@@ -145,7 +157,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
   
 
         </li>
@@ -179,7 +191,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
   
 
         </li>
@@ -192,7 +204,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
   
 
         </li>
@@ -205,7 +217,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
   
 
         </li>
@@ -218,7 +230,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -231,7 +243,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">5. ROSA HCP Cluster の作成</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">5. ROSA HCP Cluster の作成</a>
   
 
         </li>
@@ -244,7 +256,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="active">6. ROSA HCP Cluster の削除</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="active">6. ROSA HCP Cluster の削除</a>
   
 
         </li>
@@ -257,7 +269,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/" class="">7. Cluster 用 Network の削除</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/" class="">7. Cluster 用 Network の削除</a>
   
 
         </li>
@@ -270,7 +282,106 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle"  />
+    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
+      <a role="button" class="">簡単 OCP Virtulaization</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
   
 
         </li>
@@ -304,7 +415,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
   
 
         </li>
@@ -317,7 +428,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
   
 
         </li>
@@ -351,7 +462,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
   
 
         </li>
@@ -364,7 +475,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
   
 
         </li>
@@ -377,7 +488,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
   
 
         </li>
@@ -390,7 +501,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
   
 
         </li>
@@ -424,7 +535,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
   
 
         </li>
@@ -437,7 +548,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
   
 
         </li>
@@ -450,7 +561,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
   
 
         </li>
@@ -463,7 +574,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 OpenShift Registry を使用する</a>
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 OpenShift Registry を使用する</a>
   
 
         </li>
@@ -497,7 +608,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
   
 
           
@@ -510,7 +621,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
   
 
         </li>
@@ -546,7 +657,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/buttons/" class="">Buttons</a>
+    <a href="/mcs-docs/docs/shortcodes/buttons/" class="">Buttons</a>
   
 
         </li>
@@ -559,7 +670,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/columns/" class="">Columns</a>
+    <a href="/mcs-docs/docs/shortcodes/columns/" class="">Columns</a>
   
 
         </li>
@@ -572,7 +683,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/details/" class="">Details</a>
+    <a href="/mcs-docs/docs/shortcodes/details/" class="">Details</a>
   
 
         </li>
@@ -585,7 +696,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/expand/" class="">Expand</a>
+    <a href="/mcs-docs/docs/shortcodes/expand/" class="">Expand</a>
   
 
         </li>
@@ -598,7 +709,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/hints/" class="">Hints</a>
+    <a href="/mcs-docs/docs/shortcodes/hints/" class="">Hints</a>
   
 
         </li>
@@ -611,7 +722,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/mermaid/" class="">Mermaid</a>
+    <a href="/mcs-docs/docs/shortcodes/mermaid/" class="">Mermaid</a>
   
 
         </li>
@@ -626,7 +737,7 @@ https://github.com/alex-shpak/hugo-book
   
     <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
     <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
-      <a href="/docs/shortcodes/section/" class="">Section</a>
+      <a href="/mcs-docs/docs/shortcodes/section/" class="">Section</a>
     </label>
   
 
@@ -640,7 +751,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/section/first-page/" class="">First Page</a>
+    <a href="/mcs-docs/docs/shortcodes/section/first-page/" class="">First Page</a>
   
 
         </li>
@@ -653,7 +764,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/section/second-page/" class="">Second Page</a>
+    <a href="/mcs-docs/docs/shortcodes/section/second-page/" class="">Second Page</a>
   
 
         </li>
@@ -671,7 +782,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/tabs/" class="">Tabs</a>
+    <a href="/mcs-docs/docs/shortcodes/tabs/" class="">Tabs</a>
   
 
         </li>
@@ -684,7 +795,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/docs/shortcodes/katex/" class="">KaTeX</a>
+    <a href="/mcs-docs/docs/shortcodes/katex/" class="">KaTeX</a>
   
 
         </li>
@@ -711,7 +822,7 @@ https://github.com/alex-shpak/hugo-book
 <ul>
   
   <li>
-    <a href="/posts/"  >
+    <a href="/mcs-docs/posts/"  >
         Blog
       </a>
   </li>
@@ -740,14 +851,14 @@ https://github.com/alex-shpak/hugo-book
         
   <div class="flex align-center justify-between">
   <label for="menu-control">
-    <img src="/svg/menu.svg" class="book-icon" alt="Menu" />
+    <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
   <strong>6. ROSA HCP Cluster の削除</strong>
 
   <label for="toc-control">
     
-    <img src="/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    <img src="/mcs-docs/svg/toc.svg" class="book-icon" alt="Table of Contents" />
     
   </label>
 </div>

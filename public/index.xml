@@ -2,290 +2,332 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Introduction on MCS Documents</title>
-    <link>http://localhost:1313/</link>
+    <link>http://localhost:1313/mcs-docs/</link>
     <description>Recent content in Introduction on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
     <lastBuildDate>Wed, 06 Mar 2024 08:16:14 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mcs-docs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. CLIの準備</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</guid>
+      <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
+    </item>
+    <item>
+      <title>1. CLIの準備</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/</guid>
       <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
     </item>
     <item>
       <title>1. Hello world コンテナのデプロイ</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</guid>
       <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&amp;ldquo;Hello OpenShift&amp;rdquo; とメッセージを返すシンプルなコンテナです。&#xA;1.1. namespace の作成 # hello-openshift という namespace を作成します。 kubectl create namespace hello-openshift namespace を hello-openshift に変更します。 kubectl config set-context $(kubectl config current-context) --namespace=hello-openshift 1.2. deployment の作成 # hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。 kubectl get deployment 出力例 ↕ $ kubectl get deployment NAME READY UP-TO-DATE AVAILABLE AGE hello-openshift 1/1 1 1 152m $ 1.</description>
     </item>
     <item>
       <title>1. oc コマンド</title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/oc-cli-walk-through/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/</guid>
       <description> oc コマンド # oc コマンドは、kubectl コマンドを拡張するために作成された、OpenShift 独自の CLI です。&#xA;基本的に kubectl を拡張した上位互換ですので、ほとんどのケースで、kubetl get pods のようなコマンドは oc get pods のように置き換える事ができます。&#xA;1. OpenShift console の URL の表示 # oc whoami --show-console コマンド実行例 ↕ $ oc whoami --show-console https://console-openshift-console.apps.rosa.myhcpcluster.erth.p3.openshiftapps.com $ </description>
     </item>
     <item>
       <title>1. ROSA Classic の有効化</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</guid>
       <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
     </item>
     <item>
       <title>1. Web Terminal Operator</title>
-      <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/</guid>
       <description> Web Terminal Operator のインストール # Web Terminal Operator を使用すると、OpenShift コンソール内に Web Browser ベースのコンソールを生成する事ができます。 ユーザーのローカル端末に oc コマンドをセットアップした環境を作らなくても、各種 CLI 操作がブラウザー上で可能になります。&#xA;「Operator Hub」から「Web Terminal」オペレーターを探します。 設定はデフォルトのまま「Install」 をクリックします。 設定はデフォルトのまま 「Install」をクリックします。 以下の画面になれば、インストールは完了です。 ブラウザーの画面をリロードします。コンソールの右上に新しいアイコンが現れているので、それをクリックします。 コンソールの下側に新しい Window ペインが現れるはずです。「Start」をクリックします。 既に各種のコマンドが使えるように環境がセットアップ済みのコンソールが使用できるようになります。 </description>
     </item>
     <item>
       <title>2. CLIの準備</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</guid>
       <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
     </item>
     <item>
       <title>2. Cluster 用の Network の作成</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</guid>
       <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。&#xA;export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。&#xA;export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。</description>
     </item>
     <item>
       <title>2. Dev Spaces Operator</title>
-      <link>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/operators/rosa-hcp-devspaces/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/</guid>
       <description> Dev Spaces Operator のインストール # Dev Spaces Operator は、OpenShift 上にユーザー毎の開発環境を作成し、Webブラウザベースの VS Code ライクな開発環境を提供します。&#xA;Operator Hub に移動して、Red Hat OpenShift Dev Spaces をクリックします。 デフォルトのまま Install をクリックします。 デフォルトのまま Install をクリックします。 インストールが完了するまで暫く待ちます。 インストールが完了したら、「View Opearator」をクリックして Operator のページに移動します。 Red Hat OpenShift Dev Spaces instance Specification というタブに移動して、 Create CheClsuter をクリックします。 設定はデフォルトのままでCreateをクリックします。 これで devspaces という名前の CheCluster というオブジェクトが作成されました。 Workload =&amp;gt; Pod に移動すると Pod が作成されはじめているのがわかります。収まるまで暫く待ちます。 Pod の作成が収まったら、Networking =&amp;gt; Route に移動します。外部からアクセスするための URL が発行されているので、URL にアクセスします。 Login with OpenShift をクリックしてログインします。 連携している Identity Provider によって表示が違いますが、好きなユーザーでログインして大丈夫です。ここではデフォルトで必ず存在する cluster-admin を使ってログインします。 ここでは cluster-admin とそのパスワードを入力します。 初回はアクセス許可を求められるので、許可します。 ログインすると、以下のような画面が見えるはずです。ここでは Empty Workspace をクリックします。 ワークスペースのデプロイが開始されるので、暫く待ちます。 三点リーダーのメニューから Terminal =&amp;gt; New Terminal を選択します。 Terminal から oc get nodes を実行してクラスターにアクセスできている事を確認します。 </description>
     </item>
     <item>
       <title>2. oc new-app を使った Hello world コンテナのデプロイ</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</guid>
       <description>1. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる # 今度は OpenShift の独自コマンド oc new-appを使用して、一番はじめにデプロイした hello-openshift コンテナをデプロイしてみます。&#xA;1.1. Project の作成 # 新しい project を作成します。 oc new-project hello-openshift2 明示的に project を変更しなくても、新しい project にスイッチしています。&#xA;1.2. deployment / service の作成 # 以下のコマンドで hello-openshift コンテナを使った deployment と service を一気に作成します。この oc new-app は OpenShift の独自コマンドです。 container のイメージが公開している port の情報を持っている場合は、service まで作成してくれます。 oc new-app --name hello-openshift --image quay.io/openshift/origin-hello-openshift 1.3. route の作成 (アプリの外部公開) # route (Kubernetes の ingress に相当) を作成します。Service を expose する事で作成されます。 oc expose service hello-openshift 作成された route を確認します。 oc get route 出力例 ↕ $ oc get route NAME HOST/PORT PATH SERVICES PORT TERMINATION WILDCARD hello-openshift hello-openshift-hello-openshift2.</description>
     </item>
     <item>
-      <title>2. rosa コマンド</title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</link>
+      <title>2. ROSA HCP の有効化</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/</guid>
+      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
+    </item>
+    <item>
+      <title>2. rosa コマンド</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/</guid>
       <description>rosa コマンド # rosa コマンドは、OpenShift Cluster が設置される AWS 周りのインフラを管理するために OpenShift に追加されたコマンドです。 また oc コマンドや kubectl コマンドと違い、複数のクラスターを管理する前提で作られています。そのため、通常、対象となるクラスター名を引数に指定します。&#xA;1. 作成されたクラスターのリスト # アカウントに紐付いている ROSA クラスターの一覧を表示します。&#xA;rosa list clusters コマンド実行例 ↕ $ rosa list clusters ID NAME STATE TOPOLOGY 27vfb6mckkl9ndle98vvcgchc2nlc54m my-hpc-cluster ready Hosted CP $ 2. machinepool のリスト # machinepool は、ROSA で用いられてる Worker Node をグループ化した概念です。 同じサイズのインスタンスで構成されています。&#xA;rosa list machinepools -c $CLUSTER_NAME コマンド実行例 ↕ $ rosa list machinepools -c $CLUSTER_NAME ID AUTOSCALING REPLICAS INSTANCE TYPE LABELS TAINTS AVAILABILITY ZONE SUBNET VERSION AUTOREPAIR workers-0 No 1/1 m5.</description>
     </item>
     <item>
       <title>3. htpasswd を使用したユーザーの追加</title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-add-users/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-add-users/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/</guid>
       <description> 2. htpasswd を使用したユーザーの追加 # 本番環境では基本的には、GitHub や LDAP 等の外部の Identity Provider を使用する事が推奨されますが、実験で使用したい。という場合にそこまでの構成を準備するのは大変な事が多いでしょう。&#xA;ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使ったユーザーの追加ができるようになっています。&#xA;console.redhat.com にログインします。&#xA;作業の対象の Cluster を選択します。 Access Control タブに移動して、htpasswd を選択します。 ユーザーを追加します。ここでは yuhki というユーザーを追加しています。 ここでは、追加したユーザーを cluster-admins グループに追加してみます。 Access Control タブから、Add User を行います。 先ほど作成したユーザー名を入力し、cluster admins を選んで OK をクリックします。 作成された cluster-admins グループのユーザーは以下のように表示されます。 CLI からも cluster-admins のユーザーに yuhki が追加されている事が確認できます。&#xA;$ oc get groups -o wide NAME USERS cluster-admins cluster-admin, yuhki dedicated-admins $ </description>
     </item>
     <item>
       <title>3. ROSA HCP の有効化</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-enable/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</guid>
       <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
     </item>
     <item>
       <title>3. ROSA 作成用 token の取得</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</guid>
       <description>1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
     </item>
     <item>
-      <title>3. 標準の Nginx コンテナをセキュアにする</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
+      <title>3. ROSA 作成用 token の取得</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/</guid>
+      <description>1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。&#xA;rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
+    </item>
+    <item>
+      <title>3. 標準の Nginx コンテナをセキュアにする</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
       <description>1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx oc get pods で、pod の STATUS が CrashLooBackOff になっている事を確認します。&#xA;これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.</description>
     </item>
     <item>
       <title>4. ROSA 作成用 token の取得</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</guid>
       <description>1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。&#xA;rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
     </item>
     <item>
       <title>4. Terraform を使用した ROSA Classic Cluster の 作成</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</guid>
       <description>ここでは、最も簡単な方法で ROSA Classic Cluster (Single AZ) を作ってみます。 一番、少ない手順で作成したい場合は、terraform を使うのが手っ取り早いです。&#xA;一番、簡単な方法ですが、この方法を覚えておけば、terraform のファイルをカスタマイズして、好みのクラスタを作る事も可能です。&#xA;1.ROSA 作成用 Token の取得 # rosa login token を環境変数に設定します。この環境変数は terrafomr から参照されます。&#xA;2.ROSA Classic Cluster の作成 # あらかじめ必要な Terraform の設定ファイルを同梱した Git Repository を作成してあるので、それをダウンロードして、作成されたディレクトリーに移動します。&#xA;git clone https://github.com/yuhkih/rosa-classic-terraform.git &amp;amp;&amp;amp; cd rosa-classic-terraform 初期化します。&#xA;terraform init apply します。50分程でクラスターが作成されされます。&#xA;terraform apply 作成されたクラスターの名前を確認します。&#xA;rosa list cluster 出力例&#xA;$ rosa list clusters ID NAME STATE TOPOLOGY 2aa9097v25puk2c01h9i69lqvqc2pj99 rosa-mbkgqo ready Classic (STS) $ 管理者ユーザーを作成します。これで cluster-admin という管理者ユーザーが作成されます。&#xA;rosa create admin -c $CLUSTER_NAME ログインしてみます。</description>
     </item>
     <item>
       <title>4. 内部 OpenShift Registry を使用する</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
       <description>この手順は 標準の Ngix コンテナをセキュアにする の続きです。&#xA;ROSA では、コンテナアプリケーションの開発に必要な Docker Registry が既にセットアップされて使えるようになっています。&#xA;主に、この ROSA Cluster の内部のプロジェクトから使用される事を目的とした、シンプルな Docker Image Registry なので、内部 OpenShift Registry のように呼ばれています。&#xA;1. 内部 OpenShift Registry の公開 # コンテナをビルドした端末から、直接、内部 OpenShift Registry にアクセスできるようにするために、Route を使って 内部 OpenShift Registry をクラスター外のネットワークに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. 内部 OpenShift Registry へのログイン # 内部 OpenShift Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` 変数に値がセットされているか確認します。&#xA;echo $IMAGE_SERVER 内部 OpenShift Registry に、Bearerトークン を使ってログインします。</description>
     </item>
     <item>
-      <title>5. ROSA HCP Cluster の作成</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</link>
+      <title>4. 環境の作成</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-create/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/</guid>
+      <description>1.各種スクリプトのダウンロード # この環境は、Linux での動作を想定しています。(Windows の WSL2 Ubuntu 上で作成しました)&#xA;このテスト環境の作成では、複数のスクリプトを実行しますが、環境変数を引きついでいるので、全て同じシェルウィンドウで実行してください。&#xA;以下の git repository をダウンロードします。スクリプトをダウンロードするディレクトリに移動して、以下のように BASE_DIR 変数をセットしてください。後の手順でのディレクトリの移動に使用します。&#xA;export BASE_DIR=~ 以下のコマンドを実行して、セットアップ用のスクリプトが入った、GitHub Repository をダウンロードします。&#xA;git clone https://github.com/yuhkih/rosa-ocpv.git ダウンロードが完了したら、以下のディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/create-environment 2.ROSA HCP Cluster の 作成 # 以下のスクリプトで 仮想マシンの Worker Node を2本持った、ROSA HCP クラスターが作成されます。&#xA;20分くらいかかるはずです。&#xA;./create-rosa-cluster.sh スクリプトが完了したら、以下のコマンドを実行して、OpenShift にログインできる事を確認しましょう。&#xA;./ocp-login.sh OpenShift の GUI が見たい場合は、以下のスクリプトで Console の GUI の URL と UserID / Password が表示できます。&#xA;./ocp-show-console-url.sh 3.OCP Virtualization Operator の Install # ROSA Cluster のインストールスクリプトが完成したら、以下のスクリプトを実行して OpenShift Virtualization の Operator と必要な Custom Resouce を作成します。</description>
+    </item>
+    <item>
+      <title>5. OCP-V を試して見る</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/</guid>
+      <description>1. virtctl コマンドのダウンロード # 仮想マシン操作のための CLI ツールをダウンロードします。これは OpenShift Console から行います。&#xA;以下のディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/test-virtual-machine 以下のコマンドを実行すると、OpenShift Console の URL とログイン方法が表示されます。&#xA;./ocp-show-console-url.sh curl -OL https://hyperconverged-cluster-cli-download-openshift-cnv.apps.rosa.yuhki-hcp.mkkx.p3.openshiftapps.com/amd64/linux/virtctl.tar.gz ダウンロードしたら解凍します。&#xA;tar xzf virtctl.tar.gz /usr/local/bin に移動させておきます。&#xA;sudo mv virtctl /usr/local/bin インストールを確認します。&#xA;virtctl version 2.仮想マシンの作成 # Repository ディレクトリ配下の、rosa-ocpv/test-virt に移動します。&#xA;cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine 以下のスクリプトで仮想マシン my-first-fedora-vm が my-vms という project に作成されます。&#xA;仮想マシン用の秘密鍵を ~/.ssh/id_vm_rsa として作成します。何か聞かれたとりあえず、Enter キーで大丈夫です。&#xA;10分程度で仮想マシンが作成されます。&#xA;./create-virtual-machine.sh 仮想マシンは、my-vms と言う project 内に作られます。作業の中で一番時間がかかるのは、RWX の Volume 作成で、その PVC (Persistent Volume Claim) の進行状況は、以下のコマンドで確認できます。&#xA;oc get pvc -n my-vms 3.</description>
+    </item>
+    <item>
+      <title>5. ROSA HCP Cluster の作成</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/</guid>
       <description>1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。&#xA;echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。&#xA;Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</description>
     </item>
     <item>
       <title>5. Terraform を使用した ROSA Classic Cluster の削除</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</guid>
       <description> 1.terraform による Cluster の削除 # terraform を使用して、ROSA Cluster を作成した事が前提です。&#xA;以下のコマンドでクラスターを削除できます。&#xA;terraform destory </description>
     </item>
     <item>
       <title>6. ROSA HCP Cluster の削除</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/</guid>
       <description>1.変数を確認する # 削除対象のクラスター名が変数にセットされているか確認します。&#xA;echo $CLUSTER_NAME 2.ROSA クラスターの削除 # 以下のコマンドでクラスターを削除します。これはクラスター作成後、Nodeを追加していても、それらの Node も含めて削除されます。&#xA;rosa delete cluster -c $CLUSTER_NAME ログの最後に出てくる以下の部分はメモしておきます。&#xA;rosa delete operator-roles --prefix &amp;lt;IAM Role prefix&amp;gt; rosa delete oidc-provider --oidc-config-id &amp;lt;OIDC provider config ID&amp;gt; 実行例 ↕ $ rosa delete cluster -c $CLUSTER_NAME ? Are you sure you want to delete cluster my-hpc-cluster? Yes I: Cluster &amp;#39;my-hpc-cluster&amp;#39; will start uninstalling now I: Your cluster &amp;#39;my-hpc-cluster&amp;#39; will be deleted but the following objects may remain I: Operator IAM Roles: - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-capa-controller-manager - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-control-plane-operator - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kms-provider - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-image-registry-installer-cloud-cre - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-ingress-operator-cloud-credentials - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cluster-csi-drivers-ebs-cloud-cred - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-openshift-cloud-network-config-controller-cl - arn:aws:iam::972708010773:role/my-hpc-cluster-n8m7-kube-system-kube-controller-manager I: OIDC Provider : https://rh-oidc.</description>
     </item>
     <item>
-      <title>7. Cluster 用 Network の削除</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</link>
+      <title>6.環境の削除</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/</guid>
+      <description> 1. ディレクトリの移動 # 削除関連のスクリプトがあるディレクトリに移動します。&#xA;cd $BASE_DIR/rosa-ocpv/delete-environment 1. 仮想マシンの削除 # 仮想マシンを削除していない場合は、削除します。&#xA;oc delete vm my-first-fedora-vm oc delete project my-vms 2. Baremetal Node の削除 # Baremetal Node は高価なので、一番初めに処理しておきましょう。以下で削除されます。スクリプトは一瞬で終わり、裏で削除が進みますが、次のステップに進んで問題ありません。&#xA;./delete-baremetal-machinepool.sh 3. FSx ONTAP の削除 # FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。&#xA;./delete-fsx-ontap.sh 4. ROSA Cluster の削除 # 以下のスクリプトでROSA HCP クラスターを削除します。&#xA;./delete-rosa-cluster.sh </description>
+    </item>
+    <item>
+      <title>7. Cluster 用 Network の削除</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/</guid>
       <description>この手順は、Red Hat で提供している terraform を使用して、ROSA HCP Cluster を作成している事が前提になります。&#xA;1.Terraform で作成した AWS のネットワークを削除する # git clone したディレクトリに移動して、以下のコマンドで削除します。&#xA;terraform destroy </description>
     </item>
     <item>
       <title>8. [補則] Network 疎通の確認</title>
-      <link>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-debug/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/create-delete/rosa-hcp-debug/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/</guid>
       <description>HCP ROSA では、ユーザーが AWS 上に作成した Network 上にクラスターを作成します。 そのため、一番多いトラブルが、AWS Network に関するものです。&#xA;ここでは、Network の疎通確認ツールである、rosa verify network を使用してみます。&#xA;rosa verify network を使用すると ROSA をインストールする VPC / Subnet から外部レジストリー等と必要な疎通が取れているか確認できます。&#xA;コマンドを実行する前にいくつか準備が必要なので、順を追ってやっていきます。&#xA;1. AWS network の SubnetId を確認する # AWS の Subnet id を取得します。&#xA;aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; コマンド実行例 ↕ $ aws ec2 describe-subnets | jq -r &amp;#39;.Subnets[] | [ .CidrBlock, .SubnetId, .AvailabilityZone, .Tags[].Value ] | @csv&amp;#39; &amp;#34;10.</description>
     </item>
     <item>
       <title>Creating a New Theme</title>
-      <link>http://localhost:1313/posts/creating-a-new-theme/</link>
+      <link>http://localhost:1313/mcs-docs/posts/creating-a-new-theme/</link>
       <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/creating-a-new-theme/</guid>
+      <guid>http://localhost:1313/mcs-docs/posts/creating-a-new-theme/</guid>
       <description>Introduction # This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&amp;rsquo;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&amp;rsquo;t cover using CSS to style your theme.&#xA;We&amp;rsquo;ll start with creating a new site with a very basic template.</description>
     </item>
     <item>
       <title>Migrate to Hugo from Jekyll</title>
-      <link>http://localhost:1313/posts/migrate-from-jekyll/</link>
+      <link>http://localhost:1313/mcs-docs/posts/migrate-from-jekyll/</link>
       <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/migrate-from-jekyll/</guid>
+      <guid>http://localhost:1313/mcs-docs/posts/migrate-from-jekyll/</guid>
       <description>Move static content to static # Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like&#xA;▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png should become&#xA;▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png Additionally, you&amp;rsquo;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
     </item>
     <item>
       <title>Hello World</title>
-      <link>http://localhost:1313/posts/hello-world/</link>
+      <link>http://localhost:1313/mcs-docs/posts/hello-world/</link>
       <pubDate>Wed, 06 Mar 2024 08:16:14 +0900</pubDate>
-      <guid>http://localhost:1313/posts/hello-world/</guid>
+      <guid>http://localhost:1313/mcs-docs/posts/hello-world/</guid>
       <description> Hello! World # This is a test site </description>
     </item>
     <item>
       <title>(Hu)go Template Primer</title>
-      <link>http://localhost:1313/posts/goisforlovers/</link>
+      <link>http://localhost:1313/mcs-docs/posts/goisforlovers/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/goisforlovers/</guid>
+      <guid>http://localhost:1313/mcs-docs/posts/goisforlovers/</guid>
       <description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.&#xA;This document is a brief primer on using Go templates.</description>
     </item>
     <item>
       <title>Getting Started with Hugo</title>
-      <link>http://localhost:1313/posts/hugoisforlovers/</link>
+      <link>http://localhost:1313/mcs-docs/posts/hugoisforlovers/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/hugoisforlovers/</guid>
+      <guid>http://localhost:1313/mcs-docs/posts/hugoisforlovers/</guid>
       <description>Step 1. Install Hugo # Go to Hugo releases and download the appropriate version for your OS and architecture.&#xA;Save it somewhere specific as we will be using it in the next step.&#xA;More complete instructions are available at Install Hugo&#xA;Step 2. Build the Docs # Hugo has its own example site which happens to also be the documentation site you are reading right now.&#xA;Follow the following steps:</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/examples/collapsed/3rd-level/4th-level/</link>
+      <link>http://localhost:1313/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/examples/collapsed/3rd-level/4th-level/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/</guid>
       <description>4th Level of Menu # Caesorum illa tu sentit micat vestes papyriferi # Inde aderam facti; Theseus vis de tauri illa peream. Oculos uberaque non regisque vobis cursuque, opus venit quam vulnera. Et maiora necemque, lege modo; gestanda nitidi, vero? Dum ne pectoraque testantur.&#xA;Venasque repulsa Samos qui, exspectatum eram animosque hinc, aut manes, Assyrii. Cupiens auctoribus pariter rubet, profana magni super nocens. Vos ius sibilat inpar turba visae iusto!</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</guid>
       <description> Ingress と Route # </description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/rosa-hcp/hidden/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/hidden/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/hidden/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/hidden/</guid>
       <description>This page is hidden in menu # Quondam non pater est dignior ille Eurotas # Latent te facies # Lorem markdownum arma ignoscas vocavit quoque ille texit mandata mentis ultimus, frementes, qui in vel. Hippotades Peleus pennas conscia cuiquam Caeneus quas.&#xA;Pater demittere evincitque reddunt Maxime adhuc pressit huc Danaas quid freta Soror ego Luctus linguam saxa ultroque prior Tatiumque inquit Saepe liquitur subita superata dederat Anius sudor Cum honorum Latona # O fallor in sustinui iussorum equidem.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/buttons/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/buttons/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/buttons/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/buttons/</guid>
       <description> Buttons # draft : true # # Buttons are styled links that can lead to local page or external link.&#xA;Example # {{&amp;lt; button relref=&amp;#34;/&amp;#34; [class=&amp;#34;...&amp;#34;] &amp;gt;}}Get Home{{&amp;lt; /button &amp;gt;}} {{&amp;lt; button href=&amp;#34;https://github.com/alex-shpak/hugo-book&amp;#34; &amp;gt;}}Contribute{{&amp;lt; /button &amp;gt;}} Get Home Contribute </description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/columns/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/columns/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/columns/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/columns/</guid>
       <description>Columns # Columns help organize shorter pieces of content horizontally for readability.&#xA;{{&amp;lt; columns &amp;gt;}} &amp;lt;!-- begin columns block --&amp;gt; # Left Content Lorem markdownum insigne... &amp;lt;---&amp;gt; &amp;lt;!-- magic separator, between columns --&amp;gt; # Mid Content Lorem markdownum insigne... &amp;lt;---&amp;gt; &amp;lt;!-- magic separator, between columns --&amp;gt; # Right Content Lorem markdownum insigne... {{&amp;lt; /columns &amp;gt;}} Example # Left Content # Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter!</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/details/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/details/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/details/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/details/</guid>
       <description>Details # Details shortcode is a helper for details html5 element. It is going to replace expand shortcode.&#xA;Example # {{&amp;lt; details &amp;#34;Title&amp;#34; [open] &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /details &amp;gt;}} {{&amp;lt; details title=&amp;#34;Title&amp;#34; open=true &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /details &amp;gt;}} Title Markdown content # Lorem markdownum insigne&amp;hellip;</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/expand/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/expand/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/expand/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/expand/</guid>
       <description>Expand # Expand shortcode can help to decrease clutter on screen by hiding part of text. Expand content by clicking on it.&#xA;Example # Default # {{&amp;lt; expand &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /expand &amp;gt;}} Expand ↕ Markdown content # Lorem markdownum insigne&amp;hellip;&#xA;With Custom Label # {{&amp;lt; expand &amp;#34;Custom Label&amp;#34; &amp;#34;...&amp;#34; &amp;gt;}} ## Markdown content Lorem markdownum insigne... {{&amp;lt; /expand &amp;gt;}} Custom Label ... Markdown content # Lorem markdownum insigne.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/hints/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/hints/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/hints/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/hints/</guid>
       <description>Hints # Hint shortcode can be used as hint/alerts/notification block.&#xA;There are 3 colors to choose: info, warning and danger.&#xA;{{&amp;lt; hint [info|warning|danger] &amp;gt;}} **Markdown content** Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter! Oculis non ritibus Telethusa {{&amp;lt; /hint &amp;gt;}} Example # Markdown content&#xA;Lorem markdownum insigne. Olympo signis Delphis! Retexi Nereius nova develat stringit, frustra Saturnius uteroque inter! Oculis non ritibus Telethusa Markdown content</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/mermaid/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/mermaid/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/mermaid/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/mermaid/</guid>
       <description>Mermaid Chart # MermaidJS is library for generating svg charts and diagrams from text.&#xA;Override Mermaid Initialization Config&#xA;To override the initialization config for Mermaid, create a mermaid.json file in your assets folder!&#xA;Example # {{&amp;lt; mermaid class=&amp;#34;optional&amp;#34; &amp;gt;}} stateDiagram-v2 State1: The state with a note note right of State1 Important information! You can write notes. end note State1 --&amp;gt; State2 note left of State2 : This is the note to the left.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/section/first-page/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/section/first-page/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/section/first-page/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/section/first-page/</guid>
       <description>First page # Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&#xA;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/section/second-page/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/section/second-page/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/section/second-page/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/section/second-page/</guid>
       <description>Second Page # Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.&#xA;Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
     </item>
     <item>
       <title></title>
-      <link>http://localhost:1313/docs/shortcodes/tabs/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/tabs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/tabs/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/tabs/</guid>
       <description>Tabs # Tabs let you organize content by context, for example installation instructions for each supported platform.&#xA;{{&amp;lt; tabs &amp;#34;uniqueid&amp;#34; &amp;gt;}} {{&amp;lt; tab &amp;#34;MacOS&amp;#34; &amp;gt;}} # MacOS Content {{&amp;lt; /tab &amp;gt;}} {{&amp;lt; tab &amp;#34;Linux&amp;#34; &amp;gt;}} # Linux Content {{&amp;lt; /tab &amp;gt;}} {{&amp;lt; tab &amp;#34;Windows&amp;#34; &amp;gt;}} # Windows Content {{&amp;lt; /tab &amp;gt;}} {{&amp;lt; /tabs &amp;gt;}} Example # MacOS MacOS # This is tab MacOS content.&#xA;Lorem markdownum insigne. Olympo signis Delphis!</description>
     </item>
     <item>
       <title>KaTeX</title>
-      <link>http://localhost:1313/docs/shortcodes/katex/</link>
+      <link>http://localhost:1313/mcs-docs/docs/shortcodes/katex/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/shortcodes/katex/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/shortcodes/katex/</guid>
       <description>KaTeX # KaTeX shortcode let you render math typesetting in markdown document. See KaTeX&#xA;Example # {{&amp;lt; katex display=true class=&amp;#34;optional&amp;#34; &amp;gt;}} f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi {{&amp;lt; /katex &amp;gt;}} \[f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi\] Display Mode Example # Here is some inline example: \(\pi(x)\) , rendered in the same line. And below is display example, having display: block \[f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi\] Text continues here.</description>
     </item>
   </channel>

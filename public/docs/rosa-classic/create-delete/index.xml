@@ -2,44 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ROSA Classic Cluster の作成と削除 (terraform) on MCS Documents</title>
-    <link>http://localhost:1313/docs/rosa-classic/create-delete/</link>
+    <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/</link>
     <description>Recent content in ROSA Classic Cluster の作成と削除 (terraform) on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <atom:link href="http://localhost:1313/docs/rosa-classic/create-delete/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. ROSA Classic の有効化</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-enable/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/</guid>
       <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
     </item>
     <item>
       <title>2. CLIの準備</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-prepare/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/</guid>
       <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
     </item>
     <item>
       <title>3. ROSA 作成用 token の取得</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-get-token/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/</guid>
       <description>1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
     </item>
     <item>
       <title>4. Terraform を使用した ROSA Classic Cluster の 作成</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/</guid>
       <description>ここでは、最も簡単な方法で ROSA Classic Cluster (Single AZ) を作ってみます。 一番、少ない手順で作成したい場合は、terraform を使うのが手っ取り早いです。&#xA;一番、簡単な方法ですが、この方法を覚えておけば、terraform のファイルをカスタマイズして、好みのクラスタを作る事も可能です。&#xA;1.ROSA 作成用 Token の取得 # rosa login token を環境変数に設定します。この環境変数は terrafomr から参照されます。&#xA;2.ROSA Classic Cluster の作成 # あらかじめ必要な Terraform の設定ファイルを同梱した Git Repository を作成してあるので、それをダウンロードして、作成されたディレクトリーに移動します。&#xA;git clone https://github.com/yuhkih/rosa-classic-terraform.git &amp;amp;&amp;amp; cd rosa-classic-terraform 初期化します。&#xA;terraform init apply します。50分程でクラスターが作成されされます。&#xA;terraform apply 作成されたクラスターの名前を確認します。&#xA;rosa list cluster 出力例&#xA;$ rosa list clusters ID NAME STATE TOPOLOGY 2aa9097v25puk2c01h9i69lqvqc2pj99 rosa-mbkgqo ready Classic (STS) $ 管理者ユーザーを作成します。これで cluster-admin という管理者ユーザーが作成されます。&#xA;rosa create admin -c $CLUSTER_NAME ログインしてみます。</description>
     </item>
     <item>
       <title>5. Terraform を使用した ROSA Classic Cluster の削除</title>
-      <link>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/</guid>
       <description> 1.terraform による Cluster の削除 # terraform を使用して、ROSA Cluster を作成した事が前提です。&#xA;以下のコマンドでクラスターを削除できます。&#xA;terraform destory </description>
     </item>
   </channel>

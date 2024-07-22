@@ -1,14 +1,14 @@
 {
   "name": "MCS Documents",
   "short_name": "MCS Documents",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/mcs-docs/",
+  "scope": "/mcs-docs/",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/mcs-docs/favicon.svg",
       "sizes": "512x512"
     }
   ]

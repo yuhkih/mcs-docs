@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ja-JP" dir="ltr">
+<head><script src="/mcs-docs/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=mcs-docs/livereload" data-no-instant defer></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。
+こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。
+2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。
+https://console.aws.amazon.com/rosa/home#/get-started
+ROSA HCP を有効にする のボタンをクリックします。
+有効化されるまで、暫く待ちます。数分かかるはずです。
+有効化が完了すると以下のような表示になります。
+2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。
+もし作成されていない場合は、以下のコマンドで作成します。
+aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="2. ROSA HCP の有効化" />
+<meta property="og:description" content="1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。
+こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。
+2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。
+https://console.aws.amazon.com/rosa/home#/get-started
+ROSA HCP を有効にする のボタンをクリックします。
+有効化されるまで、暫く待ちます。数分かかるはずです。
+有効化が完了すると以下のような表示になります。
+2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。
+もし作成されていない場合は、以下のコマンドで作成します。
+aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" /><meta property="article:section" content="docs" />
+
+
+
+<title>2. ROSA HCP の有効化 | MCS Documents</title>
+<link rel="manifest" href="/mcs-docs/manifest.json">
+<link rel="icon" href="/mcs-docs/favicon.png" >
+<link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/">
+<link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
+  <script defer src="/mcs-docs/flexsearch.min.js"></script>
+  <script defer src="/mcs-docs/en.search.min.19d6ace73b2e2297a7659910f5b12fa4c8aa1707508ec189c8e11affe4638b62.js" integrity="sha256-Gdas5zsuIpenZZkQ9bEvpMiqFwdQjsGJyOEa/&#43;Rji2I=" crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-YJ1FJGEVLK', { 'anonymize_ip': false });
+}
+</script>
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+  
+</head>
+<body dir="ltr">
+  <input type="checkbox" class="hidden toggle" id="menu-control" />
+  <input type="checkbox" class="hidden toggle" id="toc-control" />
+  <main class="container flex">
+    <aside class="book-menu">
+      <div class="book-menu-content">
+        
+  <nav>
+<h2 class="book-brand">
+  <a class="flex align-center" href="/mcs-docs/"><span>MCS Documents</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" data-hotkeys="s/" />
+  <div class="book-search-spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-0b1cd17e634be7cb65a477fa33665677" class="toggle"  />
+    <label for="section-0b1cd17e634be7cb65a477fa33665677" class="flex justify-between">
+      <a role="button" class="">ROSA Classic Cluster の作成と削除 (terraform)</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-2c0f104f4df789cc685f9082a821e77e" class="toggle"  />
+    <label for="section-2c0f104f4df789cc685f9082a821e77e" class="flex justify-between">
+      <a role="button" class="">ROSA HCP Cluster の作成と削除</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/" class="">5. ROSA HCP Cluster の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-cluster/" class="">6. ROSA HCP Cluster の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-delete-network/" class="">7. Cluster 用 Network の削除</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle" checked />
+    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
+      <a role="button" class="">簡単 OCP Virtulaization</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="active">2. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
+    <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
+      <a role="button" class="">ROSA Operators</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-web-terminal/" class="">1. Web Terminal Operator</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/operators/rosa-hcp-devspaces/" class="">2. Dev Spaces Operator</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="toggle"  />
+    <label for="section-817ca04f9b6ba5f91e6bdcec99bf2e4f" class="flex justify-between">
+      <a role="button" class="">ROSA 基本機能</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/oc-cli-walk-through/" class="">1. oc コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-cli-walk-through/" class="">2. rosa コマンド</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/" class="">3. htpasswd を使用したユーザーの追加</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-4081d547b8db8fbbe7429e877123083d" class="toggle"  />
+    <label for="section-4081d547b8db8fbbe7429e877123083d" class="flex justify-between">
+      <a role="button" class="">サンプル Application の作成</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/" class="">1. Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/" class="">2. oc new-app を使った Hello world コンテナのデプロイ</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/" class="">3. 標準の Nginx コンテナをセキュアにする</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/" class="">4. 内部 OpenShift Registry を使用する</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/mcs-docs/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/mcs-docs/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
+
+
+
+
+
+
+</nav>
+
+
+
+
+  <script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+
+
+ 
+      </div>
+    </aside>
+
+    <div class="book-page">
+      <header class="book-header">
+        
+  <div class="flex align-center justify-between">
+  <label for="menu-control">
+    <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
+  </label>
+
+  <strong>2. ROSA HCP の有効化</strong>
+
+  <label for="toc-control">
+    
+    <img src="/mcs-docs/svg/toc.svg" class="book-icon" alt="Table of Contents" />
+    
+  </label>
+</div>
+
+
+  
+  <aside class="hidden clearfix">
+    
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-red-hat-account-の作成">1. Red Hat Account の作成</a></li>
+    <li><a href="#2-rosa-の有効化と前提条件の確認">2. ROSA の有効化と前提条件の確認</a>
+      <ul>
+        <li><a href="#21-rosa-hcp-の有効化">2.1. ROSA HCP の有効化</a></li>
+        <li><a href="#22-service-quota-の確認">2.2. Service Quota の確認</a></li>
+        <li><a href="#23-elb-サービスにリンクされたロールの作成">2.3. ELB サービスにリンクされたロールの作成</a></li>
+        <li><a href="#24-red-hat-customer-portal-の情報とリンクする">2.4. Red Hat Customer Portal の情報とリンクする</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+
+  </aside>
+  
+ 
+      </header>
+
+      
+      
+  <article class="markdown book-article"><h2 id="1-red-hat-account-の作成">
+  1. Red Hat Account の作成
+  <a class="anchor" href="#1-red-hat-account-%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h2>
+<p>Red Hat Account を作成します。メールアドレス等が必要になります。
+この Red Hat Account を使用して、サポートの問い合わせなどを行います。</p>
+<p><a href="https://console.redhat.com/connect/aws">こちら</a> にアクセスして作成します。Red Hat アカウントは無料で作成できます。</p>
+<h2 id="2-rosa-の有効化と前提条件の確認">
+  2. ROSA の有効化と前提条件の確認
+  <a class="anchor" href="#2-rosa-%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96%e3%81%a8%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6%e3%81%ae%e7%a2%ba%e8%aa%8d">#</a>
+</h2>
+<h3 id="21-rosa-hcp-の有効化">
+  2.1. ROSA HCP の有効化
+  <a class="anchor" href="#21-rosa-hcp-%e3%81%ae%e6%9c%89%e5%8a%b9%e5%8c%96">#</a>
+</h3>
+<p>以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。<br>
+<a href="https://console.aws.amazon.com/rosa/home#/get-started">https://console.aws.amazon.com/rosa/home#/get-started</a></p>
+<p><code>ROSA HCP を有効にする</code> のボタンをクリックします。</p>
+<p><img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/0c4152d4-c51a-40c2-9440-bc89cfaaf03e" alt="image" /></p>
+<p>有効化されるまで、暫く待ちます。数分かかるはずです。</p>
+<p><img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/7eee2757-c526-4e28-8666-d5f4b4fce290" alt="image" /></p>
+<p>有効化が完了すると以下のような表示になります。</p>
+<p><img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/29a2de09-8041-46a1-9852-34b2bd52709c" alt="image" /></p>
+<h3 id="22-service-quota-の確認">
+  2.2. Service Quota の確認
+  <a class="anchor" href="#22-service-quota-%e3%81%ae%e7%a2%ba%e8%aa%8d">#</a>
+</h3>
+<p>もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/41b134f4-8cbc-48bc-b023-104082d3550b" alt="image" /></p>
+<h3 id="23-elb-サービスにリンクされたロールの作成">
+  2.3. ELB サービスにリンクされたロールの作成
+  <a class="anchor" href="#23-elb-%e3%82%b5%e3%83%bc%e3%83%93%e3%82%b9%e3%81%ab%e3%83%aa%e3%83%b3%e3%82%af%e3%81%95%e3%82%8c%e3%81%9f%e3%83%ad%e3%83%bc%e3%83%ab%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
+</h3>
+<p>過去に ELB をデプロイした事があれば <code>AWSServiceRoleForElasticLoadBalancing</code> というIAM Role が作成されており、以下のような表示になっているはずです。</p>
+<p><img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/35975e14-6847-4b9a-b36e-b52295f0891d" alt="image" /></p>
+<p>もし作成されていない場合は、以下のコマンドで作成します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34;
+</span></span></code></pre></div><h3 id="24-red-hat-customer-portal-の情報とリンクする">
+  2.4. Red Hat Customer Portal の情報とリンクする
+  <a class="anchor" href="#24-red-hat-customer-portal-%e3%81%ae%e6%83%85%e5%a0%b1%e3%81%a8%e3%83%aa%e3%83%b3%e3%82%af%e3%81%99%e3%82%8b">#</a>
+</h3>
+<p>画面の一番下に移動して「Continue Red Hat」をクリックします。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/87d5a503-7a0a-4a51-9c08-0aa7ad2dc026" alt="image" /></p>
+<p>Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度<a href="https://console.redhat.com/connect/aws">こちら</a> にアクセスします。Red Hat アカウントは無料で作成できます）
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/565e0b8d-eada-4d52-a1c3-16c58bae93fa" alt="image" /></p>
+<p>日本語を選んで「Connect accounts] をクリックします。
+<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/2148e419-4753-421b-a572-bcefc2660df3" alt="image" /></p>
+<p>セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</p>
+<p>以上で前提条件の確認は完了です。</p>
+</article>
+ 
+      
+
+      <footer class="book-footer">
+        
+  <div class="flex flex-wrap justify-between">
+
+
+
+
+
+</div>
+
+
+
+  <script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){if(window.getSelection().toString())return;e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script>
+
+
+ 
+        
+      </footer>
+
+      
+  
+  <div class="book-comments">
+
+</div>
+  
+ 
+
+      <label for="menu-control" class="hidden book-menu-overlay"></label>
+    </div>
+
+    
+    <aside class="book-toc">
+      <div class="book-toc-content">
+        
+  
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-red-hat-account-の作成">1. Red Hat Account の作成</a></li>
+    <li><a href="#2-rosa-の有効化と前提条件の確認">2. ROSA の有効化と前提条件の確認</a>
+      <ul>
+        <li><a href="#21-rosa-hcp-の有効化">2.1. ROSA HCP の有効化</a></li>
+        <li><a href="#22-service-quota-の確認">2.2. Service Quota の確認</a></li>
+        <li><a href="#23-elb-サービスにリンクされたロールの作成">2.3. ELB サービスにリンクされたロールの作成</a></li>
+        <li><a href="#24-red-hat-customer-portal-の情報とリンクする">2.4. Red Hat Customer Portal の情報とリンクする</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+
+
+ 
+      </div>
+    </aside>
+    
+  </main>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

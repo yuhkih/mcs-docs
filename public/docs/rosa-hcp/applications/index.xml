@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>サンプル Application の作成 on MCS Documents</title>
-    <link>http://localhost:1313/docs/rosa-hcp/applications/</link>
+    <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/</link>
     <description>Recent content in サンプル Application の作成 on MCS Documents</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ja-JP</language>
-    <atom:link href="http://localhost:1313/docs/rosa-hcp/applications/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. Hello world コンテナのデプロイ</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app/</guid>
       <description>1. 簡単なサンプルコンテナをデプロイしてみる # hello-openshift という Web Server のコンテナをデプロイしてみます。アクセスすると、&amp;ldquo;Hello OpenShift&amp;rdquo; とメッセージを返すシンプルなコンテナです。&#xA;1.1. namespace の作成 # hello-openshift という namespace を作成します。 kubectl create namespace hello-openshift namespace を hello-openshift に変更します。 kubectl config set-context $(kubectl config current-context) --namespace=hello-openshift 1.2. deployment の作成 # hello-openshift イメージを使った deployment を作成します。名前はコンテナ名と同じ　hello-openshift にします。 kubectl create deployment hello-openshift --image=quay.io/openshift/origin-hello-openshift deployment が作成されたか確認します。 kubectl get deployment 出力例 ↕ $ kubectl get deployment NAME READY UP-TO-DATE AVAILABLE AGE hello-openshift 1/1 1 1 152m $ 1.</description>
     </item>
     <item>
       <title>2. oc new-app を使った Hello world コンテナのデプロイ</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-app-oc-new/</guid>
       <description>1. OpenShift 独自のコマンドを使用して簡単なサンプルコンテナをデプロイしてみる # 今度は OpenShift の独自コマンド oc new-appを使用して、一番はじめにデプロイした hello-openshift コンテナをデプロイしてみます。&#xA;1.1. Project の作成 # 新しい project を作成します。 oc new-project hello-openshift2 明示的に project を変更しなくても、新しい project にスイッチしています。&#xA;1.2. deployment / service の作成 # 以下のコマンドで hello-openshift コンテナを使った deployment と service を一気に作成します。この oc new-app は OpenShift の独自コマンドです。 container のイメージが公開している port の情報を持っている場合は、service まで作成してくれます。 oc new-app --name hello-openshift --image quay.io/openshift/origin-hello-openshift 1.3. route の作成 (アプリの外部公開) # route (Kubernetes の ingress に相当) を作成します。Service を expose する事で作成されます。 oc expose service hello-openshift 作成された route を確認します。 oc get route 出力例 ↕ $ oc get route NAME HOST/PORT PATH SERVICES PORT TERMINATION WILDCARD hello-openshift hello-openshift-hello-openshift2.</description>
     </item>
     <item>
       <title>3. 標準の Nginx コンテナをセキュアにする</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-deploy-secure-app/</guid>
       <description>1. 標準の Nginx コンテナがデプロイできない事を確認する # 以下のコマンドで新しい Project を作ります。自動的に新しい Project に移動します。&#xA;oc new-project standard-nginx docker hub にある、nginx の公式イメージを Deployment を使用して Deploy します。&#xA;oc create deployment standard-nginx --image nginx oc get pods で、pod の STATUS が CrashLooBackOff になっている事を確認します。&#xA;これは標準の状態では、高い権限を要求しているため、セキュリティ機能に阻まれて上手くコンテナが実行できてない事を示しています。&#xA;oc get pods 出力例 ↕ $ oc get pods NAME READY STATUS RESTARTS AGE standard-nginx-768459d6bc-wldlr 0/1 CrashLoopBackOff 2 (30s ago) 53s $ Pod のログを確認してみます。&#xA;oc logs &amp;lt;Pod 名&amp;gt; 出力例 ↕ $ oc logs standard-nginx-768459d6bc-wldlr /docker-entrypoint.</description>
     </item>
     <item>
       <title>4. 内部 OpenShift Registry を使用する</title>
-      <link>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/applications/rosa-hcp-internal-registry/</guid>
       <description>この手順は 標準の Ngix コンテナをセキュアにする の続きです。&#xA;ROSA では、コンテナアプリケーションの開発に必要な Docker Registry が既にセットアップされて使えるようになっています。&#xA;主に、この ROSA Cluster の内部のプロジェクトから使用される事を目的とした、シンプルな Docker Image Registry なので、内部 OpenShift Registry のように呼ばれています。&#xA;1. 内部 OpenShift Registry の公開 # コンテナをビルドした端末から、直接、内部 OpenShift Registry にアクセスできるようにするために、Route を使って 内部 OpenShift Registry をクラスター外のネットワークに公開します。&#xA;oc patch configs.imageregistry.operator.openshift.io/cluster --patch &amp;#39;{&amp;#34;spec&amp;#34;:{&amp;#34;defaultRoute&amp;#34;:true}}&amp;#39; --type=merge 2. 内部 OpenShift Registry へのログイン # 内部 OpenShift Registry の ドメイン名を取得します。&#xA;export IMAGE_SERVER=`oc get route default-route -n openshift-image-registry --template=&amp;#39;{{ .spec.host }}&amp;#39;` 変数に値がセットされているか確認します。&#xA;echo $IMAGE_SERVER 内部 OpenShift Registry に、Bearerトークン を使ってログインします。</description>
     </item>
   </channel>
