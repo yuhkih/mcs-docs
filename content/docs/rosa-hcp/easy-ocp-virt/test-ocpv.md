@@ -21,9 +21,11 @@ cd $BASE_DIR/rosa-ocpv/test-virtual-machine
 
 
 `OpenShift Console` の右上のメニューから、`コマンドラインツール`をえらびます。
+
 ![clidownload1](https://github.com/user-attachments/assets/f8314638-e3d2-4aa1-b7b1-ce733b930528)
 
 以下のリンクからコマンドをダウンロードします。(この例は Linux です）
+
 ![clidownload2](https://github.com/user-attachments/assets/78356184-462f-4ae5-97e4-f5f61cf91e07)
 
 
