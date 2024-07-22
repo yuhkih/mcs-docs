@@ -110,19 +110,20 @@ total 0
 
 ## 5.仮想マシンのライブマイグレーション
 
-
 この環境では、2本の `Baremetal Node` がインストールされています。そのどちらかの `Node` に 仮想マシンがデプロイされています。
 
 以下のコマンドで現在、仮想マシンがデプロイされている `Node` がわかります。
 
 
 ```tpl
- oc get pod -l "kubevirt.io/domain=my-first-fedora-vm" -o jsonpath="{.items[0].metadata.labels.kubevirt\.io/nodeName}"
+oc get pods -o wide | egrep "my-first-fedora-vm | Running"
 ```
 
 {{< expand "出力例" >}}
 ```tpl
-ip-10-10-3-59.ap-northeast-1.compute.internal$ 
+$ oc get pods -o wide | egrep "my-first-fedora-vm | Running"
+virt-launcher-my-first-fedora-vm-rpgjq   1/1     Running     0          110s   10.131.0.85   ip-10-10-1-130.ap-northeast-1.compute.internal   <none>           1/1
+$ 
 ```
 {{< /expand >}}
 
@@ -135,14 +136,16 @@ virtctl migrate my-first-fedora-vm
 少し待ってから、もう一度、仮想マシンがデプロイされている `Node` を確認してみます
 
 ```tpl
- oc get pod -l "kubevirt.io/domain=my-first-fedora-vm" -o jsonpath="{.items[0].metadata.labels.kubevirt\.io/nodeName}"
+oc get pods -o wide | egrep "my-first-fedora-vm | Running"
 ```
 
 {{< expand "出力例" >}}
 
 `Node`名が変わっているはずです。
 ```tpl
-ip-10-10-0-229.ap-northeast-1.compute.internal$ 
+$ oc get pods -o wide | egrep "my-first-fedora-vm | Running"
+virt-launcher-my-first-fedora-vm-p7nbp   1/1     Running     0          15s     10.128.2.93   ip-10-10-8-108.ap-northeast-1.compute.internal   <none>           1/1
+$ 
 ```
 {{< /expand >}}
 

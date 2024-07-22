@@ -86,6 +86,45 @@ ROSA Cluster のインストールスクリプトが完成したら、以下の�
 
 このスクリプトが完了すれば、テスト環境の作成は完了です。
 
+{{< hint warning >}}
+**コストに関する注意点**
+
+この ROSA 環境は、机上計算ですが、Baremetal Node を追加する前の状態の仮想 Node (m5.xlarge: 4vCPU / 16GiB x 2) の最小構成で 4,500円/24 hours 程度のコストがかかります。
+
+これが、Baremetal Node (m5zn.metali:  48vCPU / 192GiB x  2本) を追加した後は、70,000円/24 houres 程度のコストに上昇します。
+
+On Demand 料金で割引が効かない状態での EC2 Baremetal Node は、高額になるのでご注意下さい。
 
 
+{{< /hint >}}
 
+
+## 6.Baremetal Node部分の削除と再追加
+
+実験をしない時は、Cluster 自体は残しつつ、Baremetal Node だけを一時的に削除、再追加する事も可能です。
+
+ただし、それぞれに 30分程度の時間を要する事に注意してください。
+
+**Baremetal Node の削除**
+
+コマンドのリターンはすぐに返ってきますが、削除はバックグラウンドで進行しています。
+
+```tpl
+cd $BASE_DIR/rosa-ocpv/delete-environment
+./delete-baremetal-machinepool.sh
+```
+
+削除の進行状況は、以下のコマンドで確認できます。
+
+```tpl
+oc get nodes
+```
+
+**Baremetal Node の再追加**
+
+以下のコマンドで、Baremetal Node 再作成する事ができます。
+
+```tpl
+cd $BASE_DIR/rosa-ocpv/create-environment
+./create-baremetal-machinepool.sh
+```
