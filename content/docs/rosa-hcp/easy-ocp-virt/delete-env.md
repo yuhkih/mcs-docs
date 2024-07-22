@@ -31,7 +31,7 @@ Baremetal Node は高価なので、一番初めに処理しておきましょ�
 
 ## 3. FSx ONTAP の削除
 
-FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。
+FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以下のスクリプトが両方を行ってくれます。20分以上かかるはずです。
 
 ```tpl
 ./delete-fsx-ontap.sh 
@@ -46,5 +46,15 @@ FSx ONTAP Volume を削除し、その後、FSx 自体を削除します。以�
 ./delete-rosa-cluster.sh
 ```
 
+途中で以下のように確認を求められるので、`yes` と入力してください。
 
+```tpl
+...
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+...
+```
 
