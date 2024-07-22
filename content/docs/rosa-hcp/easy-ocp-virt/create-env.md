@@ -91,7 +91,7 @@ ROSA Cluster のインストールスクリプトが完成したら、以下の�
 
 この ROSA 環境は、机上計算ですが、Baremetal Node を追加する前の状態の仮想 Node (m5.xlarge: 4vCPU / 16GiB x 2) の最小構成で 4,500円/24 hours 程度のコストがかかります。
 
-これが、Baremetal Node (m5zn.metali:  48vCPU / 192GiB x  2本) を追加した後は、70,000円/24 houres 程度のコストに上昇します。
+これが、Baremetal Node (m5zn.metali:  48vCPU / 192GiB x  2本) を追加した後は、70,000円/24 hours 程度のコストに上昇します。
 
 On Demand 料金で割引が効かない状態での EC2 Baremetal Node は、高額になるのでご注意下さい。
 
