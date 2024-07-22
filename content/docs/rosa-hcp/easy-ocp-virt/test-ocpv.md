@@ -150,8 +150,19 @@ $
 {{< /expand >}}
 
 違う `Node` 上に仮想マシンが移動しているがわかると思います。この環境では、10秒以内には `Live Migration` が完了しているはずです。
+## 6.OCP Console を使った操作
 
-## 6.仮想マシンの削除
+仮想マシンの操作は、CLI だけでなく、GUI からも行う事ができます。
+
+以下のコマンドで `OpenShift Console` のログイン URL が表示されるので、GUI での操作もいろいろ試して見てください。
+
+```tpl
+./ocp-show-console-url.sh
+```
+
+![image](https://github.com/user-attachments/assets/6333fcb4-a377-48ad-b43f-bb56c3ab2160)
+
+## 7.仮想マシンの削除
 
 以下のコマンドで仮想マシンが削除できます。
 
