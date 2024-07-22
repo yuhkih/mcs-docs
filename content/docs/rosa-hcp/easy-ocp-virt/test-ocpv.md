@@ -5,8 +5,6 @@ weight: 1
 
 ## 1. virtctl コマンドのダウンロード
 
-仮想マシン操作のための CLI ツールをダウンロードします。これは `OpenShift Console` から行います。
-
 以下のディレクトリに移動します。
 
 ```tpl
@@ -50,11 +48,6 @@ virtctl version
 
 ## 2.仮想マシンの作成
 
-Repository ディレクトリ配下の、`rosa-ocpv/test-virt` に移動します。
-
-```tpl
-cd $YOUR_HOME_DIR/rosa-copv/test-virtual-machine
-```
 
 以下のスクリプトで仮想マシン `my-first-fedora-vm` が `my-vms` という `project` に作成されます。
 
