@@ -160,6 +160,8 @@ $
 ./ocp-show-console-url.sh
 ```
 
+以下の GUI 上から、仮想マシンの起動、停止、Live Migration、スナップショットの取得など各種操作を行う事ができます。
+
 ![image](https://github.com/user-attachments/assets/6333fcb4-a377-48ad-b43f-bb56c3ab2160)
 
 ## 7.仮想マシンの削除
