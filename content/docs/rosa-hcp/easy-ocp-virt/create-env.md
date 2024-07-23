@@ -3,6 +3,10 @@ title: 4. 環境の作成
 weight: 1
 ---
 
+この手順では以下のような環境が作成されます。
+![image](https://github.com/user-attachments/assets/899c41d5-5f5f-4614-bf2a-45545b4db53a)
+
+
 ## 1.各種スクリプトのダウンロード
 
 この環境は、Linux での動作を想定しています。(Windows の WSL2 Ubuntu 上で作成しました)
