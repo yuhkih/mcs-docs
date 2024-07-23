@@ -56,7 +56,6 @@ ROSA Cluster のインストールスクリプトが完成したら、以下の�
 ```tpl
 ./install-ocpv-operator.sh
 ```
-
 ## 4.共有ストレージ (FSx for NetApp ONTAP) の 作成
 上記のスクリプトが完了したら、RWX のストレージ用に `FSx for Net App ONTAP` を導入します。
 
@@ -91,7 +90,7 @@ ROSA Cluster のインストールスクリプトが完成したら、以下の�
 
 この ROSA 環境は、机上計算ですが、Baremetal Node を追加する前の状態の仮想 Node (m5.xlarge: 4vCPU / 16GiB x 2) の最小構成で 4,300円/24 hours 程度のコストがかかります。
 
-これが、Baremetal Node (m5zn.metal:  48vCPU / 192GiB x  2本) と、FSx for NetApp ONTAP を追加した後は、62,500円/24 hours 程度のコストに上昇します。
+これが、Baremetal Node (m5zn.metal:  48vCPU / 192GiB x  2本) と、FSx for NetApp ONTAP(1TB) を追加した後は、67,500円/24 hours 程度のコストに上昇します。
 増加分の内訳は、EC2 Baremetal Node / ROSA Subscription / FSx for NetApp ONTAP = 38,000円 / 15,000円 / 9,500円 です。
 
 On Demand 料金で割引が効かない状態での EC2 Baremetal Node は、高額になるのでご注意下さい。
