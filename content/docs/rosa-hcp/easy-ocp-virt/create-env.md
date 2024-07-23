@@ -5,7 +5,7 @@ weight: 1
 
 この手順では以下のような環境が作成されます。
 
-![image](https://github.com/user-attachments/assets/899c41d5-5f5f-4614-bf2a-45545b4db53a)
+![image](https://github.com/user-attachments/assets/3dc02fe3-85d4-4673-b607-d01008309b8a)
 
 
 ## 1.各種スクリプトのダウンロード
