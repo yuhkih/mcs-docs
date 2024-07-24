@@ -20,7 +20,7 @@ weight: 1
 export BASE_DIR=~
 ```
 
-以下のコマンドを実行して、セットアップ用のスクリプトが入った、GitHub Repository をダウンロードします。
+以下のコマンドを実行して、セットアップ用のスクリプトが入った、GitHub Repository をダウンロードします。(内部で別の Repository を submodule で呼んでいるので  `--recursive` を忘れずに付けてください) 
 
 ```tpl
 git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
