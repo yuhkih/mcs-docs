@@ -23,7 +23,7 @@ export BASE_DIR=~
 以下のコマンドを実行して、セットアップ用のスクリプトが入った、GitHub Repository をダウンロードします。
 
 ```tpl
-git clone https://github.com/yuhkih/rosa-ocpv.git
+git clone --recursive https://github.com/yuhkih/rosa-ocpv.git
 ```
 
 ダウンロードが完了したら、以下のディレクトリに移動します。
