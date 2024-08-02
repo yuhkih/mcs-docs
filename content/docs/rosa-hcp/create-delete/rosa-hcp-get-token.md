@@ -1,5 +1,5 @@
 ---
-title: 4. ROSA 作成用 token の取得
+title: 3. ROSA 作成用 token の取得
 weight: 1
 ---
 

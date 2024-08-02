@@ -1,5 +1,5 @@
 ---
-title: 3. ROSA HCP の有効化
+title: 1. ROSA HCP の有効化
 weight: 1
 ---
 ## 1. Red Hat Account の作成

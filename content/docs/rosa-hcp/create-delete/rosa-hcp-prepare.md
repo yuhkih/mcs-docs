@@ -1,5 +1,5 @@
 ---
-title: 1. CLIの準備
+title: 2. CLIの準備
 weight: 1
 ---
 
