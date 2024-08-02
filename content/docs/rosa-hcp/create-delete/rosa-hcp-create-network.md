@@ -77,6 +77,8 @@ terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_N
 terraform apply rosa.tfplan
 ```
 
+実際に VPC や Subnet、NAT Gateway 等が作成されるので数分、時間がかかります。
+
 5. 作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで2つ(Single AZ) もしくは6つ(Multi AZ) のサブネットIDが変数にセットされます。
 
 ```tpl
