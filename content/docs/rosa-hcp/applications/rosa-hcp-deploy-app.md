@@ -9,13 +9,14 @@ weight: 1
 
 ### 1.1. namespace の作成
 1. `hello-openshift` という `namespace` を作成します。
+
 ```tpl
 kubectl create namespace hello-openshift
 ```
 
 2. namespace を `hello-openshift` に変更します。
 
-```
+```tpl
  kubectl config set-context $(kubectl config current-context) --namespace=hello-openshift
 ```
 

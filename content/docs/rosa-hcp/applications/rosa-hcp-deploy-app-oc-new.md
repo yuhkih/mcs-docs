@@ -8,7 +8,11 @@ weight: 1
 今度は OpenShift の独自コマンド `oc new-app`を使用して、一番はじめにデプロイした `hello-openshift` コンテナをデプロイしてみます。
 
 ### 1.1. Project の作成
+
 1. 新しい `project` を作成します。
+
+`project` は、 `namespace` を拡張した OpenShift 独自の概念です。
+
 ```tpl
 oc new-project hello-openshift2
 ```

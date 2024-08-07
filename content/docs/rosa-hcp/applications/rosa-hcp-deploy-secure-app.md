@@ -66,7 +66,7 @@ $
 
 動作しない Deployment を削除します。
 
-```
+```tpl
 oc delete deployment standard-nginx
 ```
 
@@ -114,7 +114,7 @@ non-root ユーザーで起動できるように、well-know port と呼ばれ�
 {{< /hint >}}
 
 
-このルールに従っていれば、大半の Kubernetes 環境にコンテナをデプロイする事が可能です。
+このルールに従っていれば、OpenShift に限らず、通常の Kubernetes 環境にコンテナをデプロイする事が可能です。
 
 nginx の設定ファイルである `nginx.conf` を以下のように書き替えています。[1]～[4]
 
@@ -188,7 +188,7 @@ $
 
 **index.html**   
 
-簡素化するために、HTML タグは書いてませんが、メッセージを出すだけのファイルです。
+簡素化するために、HTML タグは書いてませんが、呼ばれると記載されているメッセージを出力します。
 
 ```tpl index.html
 Hello OpenShift World !
@@ -197,7 +197,7 @@ Hello OpenShift World !
 
 **Dockerfile**   
 
-普通の Dockerfile です。OpenShift の場合は、もしここに `USER` が指定してあって無視されます。
+普通の Dockerfile です。OpenShift の場合は、もしここに `USER` が指定してあっても無視され、自動的に割り当てられたユーザーが使用されます。
 
 ```tpl Dockerfile
 FROM registry.access.redhat.com/ubi8/ubi
