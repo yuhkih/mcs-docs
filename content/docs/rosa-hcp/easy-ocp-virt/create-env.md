@@ -17,7 +17,7 @@ weight: 1
 以下の git repository をダウンロードします。スクリプトをダウンロードするディレクトリに移動して、以下のように `BASE_DIR` 変数をセットしてください。後の手順でのディレクトリの移動に使用します。
 
 ```tpl
-export BASE_DIR=~
+export BASE_DIR=`pwd`
 ```
 
 以下のコマンドを実行して、セットアップ用のスクリプトが入った、GitHub Repository をダウンロードします。(内部で別の Repository を submodule で呼んでいるので  `--recursive` を忘れずに付けてください) 
