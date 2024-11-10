@@ -22,7 +22,6 @@ HCP ROSA は、ユーザーが既にもっているネットワークにデプ�
 git clone https://github.com/openshift-cs/terraform-vpc-example
 ```
 
-この Network 作成用の terraform は、単純にネットワークを作成するだけだく、[こちら](https://repost.aws/knowledge-center/eks-vpc-subnet-discovery) に記載されいているサブネットに付けるタグもあからじめ付けてくれるようになっています。
 
 ダウンロードしたディレクトリに移動します。
 
