@@ -22,9 +22,14 @@ HCP ROSA は、ユーザーが既にもっているネットワークにデプ�
 git clone https://github.com/openshift-cs/terraform-vpc-example
 ```
 
+この Network 作成用の terraform は、単純にネットワークを作成するだけだく、[こちら](https://repost.aws/knowledge-center/eks-vpc-subnet-discovery) に記載されいているサブネットに付けるタグもあからじめ付けてくれるようになっています。
+
+ダウンロードしたディレクトリに移動します。
+
 ```tpl
 cd terraform-vpc-example
 ```
+初期化します。
 
 ```tpl
 terraform init
@@ -32,13 +37,14 @@ terraform init
 
 2. 変数を準備しておきます。
 
-CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
+`CLUSTER_NAME` は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。
 
 ```tpl
 export CLUSTER_NAME=myhcpcluster
 ```
 
-ここでは`ap-northeast-1` にクラスターを作成します。
+`REGION` には、`ap-northeast-1` にクラスターを指定します。もちろん他のリージョンを指定しても大丈夫です。この変数は後で、ROSA Cluster の作成先を指定する時にも使われます。
+
 ```tpl
 export REGION=ap-northeast-1
 ```
@@ -86,7 +92,9 @@ export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
 ```
 
 {{< hint info >}}
-この手順ではインターネットに公開されたクラスタ (`Public Cluster`)を作成します。`Public Cluster` を作った後に、インターネットに公開された `API Server` 、`Ingress` を非公開(`Private Subnet` からのみアクセス可能にする)に設定する事も可能です。そのためほとんどの要件は `Public Cluster` でカバーできると思います。
+この手順ではインターネットに公開されたクラスタ (`Public Cluster`)を作成するため、Network も `NAT Gateway`を持った  `Public Subnet` と `Private Subnet`の両方を作成しています。
+
+`Public Cluster` を作った後に、インターネットに公開された `API Server` 、`Ingress` を非公開(`Private Subnet` からのみアクセス可能にする)に設定する事も可能です。そのためほとんどの要件は `Public Cluster` でカバーできると思います。
 
 一方、あらかじめ非公開のクラスタ(`Private Cluster`)を作る方法もあります。この場合は、AWS の `Pubilc Subnet` は必要はありません。ただし、後から ROSA 側の機能で `Ingress` をインターネットに公開する形に変更することはできません。`Private Cluster` については、Network 構成として少し難易度が高い構成になるので、ここでは取り扱いません。
 {{< /hint >}}
