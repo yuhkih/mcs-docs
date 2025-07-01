@@ -27,7 +27,7 @@ cd $BASE_DIR/rosa-ocpv/test-virtual-machine
 ![clidownload2](https://github.com/user-attachments/assets/78356184-462f-4ae5-97e4-f5f61cf91e07)
 
 **TIPS**: Linux (c86_64) の場合は、以下のコマンドで GUI にアクセスしなくても CLI でダウンロードできます。
-```
+```tpl
 $ BASE_DOMAIN=$(rosa list clusters -o json | jq '.[0].dns.base_domain' | sed 's/"//g')
 $ CLUSTER_NAME=$(rosa list clusters -o json | jq '.[0].name' | sed 's/"//g')
 $ curl -LO https://hyperconverged-cluster-cli-download-openshift-cnv.apps.rosa.$CLUSTER_NAME.$BASE_DOMAIN/amd64/linux/virtctl.tar.gz
