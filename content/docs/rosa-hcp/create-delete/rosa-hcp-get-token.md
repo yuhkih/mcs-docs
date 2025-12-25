@@ -28,10 +28,17 @@ To login to your Red Hat account, get an offline access token at https://console
 表示されたリンク [https://console.redhat.com/openshift/token/rosa](https://console.redhat.com/openshift/token/rosa) にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。
 
 赤い部分をクリックします。
+
 ![image](https://github.com/user-attachments/assets/2375642b-41ed-4fd2-9277-49601fa3d772)
 
 以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。
+
 ![image](https://github.com/user-attachments/assets/13bba5b4-a889-4fad-9d67-d0c8cf3f1d08)
+
+{{< hint info >}} 
+ここの手順では、敢えて旧式の Token (Red Hat KeyCloack 用語で `オフライントークン`）を使用しています。30日に一度使用していれば、Token は有効で使い続けられ、特に作業に時間がかかる初回の実験環境用には使い勝手が良いためです。
+新しく採用された Token 方式の Token は、Security がより強化され 10 hours 毎に更新が必要になります。
+{{< /hint >}}
 
 以下のように login を完了させます。
 
