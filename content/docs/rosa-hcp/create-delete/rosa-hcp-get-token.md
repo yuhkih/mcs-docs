@@ -27,11 +27,11 @@ To login to your Red Hat account, get an offline access token at https://console
 
 表示されたリンク [https://console.redhat.com/openshift/token/rosa](https://console.redhat.com/openshift/token/rosa) にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。
 
+赤い部分をクリックします。
 ![image](https://github.com/user-attachments/assets/2375642b-41ed-4fd2-9277-49601fa3d772)
-![image](https://github.com/user-attachments/assets/13bba5b4-a889-4fad-9d67-d0c8cf3f1d08)
 
 以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。
-![image](https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a4f34b68-c230-4b55-b3b2-7e602d76a62c)
+![image](https://github.com/user-attachments/assets/13bba5b4-a889-4fad-9d67-d0c8cf3f1d08)
 
 以下のように login を完了させます。
 
