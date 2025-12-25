@@ -38,7 +38,7 @@ Token の表示させて、Token をコピーします。
 {{< hint info >}} 
 
 ここの手順では、敢えて旧式の Token (Red Hat KeyCloack 用語で `オフライントークン`）を使用しています。30日に一度使用していれば、Token は有効で使い続けられ、特に作業に時間がかかる初回の実験環境用には使い勝手が良いためです。
-新しく採用された Token 方式の Token は、Security がより強化され 10 hours 毎に更新が必要になります。
+ポータルログイン時の初期画面の `SSO Login` の画面で解説されている `rosa login --user-device-code` 等で取得できる、新しく採用された Token は、Security がより強化されており、10 hours で expiration します。Security がより厳しい環境では新しい方式の Token の使用をお勧めします。
 
 {{< /hint >}}
 
