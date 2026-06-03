@@ -4,33 +4,33 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。
-rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。
+<meta name="description" content="1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。
 rosa login 以下のように聞かれます。
 $ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。
-以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。
-$ rosa login To login to your Red Hat account, get an offline access token at https://console.">
+赤い部分をクリックします。
+Token の表示させて、Token をコピーします。
+ここの手順では、敢えて旧式の Token (Red Hat KeyCloack 用語で オフライントークン）を使用しています。30日に一度使用していれば、Token は有効で使い続けられ、特に作業に時間がかかる初回の実験環境用には使い勝手が良いためです。 ポータルログイン時の初期画面の SSO Login の画面で解説されている rosa login --user-device-code 等で取得できる、新しく採用された Token は、Security がより強化されており、10 hours で expiration します。Security がより厳しい環境では新しい方式の Token の使用をお勧めします。 コピーしたToken をプロンプトに貼り付けて、以下のように login を完了させます。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="4. ROSA 作成用 token の取得" />
-<meta property="og:description" content="1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。
-rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="3. ROSA 作成用 token の取得" />
+<meta property="og:description" content="1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。
 rosa login 以下のように聞かれます。
 $ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。
-以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。
-$ rosa login To login to your Red Hat account, get an offline access token at https://console." />
+赤い部分をクリックします。
+Token の表示させて、Token をコピーします。
+ここの手順では、敢えて旧式の Token (Red Hat KeyCloack 用語で オフライントークン）を使用しています。30日に一度使用していれば、Token は有効で使い続けられ、特に作業に時間がかかる初回の実験環境用には使い勝手が良いためです。 ポータルログイン時の初期画面の SSO Login の画面で解説されている rosa login --user-device-code 等で取得できる、新しく採用された Token は、Security がより強化されており、10 hours で expiration します。Security がより厳しい環境では新しい方式の Token の使用をお勧めします。 コピーしたToken をプロンプトに貼り付けて、以下のように login を完了させます。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" /><meta property="article:section" content="docs" />
 
 
 
-<title>4. ROSA 作成用 token の取得 | MCS Documents</title>
+<title>3. ROSA 作成用 token の取得 | MCS Documents</title>
 <link rel="manifest" href="/mcs-docs/manifest.json">
 <link rel="icon" href="/mcs-docs/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/">
 <link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/mcs-docs/flexsearch.min.js"></script>
-  <script defer src="/mcs-docs/en.search.min.22feb1f5d3d3068369d9fc14fdcb0ccf78e14e8d058ef969dcdc11e69999fd3b.js" integrity="sha256-Iv6x9dPTBoNp2fwU/csMz3jhTo0Fjvlp3NwR5pmZ/Ts=" crossorigin="anonymous"></script>
+  <script defer src="/mcs-docs/en.search.min.79085b74600dedb8e36370295740d047bb7c96871028205654b173bb553fe879.js" integrity="sha256-eQhbdGAN7bjjY3ApV0DQR7t8locQKCBWVLFzu1U/6Hk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
 <script>
@@ -109,7 +109,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
   
 
         </li>
@@ -122,7 +122,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -135,7 +135,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="active">3. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -148,7 +148,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="active">4. ROSA 作成用 token の取得</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">4. Cluster 用の Network の作成</a>
   
 
         </li>
@@ -201,105 +201,6 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle"  />
-    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
-      <a role="button" class="">簡単 OCP Virtulaization</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
   
 
         </li>
@@ -526,7 +427,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>4. ROSA 作成用 token の取得</strong>
+  <strong>3. ROSA 作成用 token の取得</strong>
 
   <label for="toc-control">
     
@@ -559,18 +460,23 @@ https://github.com/alex-shpak/hugo-book
   1. ROSA 作成用の token の取得
   <a class="anchor" href="#1-rosa-%e4%bd%9c%e6%88%90%e7%94%a8%e3%81%ae-token-%e3%81%ae%e5%8f%96%e5%be%97">#</a>
 </h2>
-<p>実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa logout
-</span></span></code></pre></div><p>ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。</p>
+<p>ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa login
 </span></span></code></pre></div><p>以下のように聞かれます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa login
 </span></span><span style="display:flex;"><span>To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa
 </span></span><span style="display:flex;"><span>? Copy the token and paste it here:
 </span></span></code></pre></div><p>表示されたリンク <a href="https://console.redhat.com/openshift/token/rosa">https://console.redhat.com/openshift/token/rosa</a> にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。</p>
-<p>以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。
-<img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/a4f34b68-c230-4b55-b3b2-7e602d76a62c" alt="image" /></p>
-<p>以下のように login を完了させます。</p>
+<p>赤い部分をクリックします。</p>
+<p><img src="https://github.com/user-attachments/assets/2375642b-41ed-4fd2-9277-49601fa3d772" alt="image" /></p>
+<p>Token の表示させて、Token をコピーします。</p>
+<p><img src="https://github.com/user-attachments/assets/13bba5b4-a889-4fad-9d67-d0c8cf3f1d08" alt="image" /></p>
+<blockquote class="book-hint info">
+  ここの手順では、敢えて旧式の Token (Red Hat KeyCloack 用語で <code>オフライントークン</code>）を使用しています。30日に一度使用していれば、Token は有効で使い続けられ、特に作業に時間がかかる初回の実験環境用には使い勝手が良いためです。
+ポータルログイン時の初期画面の <code>SSO Login</code> の画面で解説されている <code>rosa login --user-device-code</code> 等で取得できる、新しく採用された Token は、Security がより強化されており、10 hours で expiration します。Security がより厳しい環境では新しい方式の Token の使用をお勧めします。
+</blockquote>
+
+<p>コピーしたToken をプロンプトに貼り付けて、以下のように login を完了させます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa login
 </span></span><span style="display:flex;"><span>To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa
 </span></span><span style="display:flex;"><span>? Copy the token and paste it here: ******************************************************************************************************************************************************************************************************

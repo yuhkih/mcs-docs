@@ -13,10 +13,10 @@ ROSA HCP を有効にする のボタンをクリックします。
 有効化が完了すると以下のような表示になります。
 2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。
 もし作成されていない場合は、以下のコマンドで作成します。
-aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。">
+aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 GUI でのセットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="3. ROSA HCP の有効化" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="1. ROSA HCP の有効化" />
 <meta property="og:description" content="1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。
 こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。
 2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。
@@ -26,19 +26,19 @@ ROSA HCP を有効にする のボタンをクリックします。
 有効化が完了すると以下のような表示になります。
 2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。
 もし作成されていない場合は、以下のコマンドで作成します。
-aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。" />
+aws iam create-service-linked-role --aws-service-name &#34;elasticloadbalancing.amazonaws.com&#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 GUI でのセットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" /><meta property="article:section" content="docs" />
 
 
 
-<title>3. ROSA HCP の有効化 | MCS Documents</title>
+<title>1. ROSA HCP の有効化 | MCS Documents</title>
 <link rel="manifest" href="/mcs-docs/manifest.json">
 <link rel="icon" href="/mcs-docs/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/">
 <link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/mcs-docs/flexsearch.min.js"></script>
-  <script defer src="/mcs-docs/en.search.min.22feb1f5d3d3068369d9fc14fdcb0ccf78e14e8d058ef969dcdc11e69999fd3b.js" integrity="sha256-Iv6x9dPTBoNp2fwU/csMz3jhTo0Fjvlp3NwR5pmZ/Ts=" crossorigin="anonymous"></script>
+  <script defer src="/mcs-docs/en.search.min.79085b74600dedb8e36370295740d047bb7c96871028205654b173bb553fe879.js" integrity="sha256-eQhbdGAN7bjjY3ApV0DQR7t8locQKCBWVLFzu1U/6Hk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
 <script>
@@ -117,7 +117,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="active">1. ROSA HCP の有効化</a>
   
 
         </li>
@@ -130,7 +130,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -143,7 +143,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="active">3. ROSA HCP の有効化</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -156,7 +156,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">4. Cluster 用の Network の作成</a>
   
 
         </li>
@@ -209,105 +209,6 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle"  />
-    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
-      <a role="button" class="">簡単 OCP Virtulaization</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
   
 
         </li>
@@ -534,7 +435,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>3. ROSA HCP の有効化</strong>
+  <strong>1. ROSA HCP の有効化</strong>
 
   <label for="toc-control">
     
@@ -618,7 +519,8 @@ https://github.com/alex-shpak/hugo-book
 <img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/565e0b8d-eada-4d52-a1c3-16c58bae93fa" alt="image" /></p>
 <p>日本語を選んで「Connect accounts] をクリックします。
 <img src="https://github.com/yuhkih/rosa-hcp-workshop/assets/8530492/2148e419-4753-421b-a572-bcefc2660df3" alt="image" /></p>
-<p>セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</p>
+<p>GUI でのセットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</p>
+<p>GUI でのセットアップでも、事前に CLI を使った準備が必要になるため、この手順では CLI を使ったクラスターのインストールを行います。</p>
 <p>以上で前提条件の確認は完了です。</p>
 </article>
  

@@ -5,32 +5,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。
-この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。
-1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
-Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
-export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。
-export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。">
+この手順は、公式ドキュメントの「2.3.1.2. Creating a Virtual Private Cloud using Terraform」 をベースにしています。
+ROSA をインストールする Subnet はどんな方法で作成しても良いですが、指定されたTagを付ける要件があります[参考:2.3.3.1. Tagging your subnets] 。この手順で提供されている terraform のスクリプトは必要な Tagも全て付けてくれます。 1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
+Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example ダウンロードしたディレクトリに移動します。
+cd terraform-vpc-example 初期化します。
+terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
-<meta name="color-scheme" content="light dark"><meta property="og:title" content="2. Cluster 用の Network の作成" />
+<meta name="color-scheme" content="light dark"><meta property="og:title" content="4. Cluster 用の Network の作成" />
 <meta property="og:description" content="1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。
-この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。
-1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
-Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。
-export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。
-export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。" />
+この手順は、公式ドキュメントの「2.3.1.2. Creating a Virtual Private Cloud using Terraform」 をベースにしています。
+ROSA をインストールする Subnet はどんな方法で作成しても良いですが、指定されたTagを付ける要件があります[参考:2.3.3.1. Tagging your subnets] 。この手順で提供されている terraform のスクリプトは必要な Tagも全て付けてくれます。 1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
+Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example ダウンロードしたディレクトリに移動します。
+cd terraform-vpc-example 初期化します。
+terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" /><meta property="article:section" content="docs" />
 
 
 
-<title>2. Cluster 用の Network の作成 | MCS Documents</title>
+<title>4. Cluster 用の Network の作成 | MCS Documents</title>
 <link rel="manifest" href="/mcs-docs/manifest.json">
 <link rel="icon" href="/mcs-docs/favicon.png" >
 <link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/">
 <link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/mcs-docs/flexsearch.min.js"></script>
-  <script defer src="/mcs-docs/en.search.min.22feb1f5d3d3068369d9fc14fdcb0ccf78e14e8d058ef969dcdc11e69999fd3b.js" integrity="sha256-Iv6x9dPTBoNp2fwU/csMz3jhTo0Fjvlp3NwR5pmZ/Ts=" crossorigin="anonymous"></script>
+  <script defer src="/mcs-docs/en.search.min.79085b74600dedb8e36370295740d047bb7c96871028205654b173bb553fe879.js" integrity="sha256-eQhbdGAN7bjjY3ApV0DQR7t8locQKCBWVLFzu1U/6Hk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
 <script>
@@ -109,7 +109,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
   
 
         </li>
@@ -122,7 +122,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="active">2. Cluster 用の Network の作成</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -135,7 +135,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -148,7 +148,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="active">4. Cluster 用の Network の作成</a>
   
 
         </li>
@@ -201,105 +201,6 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle"  />
-    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
-      <a role="button" class="">簡単 OCP Virtulaization</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
   
 
         </li>
@@ -526,7 +427,7 @@ https://github.com/alex-shpak/hugo-book
     <img src="/mcs-docs/svg/menu.svg" class="book-icon" alt="Menu" />
   </label>
 
-  <strong>2. Cluster 用の Network の作成</strong>
+  <strong>4. Cluster 用の Network の作成</strong>
 
   <label for="toc-control">
     
@@ -566,8 +467,11 @@ https://github.com/alex-shpak/hugo-book
 </h2>
 <p>HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。
 ここでは Terraform を使用して AWS　上に Network を作成します。</p>
-<p>この手順は、公式ドキュメントの「<!-- raw HTML omitted -->Creating a Vritual Private Cloud for your ROSA with HCP clusters<!-- raw HTML omitted -->
-」をベースにしています。</p>
+<p>この手順は、公式ドキュメントの<a href="https://docs.redhat.com/en/documentation/red_hat_openshift_service_on_aws/4/html/install_clusters/rosa-hcp-sts-creating-a-cluster-quickly#rosa-hcp-vpc-terraform_rosa-hcp-sts-creating-a-cluster-quickly">「2.3.1.2. Creating a Virtual Private Cloud using Terraform」</a> をベースにしています。</p>
+<blockquote class="book-hint info">
+  ROSA をインストールする Subnet はどんな方法で作成しても良いですが、指定された<code>Tag</code>を付ける要件があります<a href="https://docs.redhat.com/en/documentation/red_hat_openshift_service_on_aws/4/html/install_clusters/rosa-hcp-sts-creating-a-cluster-quickly#rosa-hcp-vpc-subnet-tagging_rosa-hcp-sts-creating-a-cluster-quickly">[参考:2.3.3.1. Tagging your subnets]</a> 。この手順で提供されている terraform のスクリプトは必要な <code>Tag</code>も全て付けてくれます。
+</blockquote>
+
 <h3 id="11-terraform-を使用した-aws-network-リソースの作成">
   1.1. Terraform を使用した AWS Network リソースの作成
   <a class="anchor" href="#11-terraform-%e3%82%92%e4%bd%bf%e7%94%a8%e3%81%97%e3%81%9f-aws-network-%e3%83%aa%e3%82%bd%e3%83%bc%e3%82%b9%e3%81%ae%e4%bd%9c%e6%88%90">#</a>
@@ -577,14 +481,16 @@ https://github.com/alex-shpak/hugo-book
 <li>Repository からサンプルの terraform をダウンロードし初期化します。</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>git clone https://github.com/openshift-cs/terraform-vpc-example
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd terraform-vpc-example
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
+</span></span></code></pre></div><p>ダウンロードしたディレクトリに移動します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd terraform-vpc-example
+</span></span></code></pre></div><p>初期化します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
 </span></span></code></pre></div><ol start="2">
 <li>変数を準備しておきます。</li>
 </ol>
-<p>CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。</p>
+<p><code>CLUSTER_NAME</code> は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export CLUSTER_NAME=myhcpcluster
-</span></span></code></pre></div><p>ここでは<code>ap-northeast-1</code> にクラスターを作成します。</p>
+</span></span></code></pre></div><p><code>REGION</code> には、<code>ap-northeast-1</code> にクラスターを指定します。もちろん他のリージョンを指定しても大丈夫です。この変数は後で、ROSA Cluster の作成先を指定する時にも使われます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export REGION=ap-northeast-1
 </span></span></code></pre></div><ol start="3">
 <li>Terraform の plan を作成します。</li>
@@ -597,22 +503,24 @@ https://github.com/alex-shpak/hugo-book
 <div class="book-tabs"><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-0" checked="checked" />
   <label for="tabs-deply network type-0">Single AZ Network</label>
   <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
-</span></span></code></pre></div></div><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-1"  />
+</span></span></code></pre></div><p><img src="single-az.png" alt="image" /></p></div><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-1"  />
   <label for="tabs-deply network type-1">Multi AZ Network</label>
   <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
-</span></span></code></pre></div></div></div>
+</span></span></code></pre></div><p><img src="multi-az.png" alt="image" /></p></div></div>
 
 <ol start="4">
 <li>Plan を apply して Network を作成します。</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform apply rosa.tfplan
-</span></span></code></pre></div><ol start="5">
+</span></span></code></pre></div><p>実際に VPC や Subnet、NAT Gateway 等が作成されるので数分、時間がかかります。</p>
+<ol start="5">
 <li>作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで2つ(Single AZ) もしくは6つ(Multi AZ) のサブネットIDが変数にセットされます。</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
 </span></span></code></pre></div><blockquote class="book-hint info">
-  <p>この手順ではインターネットに公開されたクラスタ (<code>Public Cluster</code>)を作成します。<code>Public Cluster</code> を作った後に、インターネットに公開された <code>API Server</code> 、<code>Ingress</code> を非公開(<code>Private Subnet</code> からのみアクセス可能にする)に設定する事も可能です。そのためほとんどの要件は <code>Public Cluster</code> でカバーできると思います。</p>
-<p>一方、あらかじめ非公開のクラスタ(<code>Private Cluster</code>)を作る方法もあります。この場合は、AWS の <code>Pubilc Subnet</code> は必要はありません。ただし、後から ROSA 側の機能で <code>Ingress</code> をインターネットに公開する形に変更することはできません。<code>Private Cluster</code> については、Network 構成として少し難易度が高い構成になるので、ここでは取り扱いません。</p>
+  <p>この手順ではインターネットに公開されたクラスタ (<code>Public Cluster</code>)を作成するため、<code>NAT Gateway</code>を持った  <code>Public Subnet</code> と <code>Private Subnet</code>の両方を作成しています。</p>
+<p><code>Public Cluster</code> を作った後に、インターネットに公開された <code>API Server</code> 、<code>Ingress</code> を非公開(<code>Private Subnet</code> からのみアクセス可能にする)に設定する事も可能です。</p>
+<p>一方、あらかじめ非公開のクラスタ(<code>Private Cluster</code>)を作る方法もあります。この場合は、AWS の <code>Pubilc Subnet</code> は必要はありません。ただし、後から ROSA 側の機能で <code>Ingress</code> をインターネットに公開する形に変更することはできません。</p>
 
 </blockquote>
 

@@ -34,6 +34,28 @@ cd $BASE_DIR/rosa-ocpv/create-environment
 
 ## 2.ROSA HCP Cluster の 作成
 
+
+以下のコマンドを実行します。このコマンドを実行する事でクラスター作製に必要な tokenがローカル環境に作成されます。
+
+```tpl
+rosa login
+```
+
+以下のコマンドで token を変数にセットします。
+
+```tpl
+export TF_VAR_token="$(jq -r .refresh_token ~/.config/ocm/ocm.json)"
+```
+
+基本的な変数をセットします。Cluster名や Password (OpenShiftのユーザーの Passwordです) は一例ですので、好きな名前を設定して下さい。(パスワードはサンプルは使わず、英数大文字小文字と記号を混ぜたご自身のパスワードを設定してください）
+
+```tpl
+export TF_VAR_cluster_name=my-hcp-cluster
+export TF_VAR_admin_password=my-Passw0rd12345!
+export TF_VAR_developer_password=my-Passw0rd12345!
+export TF_VAR_region=ap-northeast-1
+```
+
 以下のスクリプトで 仮想マシンの Worker Node を2本持った、ROSA HCP クラスターが作成されます。
 
 20分くらいかかるはずです。

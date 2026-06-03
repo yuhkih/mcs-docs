@@ -3,7 +3,7 @@ title: 5. ROSA HCP Cluster の作成
 weight: 1
 ---
 
-## 1.ROSA HCP Cluster の 作成
+## 1.ROSA HCP Cluster 作成 のための事前準備
 
 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
 
@@ -17,18 +17,49 @@ echo $REGION
 echo $SUBNET_IDS
 ```
 
-必要な IAM Role を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
+AWS の Account ID を変数にセットします。
+
+```tpl
+AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+```
+
+内容を確認します。
+
+```tpl
+echo $AWS_ACCOUNT_ID
+```
+
+
+OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。(インタラクティブに構成したい場合は `-y -m auto` を外します)
+
+```tpl
+export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP "(?<=openshiftapps\.com/)[^']+"`
+```
+
+作成された OIDC Config の ID が変数にセットされているか確認します。
+```tpl
+echo $OIDC_ID
+```
+
+必要な IAM Role (Account Role) を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
 
 ```tpl
 rosa create account-roles --hosted-cp -y -m auto
 ```
 
-OIDC Config を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
+必要な IAM Role (Operator Role) を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
 
 ```tpl
- rosa create oidc-config  -y -m auto
+rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$OIDC_ID --installer-role-arn arn:aws:iam::$AWS_ACCOUNT_ID:role/ManagedOpenShift-HCP-ROSA-Installer-Role -y -m auto
 ```
 
+{{< hint info >}}
+ここで `rosa` コマンドで必要な IAM Role を作成していますが、これは本来 `aws` CLI で行う作業を `rosa` コマンドでラップしているだけで、実際の作業は `aws` コマンドが行っています。
+IAM Role の作成は、ROSA クラスターを作成するための準備作業として必要です。ROSA として、IAM Role を作成する権限は持っていません。 
+{{< /hint >}}
+
+
+## 2.ROSA HCP Cluster の 作成
 Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
 
 {{< tabs "Cluster create" >}}
@@ -36,69 +67,111 @@ Cluster の作成を開始します。いろいろ聞かれますが、全てデ
 # Public Cluster
 {{< tab "Public Cluster を作成する場合" >}}
 ```tpl
-rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto
+rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp 
 ```
+
+途中で Subent を選択する画面がでてきますが、Public Cluster の場合は、1AZ につき Private Subnet と Publis Subnet をそれぞれ選択する必要があります。
+
+3AZ 構成の場合は、合計で 6つの subnet (Private x 3 + Public x 3) の選択が必要です。
+```tpl
+...
+? Subnet IDs:  [Use arrows to move, space to select, <right> to all, <left> to none, type to filter, ? for more help]
+> [x]  subnet-084a4afc8e965123e ('myhcpcluster-vpc-public-apne1-az1','vpc-02def9c12b89e7123','ap-northeast-1c', Owner ID: '069425419555')
+  [x]  subnet-05fdf3d935e7f4560 ('myhcpcluster-vpc-private-apne1-az1','vpc-02def9c12b89e7123','ap-northeast-1c', Owner ID: '069425419555')
+...
+```
+
+![image](public-cluster.png)
+
 {{< /tab >}}
 
 # Private Cluster 
 {{< tab "Private Cluster を作成する場合" >}}
-**注意**: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。
+```tpl
+rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp --private --default-ingress-private
+```
+途中で Subent を選択する画面がでてきますが、Private Cluster の場合は、1AZ につき Private Subnet を1つ選択する必要があります。
 
 ```tpl
-rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i --private-link -y -m auto
+...
+? Subnet IDs:  [Use arrows to move, space to select, <right> to all, <left> to none, type to filter, ? for more help]
+> [x]  subnet-05fdf3d935e7f4560 ('myhcpcluster-vpc-private-apne1-az1','vpc-02def9c12b89e7123','ap-northeast-1c', Owner ID: '069425419555')
+...
 ```
+![image](private-cluster.png)
+
+**注意**: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。
+
+また、Controlplane 機能を提供する VPC Endpoint の Security Group 設定で oc コマンドを実行する Network からのアクセスを、明示的に許可する必要があります。デフォルトでは Worker Node のある
+ VPC からしか Controplane の VPC Endpoint (Kubnernetes API の End Point) へのアクセスを許可していません。
+
 {{< /tab >}}
+
 
 {{< /tabs >}}
 
 {{< expand "コマンド実行例" >}}
+
 ```tpl
-$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
-I: Using '993114993799' as billing account
+$ rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp 
+I: Using '069425419456' as billing account
 I: To use a different billing account, add --billing-account xxxxxxxxxx to previous command
-I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
-I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
-I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
-? OIDC Configuration ID (default = '29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7'): 29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7
-? Tags (optional): 
-? AWS region (default = 'ap-northeast-1'): ap-northeast-1
-? PrivateLink cluster: No
-? Machine CIDR: 10.0.0.0/16
-? Service CIDR: 172.30.0.0/16
-? Pod CIDR: 10.128.0.0/14
+W: Account roles not created by ROSA CLI cannot be listed, updated, or upgraded.
+I: Using arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
+I: Using arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
+I: Using arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
+I: Reusable OIDC Configuration detected. Validating trusted relationships to operator roles: 
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-openshift-image-registry-installer-cloud-credential'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-kube-system-capa-controller-manager'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-kube-system-control-plane-operator'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kms-provider'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kube-controller-manager'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-openshift-ingress-operator-cloud-credentials'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-openshift-cluster-csi-drivers-ebs-cloud-credentials'
+I: Using 'arn:aws:iam::069425419456:role/myhcpcluster-openshift-cloud-network-config-controller-cloud-cre'
+? Subnet IDs: subnet-084a4afc8e965fb2e ('myhcpcluster-vpc-public-apne1-az1','vpc-02def9c12b89e7623','ap-northeast-1c', Owner ID: '069425419456'), subnet-05fdf3d935e7f4fc0 ('myhcpcluster-vpc-private-apne1-az1','vpc-02def9c12b89e7623','ap-northeast-1c', Owner ID: '069425419456')
 ? Enable Customer Managed key: No
 ? Compute nodes instance type (optional, choose 'Skip' to skip selection. The default value will be provided; default = 'm5.xlarge'): m5.xlarge
 ? Enable autoscaling: No
 ? Compute nodes: 2
 ? Host prefix: 23
+? Machine pool root disk size (GiB or TiB): 300 GiB
+? Enable FIPS support: No
 ? Encrypt etcd data: No
-? Disable Workload monitoring: No
 ? Use cluster-wide proxy: No
 ? Additional trust bundle file path (optional): 
+? Additional Allowed Principal ARNs (optional): 
 ? Enable audit log forwarding to AWS CloudWatch: No
+? Enable registries config: No
 I: Creating cluster 'myhcpcluster'
 I: To create this cluster again in the future, you can run:
-   rosa create cluster --cluster-name myhcpcluster --sts --role-arn arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role --support-role-arn arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Support-Role --worker-iam-role arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role --operator-roles-prefix myhcpcluster-a2m3 --oidc-config-id 29vmlp9v462arcnt8fh1g9cfada8njd7 --region ap-northeast-1 --version 4.14.15 --replicas 2 --compute-machine-type m5.xlarge --machine-cidr 10.0.0.0/16 --service-cidr 172.30.0.0/16 --pod-cidr 10.128.0.0/14 --host-prefix 23 --subnet-ids subnet-041a58ec4568049f4,subnet-02357affbc76a1061 --hosted-cp --billing-account 923114993793
+   rosa create cluster --cluster-name myhcpcluster --role-arn arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Installer-Role --support-role-arn arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Support-Role --worker-iam-role arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Worker-Role --operator-roles-prefix myhcpcluster --oidc-config-id 2qmndl99t97bvu7f3jqd7i48hslo85vn --region ap-northeast-1 --version 4.20.23 --ec2-metadata-http-tokens optional --replicas 2 --compute-machine-type m5.xlarge --machine-cidr 10.0.0.0/16 --service-cidr 172.30.0.0/16 --pod-cidr 10.128.0.0/14 --host-prefix 23 --subnet-ids subnet-084a4afc8e965fb2e,subnet-05fdf3d935e7f4fc0 --hosted-cp --billing-account 069425419456
 I: To view a list of clusters and their status, run 'rosa list clusters'
+WARNING: You are using OCM API fields that have been deprecated
+- version.channel_group: The 'version.channel_group' field will be deprecated in the future. Please use 'channel' instead for Y-stream version selection.Ensure you are on the latest version of ROSA CLI to make use of this field.
+Please update your usage to avoid issues when these fields are removed
 I: Cluster 'myhcpcluster' has been created.
 I: Once the cluster is installed you will need to add an Identity Provider before you can login into the cluster. See 'rosa create idp --help' for more information.
 
 Name:                       myhcpcluster
+Domain Prefix:              myhcpcluster
 Display Name:               myhcpcluster
-ID:                         29vmnb67qqn61dpt060iojs11uuilsm1
-External ID:                b4bae8e8-9ec7-457e-be80-4cef6b0fa9ac
+ID:                         2qmnkhq4c51ub6nrhqs4b48lemosshk5
+External ID:                628a9d63-bc02-4177-9dcd-72aa4eee5206
 Control Plane:              ROSA Service Hosted
-OpenShift Version:          4.14.15
+OpenShift Version:          4.20.23
 Channel Group:              stable
+Channel:                    stable-4.20
 DNS:                        Not ready
-AWS Account:                993114993799
-AWS Billing Account:        993114993799
+AWS Account:                069425419555
+AWS Billing Account:        069425419555
 API URL:                    
 Console URL:                
 Region:                     ap-northeast-1
 Availability:
  - Control Plane:           MultiAZ
  - Data Plane:              SingleAZ
+
 Nodes:
  - Compute (desired):       2
  - Compute (current):       0
@@ -108,33 +181,35 @@ Network:
  - Machine CIDR:            10.0.0.0/16
  - Pod CIDR:                10.128.0.0/14
  - Host Prefix:             /23
- - Subnets:                 subnet-041a58ec4568049f4, subnet-02357affbc76a1061
+ - Subnets:                 subnet-084a4afc8e965fb2e, subnet-05fdf3d935e7f4fc0
 EC2 Metadata Http Tokens:   optional
-Role (STS) ARN:             arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role
-Support Role ARN:           arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Support-Role
+Role (STS) ARN:             arn:aws:iam::069425419555:role/ManagedOpenShift-HCP-ROSA-Installer-Role
+Support Role ARN:           arn:aws:iam::069425419555:role/ManagedOpenShift-HCP-ROSA-Support-Role
 Instance IAM Roles:
- - Worker:                  arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role
+ - Worker:                  arn:aws:iam::069425419555:role/ManagedOpenShift-HCP-ROSA-Worker-Role
 Operator IAM Roles:
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-capa-controller-manager
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cloud-network-config-controller-clou
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-image-registry-installer-cloud-crede
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-ingress-operator-cloud-credentials
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cluster-csi-drivers-ebs-cloud-creden
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-control-plane-operator
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kms-provider
- - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kube-controller-manager
+ - arn:aws:iam::069425419456:role/myhcpcluster-openshift-image-registry-installer-cloud-credential
+ - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-capa-controller-manager
+ - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-control-plane-operator
+ - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kms-provider
+ - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kube-controller-manager
+ - arn:aws:iam::069425419456:role/myhcpcluster-openshift-ingress-operator-cloud-credentials
+ - arn:aws:iam::069425419456:role/myhcpcluster-openshift-cluster-csi-drivers-ebs-cloud-credentials
+ - arn:aws:iam::069425419456:role/myhcpcluster-openshift-cloud-network-config-controller-cloud-cre
 Managed Policies:           Yes
 State:                      waiting (Waiting for user action)
 Private:                    No
-Created:                    Mar 13 2024 14:35:28 UTC
-User Workload Monitoring:   Enabled
-Details Page:               https://console.redhat.com/openshift/details/s/2ddahR6fghzwm5U8VmadJ80aHnT
-OIDC Endpoint URL:          https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7 (Managed)
+Delete Protection:          Disabled
+Created:                    Jun  3 2026 06:23:09 UTC
+FIPS mode:                  Disabled
+Details Page:               https://console.redhat.com/openshift/details/s/3EcB4ty9q6Q8VDkQMqRtqmIrZN7
+OIDC Endpoint URL:          https://oidc.op1.openshiftapps.com/2qmndl99t97bvu7f3jqd7i48hsloabcd (Managed)
+Etcd Encryption:            Disabled
 Audit Log Forwarding:       Disabled
+AutoNode:                   Disabled
+External Authentication:    Disabled
+Zero Egress:                Disabled
 
-I: Run the following commands to continue the cluster creation:
-
-        rosa create operator-roles --cluster myhcpcluster
 
 I: To determine when your cluster is Ready, run 'rosa describe cluster -c myhcpcluster'.
 I: To watch your cluster installation logs, run 'rosa logs install -c myhcpcluster --watch'.
@@ -142,23 +217,8 @@ $
 ```
 {{< /expand >}}
 
-{{< hint info >}}
-**"billing account is required\" エラーが出た場合**
-
-以下のエラーが出た時は、HCPが有効化されてなかったり AWSアカウントとRed Hatアカウントが紐付いてない可能性があります。
-"1.ROSA HCPの有効化" の手順を再実行して、`rosa logout` した後 `rosa login` してから`rosa create ...` を再実行してみてください。
-
-```
-$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
-E: A billing account is required for Hosted Control Plane clusters. To see the list of billing account options, you can use interactive mode by passing '-i'.
-I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
-I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
-< 省略 > 
-```
-
-{{< /hint >}}
-
-ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。
+以上でインストールが開始されました。
+進捗は以下のコマンドで確認できます。
 
 ```tpl
 rosa logs install -c $CLUSTER_NAME --watch
@@ -190,9 +250,6 @@ ployment has 1 unavailable replicas, control-plane-operator deployment has 1 una
 $ 
 {{< /expand >}}
 
-{{< hint warning >}}
-注意: Private Cluster を作成した場合、`oc` コマンドは、AWS上の Compute Node が作成された Private Network に接続された Network から実行する必要があります。また、Controlplane 機能を提供する VPC Endpoint の設定で oc コマンドを実行する Network からのアクセスを明示的に許可して上げる必要があります。
-{{< /hint >}}
 
 インストールが完了したら管理者ユーザーを作成します。
 ログインコマンド (`oc login`) パスワード付きで標準出力に表示されます。これはコマンドが終了してから、数分待つ必要があります。
@@ -221,7 +278,7 @@ $
 {{< /expand >}}
 
 
-## 2.ROSA HCP Cluster へのアクセス確認
+## 3.ROSA HCP Cluster へのアクセス確認
 
 数分待ってから、`rosa create admin`の出力で現れた上記のコマンドを使ってログインコマンド(`oc login`) を実行します。
 (準備ができるまで 401 Unauthorized が出ます) 
@@ -259,7 +316,7 @@ $
 ```
 {{< /expand >}}
 
-## 3.構成を探って見る
+## 4.構成を探って見る
 
 `rosa list machinepool` コマンドで、AZ毎に `machinepool` が出来ている事を確認します。`machinepool`単位で Node 数を増やす事ができます。
 
@@ -294,7 +351,7 @@ $
 ```
 {{< /expand >}}
 
-## 4.GUIにアクセスする
+## 5.GUIにアクセスする
 
 GUI の URLは以下のコマンドで確認できます。`rosa create admin` 実行時のログに表示された cluster-admin とそのパスワードでログインできます。
 

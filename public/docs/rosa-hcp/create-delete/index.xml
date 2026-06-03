@@ -8,39 +8,39 @@
     <language>ja-JP</language>
     <atom:link href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>1. CLIの準備</title>
+      <title>1. ROSA HCP の有効化</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</guid>
+      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 GUI でのセットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
+    </item>
+    <item>
+      <title>2. CLIの準備</title>
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/</guid>
       <description>1. AWS CLI の準備 # こちらの AWS のページを参考にして AWS CLI をインストールします。&#xA;AWS CLI がインストールされたかどうか、以下の version コマンドで確認できます。&#xA;aws --version 出力例 ↕ $ aws --version aws-cli/2.15.29 Python/3.11.8 Linux/5.15.146.1-microsoft-standard-WSL2 exe/x86_64.ubuntu.22 prompt/off 次に aws configure を使用して、AWS Access Key ID や AWS Secret Access Key の値を構成します。&#xA;AWS Access Key ID や AWS Secret Access Key は、AWS Console から取得できます。こちら を参考にしてください。&#xA;aws configure と入力すると、必要な値を聞いてくるので入力します。 また Cluster をインストールする AWS Region も聞いて来ますが、ここでは ap-northeast-1 と入力します。&#xA;aws configure 構成例 ↕ $ aws configure AWS Access Key ID [None]: ABCDEFG1234567890KKNUK AWS Secret Access Key [None]: abcedefghijklmn012345678abcdefg Default region name [None]: an-northeast-1 Default output format [None]: $ 以下のコマンドを実行して正しく構成されているか確認します。</description>
     </item>
     <item>
-      <title>2. Cluster 用の Network の作成</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</guid>
-      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「Creating a Vritual Private Cloud for your ROSA with HCP clusters 」をベースにしています。&#xA;1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example cd terraform-vpc-example terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。&#xA;export CLUSTER_NAME=myhcpcluster ここではap-northeast-1 にクラスターを作成します。&#xA;export REGION=ap-northeast-1 Terraform の plan を作成します。 Single AZ の Network 構成をデプロイするか、Multi AZ の Network を作成するか、どちらかを選びます。</description>
-    </item>
-    <item>
-      <title>3. ROSA HCP の有効化</title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/</guid>
-      <description>1. Red Hat Account の作成 # Red Hat Account を作成します。メールアドレス等が必要になります。 この Red Hat Account を使用して、サポートの問い合わせなどを行います。&#xA;こちら にアクセスして作成します。Red Hat アカウントは無料で作成できます。&#xA;2. ROSA の有効化と前提条件の確認 # 2.1. ROSA HCP の有効化 # 以下のリンクをクリックして AWS の ROSA 設定画面に飛びます。&#xA;https://console.aws.amazon.com/rosa/home#/get-started&#xA;ROSA HCP を有効にする のボタンをクリックします。&#xA;有効化されるまで、暫く待ちます。数分かかるはずです。&#xA;有効化が完了すると以下のような表示になります。&#xA;2.2. Service Quota の確認 # もし Service Quota が足りない場合はチケットを上げて確認します。最終的に以下の状態になっていれば大丈夫です。 2.3. ELB サービスにリンクされたロールの作成 # 過去に ELB をデプロイした事があれば AWSServiceRoleForElasticLoadBalancing というIAM Role が作成されており、以下のような表示になっているはずです。&#xA;もし作成されていない場合は、以下のコマンドで作成します。&#xA;aws iam create-service-linked-role --aws-service-name &amp;#34;elasticloadbalancing.amazonaws.com&amp;#34; 2.4. Red Hat Customer Portal の情報とリンクする # 画面の一番下に移動して「Continue Red Hat」をクリックします。 Red Hat の ポータルサイトにログインします。(Red Hat Customer Portal アカウントが無い場合は、作成してから、再度こちら にアクセスします。Red Hat アカウントは無料で作成できます） 日本語を選んで「Connect accounts] をクリックします。 セットアップの画面に自動でリダイレクトされると思いますが、CLI を使って同じ作業をするので、一旦、無視して頂いて大丈夫です。</description>
-    </item>
-    <item>
-      <title>4. ROSA 作成用 token の取得</title>
+      <title>3. ROSA 作成用 token の取得</title>
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/</guid>
-      <description>1. ROSA 作成用の token の取得 # 実験環境などでは昔の別の作業時の login 時のトークンが残っている可能性があるので、念のため一度 logout します。&#xA;rosa logout ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;以下の画面が表示されるので、Token をコピーしてプロンプトに貼り付けます。 以下のように login を完了させます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.</description>
+      <description>1. ROSA 作成用の token の取得 # ROSA cluster を作成するためには、Red Hat が提供する token が必要です。以下のコマンドを実行します。&#xA;rosa login 以下のように聞かれます。&#xA;$ rosa login To login to your Red Hat account, get an offline access token at https://console.redhat.com/openshift/token/rosa ? Copy the token and paste it here: 表示されたリンク https://console.redhat.com/openshift/token/rosa にログインして、token を取得します。Red Hat Portal の ID (無料) が必要になるので、作って無い場合は、作成してからこのリンクに再びアクセスします。&#xA;赤い部分をクリックします。&#xA;Token の表示させて、Token をコピーします。&#xA;ここの手順では、敢えて旧式の Token (Red Hat KeyCloack 用語で オフライントークン）を使用しています。30日に一度使用していれば、Token は有効で使い続けられ、特に作業に時間がかかる初回の実験環境用には使い勝手が良いためです。 ポータルログイン時の初期画面の SSO Login の画面で解説されている rosa login --user-device-code 等で取得できる、新しく採用された Token は、Security がより強化されており、10 hours で expiration します。Security がより厳しい環境では新しい方式の Token の使用をお勧めします。 コピーしたToken をプロンプトに貼り付けて、以下のように login を完了させます。</description>
+    </item>
+    <item>
+      <title>4. Cluster 用の Network の作成</title>
+      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/</guid>
+      <description>1. Terraform を使用した ROSA を install する AWS Network の作成 # HCP ROSA は、ユーザーが既にもっているネットワークにデプロイする事が前提になります。 ここでは Terraform を使用して AWS　上に Network を作成します。&#xA;この手順は、公式ドキュメントの「2.3.1.2. Creating a Virtual Private Cloud using Terraform」 をベースにしています。&#xA;ROSA をインストールする Subnet はどんな方法で作成しても良いですが、指定されたTagを付ける要件があります[参考:2.3.3.1. Tagging your subnets] 。この手順で提供されている terraform のスクリプトは必要な Tagも全て付けてくれます。 1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。&#xA;Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example ダウンロードしたディレクトリに移動します。&#xA;cd terraform-vpc-example 初期化します。&#xA;terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。</description>
     </item>
     <item>
       <title>5. ROSA HCP Cluster の作成</title>
       <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/</guid>
-      <description>1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。&#xA;echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。&#xA;Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</description>
+      <description>1.ROSA HCP Cluster 作成 のための事前準備 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。&#xA;echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS AWS の Account ID を変数にセットします。&#xA;AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) 内容を確認します。&#xA;echo $AWS_ACCOUNT_ID OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP &amp;#34;(?&amp;lt;=openshiftapps\.com/)[^&amp;#39;]+&amp;#34;` 作成された OIDC Config の ID が変数にセットされているか確認します。&#xA;echo $OIDC_ID 必要な IAM Role (Account Role) を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)&#xA;rosa create account-roles --hosted-cp -y -m auto 必要な IAM Role (Operator Role) を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)</description>
     </item>
     <item>
       <title>6. ROSA HCP Cluster の削除</title>

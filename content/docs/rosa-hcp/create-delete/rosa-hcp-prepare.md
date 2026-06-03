@@ -64,6 +64,8 @@ $ aws sts get-caller-identity
 
 ## 2. Git CLI の準備
 
+この手順では、ROSA 用 の VPC と Network を作成するための template を GitHub からダウンロードするために `git` を使用します。
+
 [こちらのページ](https://git-scm.com/book/ja/v2/%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8B-Git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB)を参考に git コマンドをインストールします。
 
 以下のコマンドを実行して正しく構成されているか確認します。
@@ -80,6 +82,8 @@ $
 {{< /expand >}}
 
 ## 3. terraform CLI の準備
+
+この手順では、ROSA 用 の VPC と Network を作成するために `terraform` を使用します。
 
 [こちらのページ](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)を参考に terraform コマンドをインストールします。
 
@@ -163,10 +167,11 @@ I: Your ROSA CLI is up to date.
 ```
 {{< /expand >}}
 
+運用管理用のコマンドは定期的にアップデートされるので、両方をアップデートするシェルのようなものを作って置いた方が良いでしょう。[サンプル](https://gist.github.com/yuhkih/d9760d16084aa79812428e64ce0ec5d9)
+
 
 ## 5. jq コマンドの準備
 
 手順を簡単にするために jq コマンドで JSON の操作をしている部分があるので、jq コマンドをインストールします。
 
 [こちらのページ](https://jqlang.github.io/jq/download/)を参考に jq コマンドをインストールします。
-

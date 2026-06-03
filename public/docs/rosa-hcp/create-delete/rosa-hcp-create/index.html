@@ -4,19 +4,23 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
-echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
-rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
-rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
-Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。">
+<meta name="description" content="1.ROSA HCP Cluster 作成 のための事前準備 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
+echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS AWS の Account ID を変数にセットします。
+AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) 内容を確認します。
+echo $AWS_ACCOUNT_ID OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。(インタラクティブに構成したい場合は -y -m auto を外します)
+export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP &#34;(?&lt;=openshiftapps\.com/)[^&#39;]&#43;&#34;` 作成された OIDC Config の ID が変数にセットされているか確認します。
+echo $OIDC_ID 必要な IAM Role (Account Role) を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
+rosa create account-roles --hosted-cp -y -m auto 必要な IAM Role (Operator Role) を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="5. ROSA HCP Cluster の作成" />
-<meta property="og:description" content="1.ROSA HCP Cluster の 作成 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
-echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS 必要な IAM Role を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
-rosa create account-roles --hosted-cp -y -m auto OIDC Config を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
-rosa create oidc-config -y -m auto Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。
-Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto Private Cluster を作成する場合 注意: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。" />
+<meta property="og:description" content="1.ROSA HCP Cluster 作成 のための事前準備 # 必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。
+echo $CLUSTER_NAME echo $REGION echo $SUBNET_IDS AWS の Account ID を変数にセットします。
+AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text) 内容を確認します。
+echo $AWS_ACCOUNT_ID OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。(インタラクティブに構成したい場合は -y -m auto を外します)
+export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP &#34;(?&lt;=openshiftapps\.com/)[^&#39;]&#43;&#34;` 作成された OIDC Config の ID が変数にセットされているか確認します。
+echo $OIDC_ID 必要な IAM Role (Account Role) を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)
+rosa create account-roles --hosted-cp -y -m auto 必要な IAM Role (Operator Role) を作成します。(インタラクティブに構成したい場合は -y -m auto を外します)" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/" /><meta property="article:section" content="docs" />
 
@@ -28,7 +32,7 @@ Public Cluster を作成する場合 rosa create cluster --cluster-name=$CLUSTER
 <link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create/">
 <link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/mcs-docs/flexsearch.min.js"></script>
-  <script defer src="/mcs-docs/en.search.min.22feb1f5d3d3068369d9fc14fdcb0ccf78e14e8d058ef969dcdc11e69999fd3b.js" integrity="sha256-Iv6x9dPTBoNp2fwU/csMz3jhTo0Fjvlp3NwR5pmZ/Ts=" crossorigin="anonymous"></script>
+  <script defer src="/mcs-docs/en.search.min.79085b74600dedb8e36370295740d047bb7c96871028205654b173bb553fe879.js" integrity="sha256-eQhbdGAN7bjjY3ApV0DQR7t8locQKCBWVLFzu1U/6Hk=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
 <script>
@@ -107,7 +111,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">1. CLIの準備</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
   
 
         </li>
@@ -120,7 +124,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">2. Cluster 用の Network の作成</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-prepare/" class="">2. CLIの準備</a>
   
 
         </li>
@@ -133,7 +137,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-enable/" class="">3. ROSA HCP の有効化</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
   
 
         </li>
@@ -146,7 +150,7 @@ https://github.com/alex-shpak/hugo-book
   
 
   
-    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-get-token/" class="">4. ROSA 作成用 token の取得</a>
+    <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" class="">4. Cluster 用の Network の作成</a>
   
 
         </li>
@@ -199,105 +203,6 @@ https://github.com/alex-shpak/hugo-book
 
   
     <a href="/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-debug/" class="">8. [補則] Network 疎通の確認</a>
-  
-
-        </li>
-      
-    
-  </ul>
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle"  />
-    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
-      <a role="button" class="">簡単 OCP Virtulaization</a>
-    </label>
-  
-
-          
-  <ul>
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">1. CLIの準備</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">2. ROSA HCP の有効化</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
-  
-
-        </li>
-      
-    
-      
-        <li>
-          
-  
-  
-
-  
-    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
   
 
         </li>
@@ -540,10 +445,11 @@ https://github.com/alex-shpak/hugo-book
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1rosa-hcp-cluster-の-作成">1.ROSA HCP Cluster の 作成</a></li>
-    <li><a href="#2rosa-hcp-cluster-へのアクセス確認">2.ROSA HCP Cluster へのアクセス確認</a></li>
-    <li><a href="#3構成を探って見る">3.構成を探って見る</a></li>
-    <li><a href="#4guiにアクセスする">4.GUIにアクセスする</a></li>
+    <li><a href="#1rosa-hcp-cluster-作成-のための事前準備">1.ROSA HCP Cluster 作成 のための事前準備</a></li>
+    <li><a href="#2rosa-hcp-cluster-の-作成">2.ROSA HCP Cluster の 作成</a></li>
+    <li><a href="#3rosa-hcp-cluster-へのアクセス確認">3.ROSA HCP Cluster へのアクセス確認</a></li>
+    <li><a href="#4構成を探って見る">4.構成を探って見る</a></li>
+    <li><a href="#5guiにアクセスする">5.GUIにアクセスする</a></li>
   </ul>
 </nav>
 
@@ -556,31 +462,64 @@ https://github.com/alex-shpak/hugo-book
 
       
       
-  <article class="markdown book-article"><h2 id="1rosa-hcp-cluster-の-作成">
-  1.ROSA HCP Cluster の 作成
-  <a class="anchor" href="#1rosa-hcp-cluster-%e3%81%ae-%e4%bd%9c%e6%88%90">#</a>
+  <article class="markdown book-article"><h2 id="1rosa-hcp-cluster-作成-のための事前準備">
+  1.ROSA HCP Cluster 作成 のための事前準備
+  <a class="anchor" href="#1rosa-hcp-cluster-%e4%bd%9c%e6%88%90-%e3%81%ae%e3%81%9f%e3%82%81%e3%81%ae%e4%ba%8b%e5%89%8d%e6%ba%96%e5%82%99">#</a>
 </h2>
 <p>必要な変数が全てセットされているか再確認します。もしセットされてない場合は、以前の手順に戻ってセットして下さい。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $CLUSTER_NAME
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $REGION
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $SUBNET_IDS
-</span></span></code></pre></div><p>必要な IAM Role を作成します。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
+</span></span></code></pre></div><p>AWS の Account ID を変数にセットします。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+</span></span></code></pre></div><p>内容を確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $AWS_ACCOUNT_ID
+</span></span></code></pre></div><p>OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP &#34;(?&lt;=openshiftapps\.com/)[^&#39;]+&#34;`
+</span></span></code></pre></div><p>作成された OIDC Config の ID が変数にセットされているか確認します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>echo $OIDC_ID
+</span></span></code></pre></div><p>必要な IAM Role (Account Role) を作成します。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create account-roles --hosted-cp -y -m auto
-</span></span></code></pre></div><p>OIDC Config を作成します。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span> rosa create oidc-config  -y -m auto
-</span></span></code></pre></div><p>Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。</p>
+</span></span></code></pre></div><p>必要な IAM Role (Operator Role) を作成します。(インタラクティブに構成したい場合は <code>-y -m auto</code> を外します)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$OIDC_ID --installer-role-arn arn:aws:iam::$AWS_ACCOUNT_ID:role/ManagedOpenShift-HCP-ROSA-Installer-Role -y -m auto
+</span></span></code></pre></div><blockquote class="book-hint info">
+  ここで <code>rosa</code> コマンドで必要な IAM Role を作成していますが、これは本来 <code>aws</code> CLI で行う作業を <code>rosa</code> コマンドでラップしているだけで、実際の作業は <code>aws</code> コマンドが行っています。
+IAM Role の作成は、ROSA クラスターを作成するための準備作業として必要です。ROSA として、IAM Role を作成する権限は持っていません。
+</blockquote>
+
+<h2 id="2rosa-hcp-cluster-の-作成">
+  2.ROSA HCP Cluster の 作成
+  <a class="anchor" href="#2rosa-hcp-cluster-%e3%81%ae-%e4%bd%9c%e6%88%90">#</a>
+</h2>
+<p>Cluster の作成を開始します。いろいろ聞かれますが、全てデフォルトでエンターを叩いて大丈夫です。</p>
 
 
 
 
 <div class="book-tabs"><input type="radio" class="toggle" name="tabs-Cluster create" id="tabs-Cluster create-0" checked="checked" />
   <label for="tabs-Cluster create-0">Public Cluster を作成する場合</label>
-  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i -y -m auto
-</span></span></code></pre></div></div><input type="radio" class="toggle" name="tabs-Cluster create" id="tabs-Cluster create-1"  />
+  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp 
+</span></span></code></pre></div><p>途中で Subent を選択する画面がでてきますが、Public Cluster の場合は、1AZ につき Private Subnet と Publis Subnet をそれぞれ選択する必要があります。</p>
+<p>3AZ 構成の場合は、合計で 6つの subnet (Private x 3 + Public x 3) の選択が必要です。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>? Subnet IDs:  [Use arrows to move, space to select, &lt;right&gt; to all, &lt;left&gt; to none, type to filter, ? for more help]
+</span></span><span style="display:flex;"><span>&gt; [x]  subnet-084a4afc8e965123e (&#39;myhcpcluster-vpc-public-apne1-az1&#39;,&#39;vpc-02def9c12b89e7123&#39;,&#39;ap-northeast-1c&#39;, Owner ID: &#39;069425419555&#39;)
+</span></span><span style="display:flex;"><span>  [x]  subnet-05fdf3d935e7f4560 (&#39;myhcpcluster-vpc-private-apne1-az1&#39;,&#39;vpc-02def9c12b89e7123&#39;,&#39;ap-northeast-1c&#39;, Owner ID: &#39;069425419555&#39;)
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p><img src="public-cluster.png" alt="image" /></p>
+</div><input type="radio" class="toggle" name="tabs-Cluster create" id="tabs-Cluster create-1"  />
   <label for="tabs-Cluster create-1">Private Cluster を作成する場合</label>
-  <div class="book-tabs-content markdown-inner"><p><strong>注意</strong>: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -i --private-link -y -m auto
-</span></span></code></pre></div></div></div>
+  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp --private --default-ingress-private
+</span></span></code></pre></div><p>途中で Subent を選択する画面がでてきますが、Private Cluster の場合は、1AZ につき Private Subnet を1つ選択する必要があります。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>? Subnet IDs:  [Use arrows to move, space to select, &lt;right&gt; to all, &lt;left&gt; to none, type to filter, ? for more help]
+</span></span><span style="display:flex;"><span>&gt; [x]  subnet-05fdf3d935e7f4560 (&#39;myhcpcluster-vpc-private-apne1-az1&#39;,&#39;vpc-02def9c12b89e7123&#39;,&#39;ap-northeast-1c&#39;, Owner ID: &#39;069425419555&#39;)
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p><img src="private-cluster.png" alt="image" /></p>
+<p><strong>注意</strong>: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。</p>
+<p>また、Controlplane 機能を提供する VPC Endpoint の Security Group 設定で oc コマンドを実行する Network からのアクセスを、明示的に許可する必要があります。デフォルトでは Worker Node のある
+VPC からしか Controplane の VPC Endpoint (Kubnernetes API の End Point) へのアクセスを許可していません。</p>
+</div></div>
 
 
 <div class="book-expand">
@@ -591,52 +530,65 @@ https://github.com/alex-shpak/hugo-book
     </div>
     <input type="checkbox" class="hidden" />
     <div class="book-expand-content markdown-inner">
-      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS -y -m auto
-</span></span><span style="display:flex;"><span>I: Using &#39;993114993799&#39; as billing account
+      <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp 
+</span></span><span style="display:flex;"><span>I: Using &#39;069425419456&#39; as billing account
 </span></span><span style="display:flex;"><span>I: To use a different billing account, add --billing-account xxxxxxxxxx to previous command
-</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
-</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
-</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::993114993799:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
-</span></span><span style="display:flex;"><span>? OIDC Configuration ID (default = &#39;29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7&#39;): 29vmlp9v462arcnt8fh1g9cfada8njd7 | https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7
-</span></span><span style="display:flex;"><span>? Tags (optional): 
-</span></span><span style="display:flex;"><span>? AWS region (default = &#39;ap-northeast-1&#39;): ap-northeast-1
-</span></span><span style="display:flex;"><span>? PrivateLink cluster: No
-</span></span><span style="display:flex;"><span>? Machine CIDR: 10.0.0.0/16
-</span></span><span style="display:flex;"><span>? Service CIDR: 172.30.0.0/16
-</span></span><span style="display:flex;"><span>? Pod CIDR: 10.128.0.0/14
+</span></span><span style="display:flex;"><span>W: Account roles not created by ROSA CLI cannot be listed, updated, or upgraded.
+</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
+</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
+</span></span><span style="display:flex;"><span>I: Using arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Support-Role for the Support role
+</span></span><span style="display:flex;"><span>I: Reusable OIDC Configuration detected. Validating trusted relationships to operator roles: 
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-openshift-image-registry-installer-cloud-credential&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-kube-system-capa-controller-manager&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-kube-system-control-plane-operator&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kms-provider&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kube-controller-manager&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-openshift-ingress-operator-cloud-credentials&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-openshift-cluster-csi-drivers-ebs-cloud-credentials&#39;
+</span></span><span style="display:flex;"><span>I: Using &#39;arn:aws:iam::069425419456:role/myhcpcluster-openshift-cloud-network-config-controller-cloud-cre&#39;
+</span></span><span style="display:flex;"><span>? Subnet IDs: subnet-084a4afc8e965fb2e (&#39;myhcpcluster-vpc-public-apne1-az1&#39;,&#39;vpc-02def9c12b89e7623&#39;,&#39;ap-northeast-1c&#39;, Owner ID: &#39;069425419456&#39;), subnet-05fdf3d935e7f4fc0 (&#39;myhcpcluster-vpc-private-apne1-az1&#39;,&#39;vpc-02def9c12b89e7623&#39;,&#39;ap-northeast-1c&#39;, Owner ID: &#39;069425419456&#39;)
 </span></span><span style="display:flex;"><span>? Enable Customer Managed key: No
 </span></span><span style="display:flex;"><span>? Compute nodes instance type (optional, choose &#39;Skip&#39; to skip selection. The default value will be provided; default = &#39;m5.xlarge&#39;): m5.xlarge
 </span></span><span style="display:flex;"><span>? Enable autoscaling: No
 </span></span><span style="display:flex;"><span>? Compute nodes: 2
 </span></span><span style="display:flex;"><span>? Host prefix: 23
+</span></span><span style="display:flex;"><span>? Machine pool root disk size (GiB or TiB): 300 GiB
+</span></span><span style="display:flex;"><span>? Enable FIPS support: No
 </span></span><span style="display:flex;"><span>? Encrypt etcd data: No
-</span></span><span style="display:flex;"><span>? Disable Workload monitoring: No
 </span></span><span style="display:flex;"><span>? Use cluster-wide proxy: No
 </span></span><span style="display:flex;"><span>? Additional trust bundle file path (optional): 
+</span></span><span style="display:flex;"><span>? Additional Allowed Principal ARNs (optional): 
 </span></span><span style="display:flex;"><span>? Enable audit log forwarding to AWS CloudWatch: No
+</span></span><span style="display:flex;"><span>? Enable registries config: No
 </span></span><span style="display:flex;"><span>I: Creating cluster &#39;myhcpcluster&#39;
 </span></span><span style="display:flex;"><span>I: To create this cluster again in the future, you can run:
-</span></span><span style="display:flex;"><span>   rosa create cluster --cluster-name myhcpcluster --sts --role-arn arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role --support-role-arn arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Support-Role --worker-iam-role arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role --operator-roles-prefix myhcpcluster-a2m3 --oidc-config-id 29vmlp9v462arcnt8fh1g9cfada8njd7 --region ap-northeast-1 --version 4.14.15 --replicas 2 --compute-machine-type m5.xlarge --machine-cidr 10.0.0.0/16 --service-cidr 172.30.0.0/16 --pod-cidr 10.128.0.0/14 --host-prefix 23 --subnet-ids subnet-041a58ec4568049f4,subnet-02357affbc76a1061 --hosted-cp --billing-account 923114993793
+</span></span><span style="display:flex;"><span>   rosa create cluster --cluster-name myhcpcluster --role-arn arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Installer-Role --support-role-arn arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Support-Role --worker-iam-role arn:aws:iam::069425419456:role/ManagedOpenShift-HCP-ROSA-Worker-Role --operator-roles-prefix myhcpcluster --oidc-config-id 2qmndl99t97bvu7f3jqd7i48hslo85vn --region ap-northeast-1 --version 4.20.23 --ec2-metadata-http-tokens optional --replicas 2 --compute-machine-type m5.xlarge --machine-cidr 10.0.0.0/16 --service-cidr 172.30.0.0/16 --pod-cidr 10.128.0.0/14 --host-prefix 23 --subnet-ids subnet-084a4afc8e965fb2e,subnet-05fdf3d935e7f4fc0 --hosted-cp --billing-account 069425419456
 </span></span><span style="display:flex;"><span>I: To view a list of clusters and their status, run &#39;rosa list clusters&#39;
+</span></span><span style="display:flex;"><span>WARNING: You are using OCM API fields that have been deprecated
+</span></span><span style="display:flex;"><span>- version.channel_group: The &#39;version.channel_group&#39; field will be deprecated in the future. Please use &#39;channel&#39; instead for Y-stream version selection.Ensure you are on the latest version of ROSA CLI to make use of this field.
+</span></span><span style="display:flex;"><span>Please update your usage to avoid issues when these fields are removed
 </span></span><span style="display:flex;"><span>I: Cluster &#39;myhcpcluster&#39; has been created.
 </span></span><span style="display:flex;"><span>I: Once the cluster is installed you will need to add an Identity Provider before you can login into the cluster. See &#39;rosa create idp --help&#39; for more information.
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Name:                       myhcpcluster
+</span></span><span style="display:flex;"><span>Domain Prefix:              myhcpcluster
 </span></span><span style="display:flex;"><span>Display Name:               myhcpcluster
-</span></span><span style="display:flex;"><span>ID:                         29vmnb67qqn61dpt060iojs11uuilsm1
-</span></span><span style="display:flex;"><span>External ID:                b4bae8e8-9ec7-457e-be80-4cef6b0fa9ac
+</span></span><span style="display:flex;"><span>ID:                         2qmnkhq4c51ub6nrhqs4b48lemosshk5
+</span></span><span style="display:flex;"><span>External ID:                628a9d63-bc02-4177-9dcd-72aa4eee5206
 </span></span><span style="display:flex;"><span>Control Plane:              ROSA Service Hosted
-</span></span><span style="display:flex;"><span>OpenShift Version:          4.14.15
+</span></span><span style="display:flex;"><span>OpenShift Version:          4.20.23
 </span></span><span style="display:flex;"><span>Channel Group:              stable
+</span></span><span style="display:flex;"><span>Channel:                    stable-4.20
 </span></span><span style="display:flex;"><span>DNS:                        Not ready
-</span></span><span style="display:flex;"><span>AWS Account:                993114993799
-</span></span><span style="display:flex;"><span>AWS Billing Account:        993114993799
+</span></span><span style="display:flex;"><span>AWS Account:                069425419555
+</span></span><span style="display:flex;"><span>AWS Billing Account:        069425419555
 </span></span><span style="display:flex;"><span>API URL:                    
 </span></span><span style="display:flex;"><span>Console URL:                
 </span></span><span style="display:flex;"><span>Region:                     ap-northeast-1
 </span></span><span style="display:flex;"><span>Availability:
 </span></span><span style="display:flex;"><span> - Control Plane:           MultiAZ
 </span></span><span style="display:flex;"><span> - Data Plane:              SingleAZ
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>Nodes:
 </span></span><span style="display:flex;"><span> - Compute (desired):       2
 </span></span><span style="display:flex;"><span> - Compute (current):       0
@@ -646,33 +598,35 @@ https://github.com/alex-shpak/hugo-book
 </span></span><span style="display:flex;"><span> - Machine CIDR:            10.0.0.0/16
 </span></span><span style="display:flex;"><span> - Pod CIDR:                10.128.0.0/14
 </span></span><span style="display:flex;"><span> - Host Prefix:             /23
-</span></span><span style="display:flex;"><span> - Subnets:                 subnet-041a58ec4568049f4, subnet-02357affbc76a1061
+</span></span><span style="display:flex;"><span> - Subnets:                 subnet-084a4afc8e965fb2e, subnet-05fdf3d935e7f4fc0
 </span></span><span style="display:flex;"><span>EC2 Metadata Http Tokens:   optional
-</span></span><span style="display:flex;"><span>Role (STS) ARN:             arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Installer-Role
-</span></span><span style="display:flex;"><span>Support Role ARN:           arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Support-Role
+</span></span><span style="display:flex;"><span>Role (STS) ARN:             arn:aws:iam::069425419555:role/ManagedOpenShift-HCP-ROSA-Installer-Role
+</span></span><span style="display:flex;"><span>Support Role ARN:           arn:aws:iam::069425419555:role/ManagedOpenShift-HCP-ROSA-Support-Role
 </span></span><span style="display:flex;"><span>Instance IAM Roles:
-</span></span><span style="display:flex;"><span> - Worker:                  arn:aws:iam::923114993793:role/ManagedOpenShift-HCP-ROSA-Worker-Role
+</span></span><span style="display:flex;"><span> - Worker:                  arn:aws:iam::069425419555:role/ManagedOpenShift-HCP-ROSA-Worker-Role
 </span></span><span style="display:flex;"><span>Operator IAM Roles:
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-capa-controller-manager
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cloud-network-config-controller-clou
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-image-registry-installer-cloud-crede
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-ingress-operator-cloud-credentials
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-openshift-cluster-csi-drivers-ebs-cloud-creden
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-control-plane-operator
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kms-provider
-</span></span><span style="display:flex;"><span> - arn:aws:iam::923114993793:role/myhcpcluster-a2m3-kube-system-kube-controller-manager
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-openshift-image-registry-installer-cloud-credential
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-capa-controller-manager
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-control-plane-operator
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kms-provider
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-kube-system-kube-controller-manager
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-openshift-ingress-operator-cloud-credentials
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-openshift-cluster-csi-drivers-ebs-cloud-credentials
+</span></span><span style="display:flex;"><span> - arn:aws:iam::069425419456:role/myhcpcluster-openshift-cloud-network-config-controller-cloud-cre
 </span></span><span style="display:flex;"><span>Managed Policies:           Yes
 </span></span><span style="display:flex;"><span>State:                      waiting (Waiting for user action)
 </span></span><span style="display:flex;"><span>Private:                    No
-</span></span><span style="display:flex;"><span>Created:                    Mar 13 2024 14:35:28 UTC
-</span></span><span style="display:flex;"><span>User Workload Monitoring:   Enabled
-</span></span><span style="display:flex;"><span>Details Page:               https://console.redhat.com/openshift/details/s/2ddahR6fghzwm5U8VmadJ80aHnT
-</span></span><span style="display:flex;"><span>OIDC Endpoint URL:          https://oidc.op1.openshiftapps.com/29vmlp9v462arcnt8fh1g9cfada8njd7 (Managed)
+</span></span><span style="display:flex;"><span>Delete Protection:          Disabled
+</span></span><span style="display:flex;"><span>Created:                    Jun  3 2026 06:23:09 UTC
+</span></span><span style="display:flex;"><span>FIPS mode:                  Disabled
+</span></span><span style="display:flex;"><span>Details Page:               https://console.redhat.com/openshift/details/s/3EcB4ty9q6Q8VDkQMqRtqmIrZN7
+</span></span><span style="display:flex;"><span>OIDC Endpoint URL:          https://oidc.op1.openshiftapps.com/2qmndl99t97bvu7f3jqd7i48hsloabcd (Managed)
+</span></span><span style="display:flex;"><span>Etcd Encryption:            Disabled
 </span></span><span style="display:flex;"><span>Audit Log Forwarding:       Disabled
+</span></span><span style="display:flex;"><span>AutoNode:                   Disabled
+</span></span><span style="display:flex;"><span>External Authentication:    Disabled
+</span></span><span style="display:flex;"><span>Zero Egress:                Disabled
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>I: Run the following commands to continue the cluster creation:
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        rosa create operator-roles --cluster myhcpcluster
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>I: To determine when your cluster is Ready, run &#39;rosa describe cluster -c myhcpcluster&#39;.
 </span></span><span style="display:flex;"><span>I: To watch your cluster installation logs, run &#39;rosa logs install -c myhcpcluster --watch&#39;.
@@ -682,19 +636,8 @@ https://github.com/alex-shpak/hugo-book
   </label>
 </div>
 
-<blockquote class="book-hint info">
-  <p><strong>&ldquo;billing account is required&quot; エラーが出た場合</strong></p>
-<p>以下のエラーが出た時は、HCPが有効化されてなかったり AWSアカウントとRed Hatアカウントが紐付いてない可能性があります。
-&ldquo;1.ROSA HCPの有効化&rdquo; の手順を再実行して、<code>rosa logout</code> した後 <code>rosa login</code> してから<code>rosa create ...</code> を再実行してみてください。</p>
-<pre tabindex="0"><code>$ rosa create cluster --cluster-name=$CLUSTER_NAME --sts --hosted-cp  --region=$REGION --subnet-ids=$SUBNET_IDS
-E: A billing account is required for Hosted Control Plane clusters. To see the list of billing account options, you can use interactive mode by passing &#39;-i&#39;.
-I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Installer-Role for the Installer role
-I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role for the Worker role
-&lt; 省略 &gt; 
-</code></pre>
-</blockquote>
-
-<p>ROSA のクラスターができるまで以下のコマンドでモニターします。大体 10分ほどかかるはずです。</p>
+<p>以上でインストールが開始されました。
+進捗は以下のコマンドで確認できます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa logs install -c $CLUSTER_NAME --watch
 </span></span></code></pre></div>
 <div class="book-expand">
@@ -732,10 +675,6 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role fo
   </label>
 </div>
 
-<blockquote class="book-hint warning">
-  注意: Private Cluster を作成した場合、<code>oc</code> コマンドは、AWS上の Compute Node が作成された Private Network に接続された Network から実行する必要があります。また、Controlplane 機能を提供する VPC Endpoint の設定で oc コマンドを実行する Network からのアクセスを明示的に許可して上げる必要があります。
-</blockquote>
-
 <p>インストールが完了したら管理者ユーザーを作成します。
 ログインコマンド (<code>oc login</code>) パスワード付きで標準出力に表示されます。これはコマンドが終了してから、数分待つ必要があります。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>rosa create admin --cluster=$CLUSTER_NAME
@@ -764,9 +703,9 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role fo
   </label>
 </div>
 
-<h2 id="2rosa-hcp-cluster-へのアクセス確認">
-  2.ROSA HCP Cluster へのアクセス確認
-  <a class="anchor" href="#2rosa-hcp-cluster-%e3%81%b8%e3%81%ae%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e7%a2%ba%e8%aa%8d">#</a>
+<h2 id="3rosa-hcp-cluster-へのアクセス確認">
+  3.ROSA HCP Cluster へのアクセス確認
+  <a class="anchor" href="#3rosa-hcp-cluster-%e3%81%b8%e3%81%ae%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e7%a2%ba%e8%aa%8d">#</a>
 </h2>
 <p>数分待ってから、<code>rosa create admin</code>の出力で現れた上記のコマンドを使ってログインコマンド(<code>oc login</code>) を実行します。
 (準備ができるまで 401 Unauthorized が出ます)</p>
@@ -815,9 +754,9 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role fo
   </label>
 </div>
 
-<h2 id="3構成を探って見る">
-  3.構成を探って見る
-  <a class="anchor" href="#3%e6%a7%8b%e6%88%90%e3%82%92%e6%8e%a2%e3%81%a3%e3%81%a6%e8%a6%8b%e3%82%8b">#</a>
+<h2 id="4構成を探って見る">
+  4.構成を探って見る
+  <a class="anchor" href="#4%e6%a7%8b%e6%88%90%e3%82%92%e6%8e%a2%e3%81%a3%e3%81%a6%e8%a6%8b%e3%82%8b">#</a>
 </h2>
 <p><code>rosa list machinepool</code> コマンドで、AZ毎に <code>machinepool</code> が出来ている事を確認します。<code>machinepool</code>単位で Node 数を増やす事ができます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>$ rosa list machinepool -c $CLUSTER_NAME
@@ -862,9 +801,9 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role fo
   </label>
 </div>
 
-<h2 id="4guiにアクセスする">
-  4.GUIにアクセスする
-  <a class="anchor" href="#4gui%e3%81%ab%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e3%81%99%e3%82%8b">#</a>
+<h2 id="5guiにアクセスする">
+  5.GUIにアクセスする
+  <a class="anchor" href="#5gui%e3%81%ab%e3%82%a2%e3%82%af%e3%82%bb%e3%82%b9%e3%81%99%e3%82%8b">#</a>
 </h2>
 <p>GUI の URLは以下のコマンドで確認できます。<code>rosa create admin</code> 実行時のログに表示された cluster-admin とそのパスワードでログインできます。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>oc whoami --show-console
@@ -909,10 +848,11 @@ I: Using arn:aws:iam::378713198531:role/ManagedOpenShift-HCP-ROSA-Worker-Role fo
   
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#1rosa-hcp-cluster-の-作成">1.ROSA HCP Cluster の 作成</a></li>
-    <li><a href="#2rosa-hcp-cluster-へのアクセス確認">2.ROSA HCP Cluster へのアクセス確認</a></li>
-    <li><a href="#3構成を探って見る">3.構成を探って見る</a></li>
-    <li><a href="#4guiにアクセスする">4.GUIにアクセスする</a></li>
+    <li><a href="#1rosa-hcp-cluster-作成-のための事前準備">1.ROSA HCP Cluster 作成 のための事前準備</a></li>
+    <li><a href="#2rosa-hcp-cluster-の-作成">2.ROSA HCP Cluster の 作成</a></li>
+    <li><a href="#3rosa-hcp-cluster-へのアクセス確認">3.ROSA HCP Cluster へのアクセス確認</a></li>
+    <li><a href="#4構成を探って見る">4.構成を探って見る</a></li>
+    <li><a href="#5guiにアクセスする">5.GUIにアクセスする</a></li>
   </ul>
 </nav>
 

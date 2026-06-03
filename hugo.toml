@@ -3,4 +3,4 @@ languageCode = 'ja-JP'
 title = 'MCS Documents'
 theme = "hugo-book" 
 googleAnalytics = "G-YJ1FJGEVLK"
-
+timeZone = "Japan"
