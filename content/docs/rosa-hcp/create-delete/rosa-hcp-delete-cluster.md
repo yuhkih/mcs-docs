@@ -19,13 +19,6 @@ echo $CLUSTER_NAME
  rosa delete cluster -c $CLUSTER_NAME
 ```
 
-ログの最後に出てくる以下の部分はメモしておきます。
-```tpl
-        rosa delete operator-roles --prefix <IAM Role prefix>
-        rosa delete oidc-provider --oidc-config-id <OIDC provider config ID>
-```
-
-
 {{< expand "実行例" >}}
 ```tpl
 $ rosa delete cluster -c $CLUSTER_NAME
@@ -58,21 +51,26 @@ $
 rosa logs uninstall -c $CLUSTER_NAME --watch
 ```
 
-## 3.IAM Role と OIDC Provider の削除
+## 3. Operator IAM Role と OIDC Provider の削除
 
 クラスターの削除が完了したら、Operator 用の IAM Role と OIDC Provider を削除します。
 
-Operator 用 IAM Role を削除します。これは、`rosa delete cluster` コマンドを実行した時にログの最後に出てきたコマンドです。
-この時、最後に `-m auto --yes` を付け足すと非インタラクティブに削除してくれます。
+Operator 用 IAM Role を削除します。これは、`rosa delete cluster` コマンドを実行した時にログの最後に出てきたコマンドです。今回は、$CLUSTER_NAME のプリフィックスを付けているので、以下で削除できます。
 
 ```tpl
-rosa delete operator-roles --prefix <IAM Role prefix> -m auto --yes
+rosa delete operator-roles --prefix $CLUSTER_NAME -m auto --yes
 ```
 
-OIDC Provider を削除します。これは、`rosa delete cluster` コマンドを実行した時にログの最後に出てきたコマンドです。
-この時、最後に `-m auto --yes` を付け足すと非インタラクティブに削除してくれます。
+OIDC Provider を削除します。これは、`rosa delete cluster` コマンドを実行した時にログの最後に出てきたコマンドです。$OIDC_ID の値を忘れてしまってる場合は、`rosa delete cluster` コマンドの出力ログを見ると最後に以下の $OIDC_ID 部分の値が展開されたコマンドが出力されているはずなので、そこを確認します。
 
 ```tpl
-rosa delete oidc-provider --oidc-config-id <OIDC provider config ID> -m auto --yes
+rosa delete oidc-provider --oidc-config-id $OIDC_ID -m auto --yes
 ```
 
+## 4. Account IAM Role の削除
+
+Account IAM Role を削除します。今回は、$CLUSTER_NAME のプリフィックスを付けているので、以下で削除できます。
+
+```tpl
+rosa delete account-roles --hosted-cp --prefix -$CLUSTER_NAME -m auto -y
+```

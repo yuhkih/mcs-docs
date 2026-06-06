@@ -41,13 +41,13 @@ export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP "(?<=opensh
 echo $OIDC_ID
 ```
 
-必要な IAM Role (Account Role) を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
+必要な IAM Role (Account Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを使います。
 
 ```tpl
-rosa create account-roles --hosted-cp -y -m auto
+rosa create account-roles --hosted-cp --prefix -$CLUSTER_NAME -m auto -y
 ```
 
-必要な IAM Role (Operator Role) を作成します。(インタラクティブに構成したい場合は `-y -m auto` を外します)
+必要な IAM Role (Operator Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを使います。
 
 ```tpl
 rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$OIDC_ID --installer-role-arn arn:aws:iam::$AWS_ACCOUNT_ID:role/ManagedOpenShift-HCP-ROSA-Installer-Role -y -m auto
@@ -102,11 +102,39 @@ rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_N
 
 **注意**: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。
 
-また、Controlplane 機能を提供する VPC Endpoint の Security Group 設定で oc コマンドを実行する Network からのアクセスを、明示的に許可する必要があります。デフォルトでは Worker Node のある
- VPC からしか Controplane の VPC Endpoint (Kubnernetes API の End Point) へのアクセスを許可していません。
+Controlplane 機能を提供する VPC Endpoint の **Security Group 設定を変更して oc コマンドを実行する Network からのアクセスを、明示的に許可する必要があります**。デフォルトでは Worker Node のある
+ VPC からしか Controplane の VPC Endpoint (Kubnernetes API の End Point) へのアクセスを許可していません。Security Group の設定変更については、[こちら](https://docs.redhat.com/ja/documentation/red_hat_openshift_service_on_aws/4/html/install_clusters/rosa-hcp-aws-private-security-groups_rosa-hcp-aws-private-creating-cluster) を参照下さい。
 
 {{< /tab >}}
 
+
+# Private Cluster (Egress Lockdown)
+{{< tab "Private Cluster (Egress Lockdown)" >}}
+
+`Egress Lockdown`(インターネットにアクセスしない Install) のインストールコマンドは、基本的に `Private Cluster` と同じですが、`--properties zero_egress:true` のオプションを付けます。
+
+```tpl
+rosa create cluster --oidc-config-id $OIDC_ID --operator-roles-prefix $CLUSTER_NAME -c $CLUSTER_NAME  --hosted-cp --private --default-ingress-private --properties zero_egress:true
+```
+途中で Subent を選択する画面がでてきますが、Private Cluster の場合は、1AZ につき Private Subnet を1つ選択する必要があります。
+
+```tpl
+...
+? Subnet IDs:  [Use arrows to move, space to select, <right> to all, <left> to none, type to filter, ? for more help]
+  [x]  subnet-089858a83110c214c ('myhcpcluster-vpc-private-ap-northeast-1d','vpc-05dc0573b7a096e9d','ap-northeast-1d', Owner ID: '069425419456')
+  [x]  subnet-05d358dce6ebebbb8 ('myhcpcluster-vpc-private-ap-northeast-1a','vpc-05dc0573b7a096e9d','ap-northeast-1a', Owner ID: '069425419456')
+> [x]  subnet-0124a9f0c4934eb39 ('myhcpcluster-vpc-private-ap-northeast-1c','vpc-05dc0573b7a096e9d','ap-northeast-1c', Owner ID: '069425419456')
+...
+```
+![image](private-cluster-zero.png)
+
+**注意**: Private Cluster を作成した場合は、インターネットからアクセスできなくなるため、作成した Cluster が存在する AWS 上の Private Network に別途アクセスできる方法が必要になります。
+
+Controlplane 機能を提供する VPC Endpoint の **Security Group 設定を変更して oc コマンドを実行する Network からのアクセスを、明示的に許可する必要があります**。デフォルトでは Worker Node のある
+ VPC からしか Controplane の VPC Endpoint (Kubnernetes API の End Point) へのアクセスを許可していません。Security Group の設定変更については、[こちら](https://docs.redhat.com/ja/documentation/red_hat_openshift_service_on_aws/4/html/install_clusters/rosa-hcp-aws-private-security-groups_rosa-hcp-aws-private-creating-cluster) を参照下さい。
+
+
+{{< /tab >}}
 
 {{< /tabs >}}
 
@@ -279,6 +307,10 @@ $
 
 
 ## 3.ROSA HCP Cluster へのアクセス確認
+
+{{< hint info >}}
+`Private Cluster`を作成した場合は、`oc` コマンドを実行する端末から、ROSA Cluster へのアクセス経路を確保してから行う必要があります。
+{{< /hint >}}
 
 数分待ってから、`rosa create admin`の出力で現れた上記のコマンドを使ってログインコマンド(`oc login`) を実行します。
 (準備ができるまで 401 Unauthorized が出ます) 

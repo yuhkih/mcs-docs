@@ -8,8 +8,7 @@
 この手順は、公式ドキュメントの「2.3.1.2. Creating a Virtual Private Cloud using Terraform」 をベースにしています。
 ROSA をインストールする Subnet はどんな方法で作成しても良いですが、指定されたTagを付ける要件があります[参考:2.3.3.1. Tagging your subnets] 。この手順で提供されている terraform のスクリプトは必要な Tagも全て付けてくれます。 1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
 Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example ダウンロードしたディレクトリに移動します。
-cd terraform-vpc-example 初期化します。
-terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。">
+cd terraform-vpc-example 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#343a40">
 <meta name="color-scheme" content="light dark"><meta property="og:title" content="4. Cluster 用の Network の作成" />
@@ -17,8 +16,7 @@ terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好
 この手順は、公式ドキュメントの「2.3.1.2. Creating a Virtual Private Cloud using Terraform」 をベースにしています。
 ROSA をインストールする Subnet はどんな方法で作成しても良いですが、指定されたTagを付ける要件があります[参考:2.3.3.1. Tagging your subnets] 。この手順で提供されている terraform のスクリプトは必要な Tagも全て付けてくれます。 1.1. Terraform を使用した AWS Network リソースの作成 # サンプルで提供されている terraform のテンプレートを使って、AWS の VPC、Subnet、NAT Gateway 等の必要なリソースを作成します。
 Repository からサンプルの terraform をダウンロードし初期化します。 git clone https://github.com/openshift-cs/terraform-vpc-example ダウンロードしたディレクトリに移動します。
-cd terraform-vpc-example 初期化します。
-terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。" />
+cd terraform-vpc-example 変数を準備しておきます。 CLUSTER_NAME は自分の好きなクラスター名で大丈夫です。この名前は Subnet のタグ名で使われます。この変数は、後で ROSA Cluster を作成する時にも使われます。" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/" /><meta property="article:section" content="docs" />
 
@@ -30,7 +28,7 @@ terraform init 変数を準備しておきます。 CLUSTER_NAME は自分の好
 <link rel="canonical" href="http://localhost:1313/mcs-docs/docs/rosa-hcp/create-delete/rosa-hcp-create-network/">
 <link rel="stylesheet" href="/mcs-docs/book.min.32e09693fc5285dbc61addf7ed6f87e1c089255b2d801e88642455cff541bac3.css" integrity="sha256-MuCWk/xShdvGGt337W&#43;H4cCJJVstgB6IZCRVz/VBusM=" crossorigin="anonymous">
   <script defer src="/mcs-docs/flexsearch.min.js"></script>
-  <script defer src="/mcs-docs/en.search.min.79085b74600dedb8e36370295740d047bb7c96871028205654b173bb553fe879.js" integrity="sha256-eQhbdGAN7bjjY3ApV0DQR7t8locQKCBWVLFzu1U/6Hk=" crossorigin="anonymous"></script>
+  <script defer src="/mcs-docs/en.search.min.dd0adb2b7c7b58bdc7c7d0be04c8ff83e3ebf08fd8251e24fd1bd21b24ff18a4.js" integrity="sha256-3QrbK3x7WL3Hx9C&#43;BMj/g&#43;Pr8I/YJR4k/RvSGyT/GKQ=" crossorigin="anonymous"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YJ1FJGEVLK"></script>
 <script>
@@ -85,6 +83,92 @@ https://github.com/alex-shpak/hugo-book
 
   
   <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-0b1cd17e634be7cb65a477fa33665677" class="toggle"  />
+    <label for="section-0b1cd17e634be7cb65a477fa33665677" class="flex justify-between">
+      <a role="button" class="">ROSA Classic Cluster の作成と削除 (terraform)</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-enable/" class="">1. ROSA Classic の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-create/" class="">4. Terraform を使用した ROSA Classic Cluster の 作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-classic/create-delete/rosa-classic-terraform-delete/" class="">5. Terraform を使用した ROSA Classic Cluster の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
     
       
         <li>
@@ -218,6 +302,105 @@ https://github.com/alex-shpak/hugo-book
   
 
   
+    <input type="checkbox" id="section-6cdb92751c055d73a49f38a6a6b12fe2" class="toggle"  />
+    <label for="section-6cdb92751c055d73a49f38a6a6b12fe2" class="flex justify-between">
+      <a role="button" class="">簡単 OCP Virtulaization</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-enable/" class="">1. ROSA HCP の有効化</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-prepare/" class="">2. CLIの準備</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/rosa-hcp-get-token/" class="">3. ROSA 作成用 token の取得</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/create-env/" class="">4. 環境の作成</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/test-ocpv/" class="">5. OCP-V を試して見る</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/easy-ocp-virt/delete-env/" class="">6.環境の削除</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
     <input type="checkbox" id="section-e13541a0695a7133c3ccf0f25cb6cc76" class="toggle"  />
     <label for="section-e13541a0695a7133c3ccf0f25cb6cc76" class="flex justify-between">
       <a role="button" class="">ROSA Operators</a>
@@ -313,6 +496,19 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/" class="">Rosa Hcp Ingress Route</a>
+  
+
+        </li>
+      
+    
   </ul>
 
         </li>
@@ -391,6 +587,227 @@ https://github.com/alex-shpak/hugo-book
         </li>
       
     
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="toggle"  />
+    <label for="section-955f92993f6a9ae2a2ac66c5f2b27d7e" class="flex justify-between">
+      <a role="button" class="">Collapsed</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/" class="">3rd Level</a>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/examples/collapsed/3rd-level/4th-level/" class="">4th Level</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li class="book-section-flat" >
+          
+  
+  
+
+  
+    <span>Shortcodes</span>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/buttons/" class="">Buttons</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/columns/" class="">Columns</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/details/" class="">Details</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/expand/" class="">Expand</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/hints/" class="">Hints</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/mermaid/" class="">Mermaid</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <input type="checkbox" id="section-d4c83c0dd655503a3da63d0c6550ed41" class="toggle"  />
+    <label for="section-d4c83c0dd655503a3da63d0c6550ed41" class="flex justify-between">
+      <a href="/mcs-docs/docs/shortcodes/section/" class="">Section</a>
+    </label>
+  
+
+          
+  <ul>
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/section/first-page/" class="">First Page</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/section/second-page/" class="">Second Page</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/tabs/" class="">Tabs</a>
+  
+
+        </li>
+      
+    
+      
+        <li>
+          
+  
+  
+
+  
+    <a href="/mcs-docs/docs/shortcodes/katex/" class="">KaTeX</a>
+  
+
+        </li>
+      
+    
+  </ul>
+
+        </li>
+      
+    
   </ul>
 
 
@@ -401,6 +818,18 @@ https://github.com/alex-shpak/hugo-book
 
 
 
+
+
+  
+<ul>
+  
+  <li>
+    <a href="/mcs-docs/posts/"  >
+        Blog
+      </a>
+  </li>
+  
+</ul>
 
 
 
@@ -483,8 +912,6 @@ https://github.com/alex-shpak/hugo-book
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>git clone https://github.com/openshift-cs/terraform-vpc-example
 </span></span></code></pre></div><p>ダウンロードしたディレクトリに移動します。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd terraform-vpc-example
-</span></span></code></pre></div><p>初期化します。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
 </span></span></code></pre></div><ol start="2">
 <li>変数を準備しておきます。</li>
 </ol>
@@ -502,12 +929,11 @@ https://github.com/alex-shpak/hugo-book
 
 <div class="book-tabs"><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-0" checked="checked" />
   <label for="tabs-deply network type-0">Single AZ Network</label>
-  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
-</span></span></code></pre></div><p><img src="single-az.png" alt="image" /></p></div><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-1"  />
-  <label for="tabs-deply network type-1">Multi AZ Network</label>
-  <div class="book-tabs-content markdown-inner"><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
-</span></span></code></pre></div><p><img src="multi-az.png" alt="image" /></p></div></div>
-
+  <div class="book-tabs-content markdown-inner"><p>初期化します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
+</span></span></code></pre></div><p>プランを出力します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME 
+</span></span></code></pre></div><p><img src="single-az.png" alt="image" /></p>
 <ol start="4">
 <li>Plan を apply して Network を作成します。</li>
 </ol>
@@ -517,11 +943,50 @@ https://github.com/alex-shpak/hugo-book
 <li>作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで2つ(Single AZ) もしくは6つ(Multi AZ) のサブネットIDが変数にセットされます。</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
-</span></span></code></pre></div><blockquote class="book-hint info">
-  <p>この手順ではインターネットに公開されたクラスタ (<code>Public Cluster</code>)を作成するため、<code>NAT Gateway</code>を持った  <code>Public Subnet</code> と <code>Private Subnet</code>の両方を作成しています。</p>
-<p><code>Public Cluster</code> を作った後に、インターネットに公開された <code>API Server</code> 、<code>Ingress</code> を非公開(<code>Private Subnet</code> からのみアクセス可能にする)に設定する事も可能です。</p>
-<p>一方、あらかじめ非公開のクラスタ(<code>Private Cluster</code>)を作る方法もあります。この場合は、AWS の <code>Pubilc Subnet</code> は必要はありません。ただし、後から ROSA 側の機能で <code>Ingress</code> をインターネットに公開する形に変更することはできません。</p>
+</span></span></code></pre></div></div><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-1"  />
+  <label for="tabs-deply network type-1">Multi AZ Network</label>
+  <div class="book-tabs-content markdown-inner"><p>初期化します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
+</span></span></code></pre></div><p>プランを出力します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var single_az_only=false
+</span></span></code></pre></div><p><img src="multi-az.png" alt="image" /></p>
+<ol start="4">
+<li>Plan を apply して Network を作成します。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform apply rosa.tfplan
+</span></span></code></pre></div><p>実際に VPC や Subnet、NAT Gateway 等が作成されるので数分、時間がかかります。</p>
+<ol start="5">
+<li>作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで2つ(Single AZ) もしくは6つ(Multi AZ) のサブネットIDが変数にセットされます。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export SUBNET_IDS=$(terraform output -raw cluster-subnets-string)
+</span></span></code></pre></div></div><input type="radio" class="toggle" name="tabs-deply network type" id="tabs-deply network type-2"  />
+  <label for="tabs-deply network type-2">Multi AZ Network (Egress Lockdown)</label>
+  <div class="book-tabs-content markdown-inner"><p><code>Egress Lockdown</code> 環境は、ネットワークの要件が少し違うので、terraform のサンプルも別になっています。 <code>zero-egress</code> ディレクトリに移動します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>cd zero-egress
+</span></span></code></pre></div><p>初期化します。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform init
+</span></span></code></pre></div><p>プランを出力します。この Terraform は手動で AZ を指定してあげる必要があります。ここでは ap-northeast-1 (Tokyo) の AZ 名を渡しています。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform plan -out rosa.tfplan -var region=$REGION -var cluster_name=$CLUSTER_NAME -var &#39;availability_zones=[&#34;ap-northeast-1a&#34;,&#34;a
+</span></span><span style="display:flex;"><span>p-northeast-1c&#34;, &#34;ap-northeast-1d&#34;]&#39;```
+</span></span></code></pre></div><p>以下のようなネットワークが作成されます。</p>
+<p><img src="multi-az-zero.png" alt="image" /></p>
+<p>このネットワークを作成した場合は、必ず<code>Private Cluster</code>を作成する事になります。
+Red Hat 製のコンポーネントは、AWS閉域網内の Red Hat が提供する ECR からコンポーネントが提供されます。
+Red Hat 製以外の 3rd Party コンポーネント (IBM製品含む) を、クラスター作製後にインストールしたい場合は、ユーザーが何らかの方法で環境内にコピーする運用が必要になります。</p>
+<ol start="4">
+<li>Plan を apply して Network を作成します。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>terraform apply rosa.tfplan
+</span></span></code></pre></div><p>実際に VPC や Subnet、NAT Gateway 等が作成されるので数分、時間がかかります。</p>
+<ol start="5">
+<li>作成された AWS のサブネットIDを変数にセットしておきます。カンマ区切りで2つ(Single AZ) もしくは6つ(Multi AZ) のサブネットIDが変数にセットされます。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tpl" data-lang="tpl"><span style="display:flex;"><span>export SUBNET_IDS=$(terraform output -json private_subnet_ids | sed &#39;s/^\[//;s/\]$//&#39;)
+</span></span></code></pre></div></div></div>
 
+<blockquote class="book-hint info">
+  この手順では、ハンズオン用に幾つかのネットワーク設計パターンを提示していますが、ここで作成している以外のネットワーク構成も可能です。
+例えば、2AZ 構成の <code>ROSA Cluster</code> も作成可能ですし、インターネット公開を目的としない <code>Private Cluster</code> の作成を目的としている場合は、<code>Public Subnet</code> が <code>Worker Node</code> が設置される VPC 内に必ずしも存在している必要はありません。
 </blockquote>
 
 <p>以上で Network の準備は完了です。</p>
