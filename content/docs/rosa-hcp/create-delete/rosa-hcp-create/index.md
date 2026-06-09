@@ -44,13 +44,13 @@ echo $OIDC_ID
 必要な IAM Role (Account Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを使います。
 
 ```tpl
-rosa create account-roles --hosted-cp --prefix -$CLUSTER_NAME -m auto -y
+rosa create account-roles --hosted-cp --prefix $CLUSTER_NAME -m auto -y
 ```
 
 必要な IAM Role (Operator Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを使います。
 
 ```tpl
-rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$OIDC_ID --installer-role-arn arn:aws:iam::$AWS_ACCOUNT_ID:role/ManagedOpenShift-HCP-ROSA-Installer-Role -y -m auto
+rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$OIDC_ID --installer-role-arn arn:aws:iam::$AWS_ACCOUNT_ID:role/$CLUSTER_NAME-HCP-ROSA-Installer-Role -y -m auto
 ```
 
 {{< hint info >}}
