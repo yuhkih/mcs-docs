@@ -28,12 +28,5 @@
       <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-add-users/</guid>
       <description> 2. htpasswd を使用したユーザーの追加 # 本番環境では基本的には、GitHub や LDAP 等の外部の Identity Provider を使用する事が推奨されますが、実験で使用したい。という場合にそこまでの構成を準備するのは大変な事が多いでしょう。&#xA;ROSA (HCP/Classic両方) では、2023/4Q の機能追加で httpasswd を使ったユーザーの追加ができるようになっています。&#xA;console.redhat.com にログインします。&#xA;作業の対象の Cluster を選択します。 Access Control タブに移動して、htpasswd を選択します。 ユーザーを追加します。ここでは yuhki というユーザーを追加しています。 ここでは、追加したユーザーを cluster-admins グループに追加してみます。 Access Control タブから、Add User を行います。 先ほど作成したユーザー名を入力し、cluster admins を選んで OK をクリックします。 作成された cluster-admins グループのユーザーは以下のように表示されます。 CLI からも cluster-admins のユーザーに yuhki が追加されている事が確認できます。&#xA;$ oc get groups -o wide NAME USERS cluster-admins cluster-admin, yuhki dedicated-admins $ </description>
     </item>
-    <item>
-      <title></title>
-      <link>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/mcs-docs/docs/rosa-hcp/basic_features/rosa-hcp-ingress-route/</guid>
-      <description> Ingress と Route # </description>
-    </item>
   </channel>
 </rss>

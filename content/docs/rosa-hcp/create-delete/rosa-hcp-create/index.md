@@ -30,7 +30,7 @@ echo $AWS_ACCOUNT_ID
 ```
 
 
-OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。(インタラクティブに構成したい場合は `-y -m auto` を外します)
+OIDC Config を作成し、作成された OIDC の ID を環境変数にセットします。
 
 ```tpl
 export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP "(?<=openshiftapps\.com/)[^']+"`
@@ -41,17 +41,24 @@ export OIDC_ID=`rosa create oidc-config --mode=auto --yes | grep -oP "(?<=opensh
 echo $OIDC_ID
 ```
 
-必要な IAM Role (Account Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを使います。
+必要な IAM Role (Account Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを付けておきます。
 
 ```tpl
 rosa create account-roles --hosted-cp --prefix $CLUSTER_NAME -m auto -y
 ```
 
-必要な IAM Role (Operator Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを使います。
+必要な IAM Role (Operator Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを付けておきます。
 
 ```tpl
 rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$OIDC_ID --installer-role-arn arn:aws:iam::$AWS_ACCOUNT_ID:role/$CLUSTER_NAME-HCP-ROSA-Installer-Role -y -m auto
 ```
+
+必要な IAM Role (OCM Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを付けておきます。
+
+```tpl
+rosa create ocm-role --prefix $CLUSTER_NAME -m auto -y
+```
+
 
 {{< hint info >}}
 ここで `rosa` コマンドで必要な IAM Role を作成していますが、これは本来 `aws` CLI で行う作業を `rosa` コマンドでラップしているだけで、実際の作業は `aws` コマンドが行っています。
