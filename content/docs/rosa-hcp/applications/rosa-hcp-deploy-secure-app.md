@@ -209,7 +209,7 @@ CMD ["-g","daemon off;"]
 ENTRYPOINT ["nginx"]
 ```
 {{< hint info >}}
-このサンプルでは必要ありませんが、root group (GID=0) に所属するユーザーが OpenShift によって自動的に割り当てられるので、アプリの実行に必要なディレクトリに対して Dockefile 内で以下をおこなっておくのがベストプラクティスとされています。
+このサンプルは、ディレクトリ構造を持っていないので必要ありませんが、root group (GID=0) に所属するユーザーが OpenShift によって自動的に割り当てられるので、アプリの実行に必要なディレクトリ(例:`/some/directory`)に対して Dockefile 内で以下をおこなっておくのがベストプラクティスとされています。
 ```
 RUN chgrp -R 0 /some/directory && \
    chmod -R g=u /some/directory
