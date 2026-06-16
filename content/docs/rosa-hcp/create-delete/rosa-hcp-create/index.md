@@ -44,7 +44,7 @@ echo $OIDC_ID
 必要な IAM Role (Account Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを付けておきます。
 
 {{< hint info >}}
-`Account Role` と呼ばれる `IAM Role` は、ユーザーが Install 時や HCC(Hybrid Cloud Console)内のOCM(OpenShift Cluster Manager) と呼ばれるコンソールからの操作時に使用するもの、SREが修復作業時に使用するためのもの、Worker NodeにEC2やECRの情報のRead等を許可するためのもの等があります。`IAM Role`で使用される `IAM Policy` は、[AWS Managed Policy](https://docs.aws.amazon.com/rosa/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-rosamanagedpolicies-account-roles) が使用されます。
+`Account Role` と呼ばれる `IAM Role` は、ユーザーが Install 時や HCC(Hybrid Cloud Console)と呼ばれるコンソールからの操作時に使用するもの、SREが修復作業時に使用するためのもの、Worker NodeにEC2やECRの情報のRead等を許可するためのもの等があります。`IAM Role`で使用される `IAM Policy` は、[AWS Managed Policy](https://docs.aws.amazon.com/rosa/latest/userguide/security-iam-awsmanpol.html#security-iam-awsmanpol-rosamanagedpolicies-account-roles) が使用されます。
 {{< /hint >}}
 
 ```tpl
@@ -66,7 +66,7 @@ rosa create operator-roles --hosted-cp --prefix=$CLUSTER_NAME --oidc-config-id=$
 必要な IAM Role (OCM Role) を作成します。後で判別しやすいように、$CLUSTER_NAME のプリフィックスを付けておきます。
 
 {{< hint info >}}
-`OCM Role` と呼ばれる `IAM Role` は、HCC(Hybrid Cloud Console)内のOCM(OpenShift Cluster Manager)と呼ばれるコンソールからの情報参照時に使用される `IAM Role`です。
+`OCM Role` と呼ばれる `IAM Role` は、HCC(Hybrid Cloud Console)と呼ばれるコンソールからの情報参照時に使用される `IAM Role`です。
 {{< /hint >}}
 
 ```tpl
