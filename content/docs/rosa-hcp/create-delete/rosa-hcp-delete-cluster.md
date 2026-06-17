@@ -67,7 +67,7 @@ rosa delete operator-roles --prefix $CLUSTER_NAME -m auto --yes
 Account IAM Role を削除します。今回は、$CLUSTER_NAME のプリフィックスを付けているので、以下で削除できます。
 
 ```tpl
-rosa delete account-roles --hosted-cp --prefix -$CLUSTER_NAME -m auto -y
+rosa delete account-roles --hosted-cp --prefix $CLUSTER_NAME -m auto -y
 ```
 
 ## 5. OCM IAM Role の削除
